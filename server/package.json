@@ -2,7 +2,7 @@
   "name": "2personal",
   "version": "1.0.0-a",
   "main": "index.ts",
-  "license": "GPLv3",
+  "license": "GPL-3.0",
   "dependencies": {
     "dotenv": "^16.3.1",
     "fastify": "^4.19.2",
@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "@types/eslint": "^8.40.2",
+    "@types/jest": "^29.5.2",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "^20.4.0",
     "@types/supertest": "^2.0.12",
