@@ -1,28 +1,25 @@
-class Trainer {
+import User from './User';
+
+class Trainer extends User{
   constructor(
-    private _id:             number,
-    private _name:           string,
-    private _surname:        string,
-    private _cref:           string,
-    private _status:         boolean,
-    private _plan:           string = 'free',
-    private _students_limit: number = 5
+    protected _id:             number,
+    protected _name:           string,
+    protected _surname:        string,
+    protected _username:       string,
+    protected _password:       string,
+    private   _cref:           string,
+    protected _status:         boolean,
+    private   _plan:           string = 'free',
+    private   _students_limit: number = 5,
+    protected _created_at:     Date = new Date(),
+    protected _updated_at:     Date = new Date(),
+    protected _deleted_at?:    Date
   ){
-    this.validateStringLength('Name',    _name,    3, 30);
-    this.validateStringLength('Surname', _surname, 3, 30);
+    super(_id, _name, _surname, _username, _password, 'trainer', _status, _created_at, _updated_at, _deleted_at);
+
     this.validateStringLength('CREF',    _cref,    3, 30);
     this.validatePlan(_plan);
     this.validateStudentsLimit(_students_limit);
-  }
-
-  private validateStringLength(field: string, value: string, minSize: number, maxSize: number): void{
-    const stringSmallerThanThree  = value.length < minSize;
-    const stringGreaterThanThirty = value.length > maxSize;
-
-    if(stringSmallerThanThree || stringGreaterThanThirty) 
-      throw new Error(`${field} must have length between ${minSize} and ${maxSize}`);
-
-    return;
   }
 
   private validatePlan(plan: string){
@@ -49,26 +46,16 @@ class Trainer {
     if(input.status !== undefined) this.status  = input.status;
     if(input.plan)                 this.validatePlan(input.plan);
     if(input.students_limit)       this.validateStudentsLimit(input.students_limit);
+    if(input.username)             this.username = input.username;
+    if(input.password)             this.password = input.password;
+
+    this.updated_at = new Date();
+
     return true;
   }
 
-  public get id(): number{
-    return this._id;
-  }
-  public get name(): string{
-    return this._name;
-  }
-  public get surname(): string | undefined{
-    return this._surname;
-  }
-  public get fullname(): string{
-    return `${this.name} ${this.surname}`;
-  }
   public get cref(): string{
     return this._cref;
-  }
-  public get status(): boolean{
-    return this._status;
   }
   public get plan(){
     return this._plan;
@@ -77,20 +64,9 @@ class Trainer {
     return this._students_limit;
   }
 
-  public set name(x: string){
-    this.validateStringLength('Name', x, 3, 30);
-    this._name = x;
-  }
-  public set surname(x: string){
-    this.validateStringLength('Surname', x, 3, 30);
-    this._surname = x;
-  }
   public set cref(x: string){
     this.validateStringLength('CREF', x, 3, 30);
     this._cref = x;
-  }
-  public set status(x: boolean){
-    this._status = x;
   }
   public set plan(x: string){
     this._plan = x.toUpperCase();
@@ -107,6 +83,8 @@ type TUpdateInput = {
   status?:         boolean;
   plan?:           string;
   students_limit?: number;
+  username?:       string;
+  password?:       string;
 };
 
 export default Trainer;
