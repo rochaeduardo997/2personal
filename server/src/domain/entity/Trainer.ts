@@ -1,4 +1,5 @@
 import User from './User';
+import Athlete from './Athlete';
 
 class Trainer extends User{
   constructor(
@@ -11,6 +12,7 @@ class Trainer extends User{
     protected _status:         boolean,
     private   _plan:           string = 'free',
     private   _students_limit: number = 5,
+    private   _athletes:       Athlete[] = [],
     protected _created_at:     Date = new Date(),
     protected _updated_at:     Date = new Date(),
     protected _deleted_at?:    Date
@@ -39,6 +41,17 @@ class Trainer extends User{
     this.students_limit = sL;
   }
 
+  public addAthlete(x: Athlete){
+    this._athletes.push(x);
+    x.trainer = this;
+  }
+
+  public removeAthlete(x: Athlete){
+    const index = this._athletes.findIndex((athlete: Athlete) => athlete = x);
+    this._athletes.splice(index, 1);
+    x.trainer = undefined;
+  }
+
   public update(input: TUpdateInput): boolean{
     if(input.name)                 this.name    = input.name;
     if(input.surname)              this.surname = input.surname;
@@ -62,6 +75,9 @@ class Trainer extends User{
   }
   public get students_limit(){
     return this._students_limit;
+  }
+  public get athletes(){
+    return this._athletes;
   }
 
   public set cref(x: string){

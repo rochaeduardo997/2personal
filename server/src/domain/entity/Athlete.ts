@@ -9,7 +9,7 @@ class Athlete extends User{
     protected _username:       string,
     protected _password:       string,
     protected _status:         boolean,
-    private   _trainer:        Trainer,
+    private   _trainer?:       Trainer,
     protected _created_at:     Date = new Date(),
     protected _updated_at:     Date = new Date(),
     protected _deleted_at?:    Date
@@ -23,18 +23,18 @@ class Athlete extends User{
     if(input.status !== undefined) this.status  = input.status;
     if(input.username)             this.username = input.username;
     if(input.password)             this.password = input.password;
-    if(input.trainer)              this.trainer  = input.trainer;
 
     this.updated_at = new Date();
 
     return true;
   }
 
-  get trainer(){
-    return this._trainer;
+  get trainer(): Trainer | undefined{
+    if(this._trainer) return this._trainer;
+    else              return;
   }
 
-  set trainer(x: Trainer){
+  set trainer(x: Trainer | undefined){
     this._trainer = x;
   }
 }
