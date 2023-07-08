@@ -113,6 +113,15 @@ describe('Success cases', () => {
     trainer.removeAthlete(athlete);
     expect(trainer.athletes).toEqual([ newAthlete ]);
   });
+
+  test('Must remove two athletes at the same day as paid plan', () => {
+    const newAthlete = new Athlete(2, 'name 2', 'surname 2', 'username 2', 'password 2', true);
+    trainer.plan = 'paid';
+    trainer.addAthlete(newAthlete);
+    trainer.removeAthlete(athlete);
+    trainer.removeAthlete(newAthlete);
+    expect(trainer.athletes).toEqual([]);
+  });
 });
 
 describe('Fail cases', () => {
@@ -126,6 +135,13 @@ describe('Fail cases', () => {
 
   test('Must fail on update a trainer with invalid athletes limit as free plan', () => {
     expect(() => trainer.update({ athletes_limit: 10 })).toThrow('Free plan can only has 5 athletes');
+  });
+
+  test('Must fail on try to exclude two athletes in less than 24 hours as free plan', () => {
+    const athlete2 = new Athlete(2, 'name 2', 'surname 2', 'username 2', 'password 2', true);
+    trainer.addAthlete(athlete2);
+    trainer.removeAthlete(athlete);
+    expect(() => trainer.removeAthlete(athlete2)).toThrow('You only can remove one athlete by day');
   });
 });
 

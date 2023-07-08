@@ -3,19 +3,20 @@ import Athlete from './Athlete';
 
 class Trainer extends User{
   constructor(
-    protected _id:             number,
-    protected _name:           string,
-    protected _surname:        string,
-    protected _username:       string,
-    protected _password:       string,
-    private   _cref:           string,
-    protected _status:         boolean,
-    private   _plan:           string = 'free',
-    private   _athletes_limit: number = 5,
-    private   _athletes:       Athlete[] = [],
-    protected _created_at:     Date = new Date(),
-    protected _updated_at:     Date = new Date(),
-    protected _deleted_at?:    Date
+    protected _id:                number,
+    protected _name:              string,
+    protected _surname:           string,
+    protected _username:          string,
+    protected _password:          string,
+    private   _cref:              string,
+    protected _status:            boolean,
+    private   _plan:              string = 'free',
+    private   _athletes_limit:    number = 5,
+    private   _athletes:          Athlete[] = [],
+    protected _created_at:        Date = new Date(),
+    protected _updated_at:        Date = new Date(),
+    protected _deleted_at?:       Date,
+    protected _last_remove_date?: Date,
   ){
     super(_id, _name, _surname, _username, _password, 'trainer', _status, _created_at, _updated_at, _deleted_at);
 
@@ -41,15 +42,32 @@ class Trainer extends User{
     this.athletes_limit = aL;
   }
 
-  public addAthlete(x: Athlete){
+  public addAthlete(x: Athlete): boolean{
     this._athletes.push(x);
+
     x.trainer = this;
+
+    return true;
   }
 
-  public removeAthlete(x: Athlete){
+  public removeAthlete(x: Athlete): boolean{
+    if(!this.canRemoveAthlete()) throw new Error('You only can remove one athlete by day');
     const index = this._athletes.findIndex((athlete: Athlete) => athlete = x);
     this._athletes.splice(index, 1);
+
     x.trainer = undefined;
+
+    this._last_remove_date = new Date();
+    return true;
+  }
+  private canRemoveAthlete(): boolean{
+    if(/paid/i.test(this._plan)) return true;
+    if(!this._last_remove_date) return true;
+
+    const today = new Date();
+    const lastRemoveWasToday = this._last_remove_date.toDateString() === today.toDateString();
+    if(lastRemoveWasToday) return false;
+    else                   return true;
   }
 
   public update(input: TUpdateInput): boolean{
@@ -78,6 +96,9 @@ class Trainer extends User{
   }
   public get athletes(){
     return this._athletes;
+  }
+  public get last_remove_date(){
+    return this._last_remove_date;
   }
 
   public set cref(x: string){
