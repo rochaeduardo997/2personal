@@ -18,7 +18,7 @@ describe('Success cases', () => {
     expect(trainer.cref).toBe('00000-ce');
     expect(trainer.status).toBeTruthy();
     expect(trainer.plan).toBe('FREE');
-    expect(trainer.students_limit).toBe(5);
+    expect(trainer.athletes_limit).toBe(5);
     expect(trainer.role).toBe('TRAINER');
     expect(trainer.username).toBe('username');
     expect(trainer.password).toBe('password');
@@ -37,7 +37,7 @@ describe('Success cases', () => {
     expect(trainer.cref).toBe('00000-ce');
     expect(trainer.status).toBeTruthy();
     expect(trainer.plan).toBe('PAID');
-    expect(trainer.students_limit).toBe(50);
+    expect(trainer.athletes_limit).toBe(50);
     expect(trainer.role).toBe('TRAINER');
     expect(trainer.username).toBe('username');
     expect(trainer.password).toBe('password');
@@ -54,7 +54,7 @@ describe('Success cases', () => {
       cref:          '11111-ce',
       status:        false,
       plan:          'free',
-      students_limit: 5,
+      athletes_limit: 5,
       username:       'username updated',
       password:       'password updated'
     });
@@ -67,7 +67,7 @@ describe('Success cases', () => {
     expect(trainer.cref).toBe('11111-ce');
     expect(trainer.status).toBeFalsy();
     expect(trainer.plan).toBe('FREE');
-    expect(trainer.students_limit).toBe(5);
+    expect(trainer.athletes_limit).toBe(5);
     expect(trainer.role).toBe('TRAINER');
     expect(trainer.username).toBe('username updated');
     expect(trainer.password).toBe('password updated');
@@ -91,7 +91,7 @@ describe('Success cases', () => {
     expect(trainer.cref).toBe('00000-ce');
     expect(trainer.status).toBeTruthy();
     expect(trainer.plan).toBe('FREE');
-    expect(trainer.students_limit).toBe(5);
+    expect(trainer.athletes_limit).toBe(5);
     expect(trainer.role).toBe('TRAINER');
     expect(trainer.username).toBe('username');
     expect(trainer.password).toBe('password');
@@ -116,16 +116,16 @@ describe('Success cases', () => {
 });
 
 describe('Fail cases', () => {
-  test('Must fail on create a new trainer with plan free and students limit greater than 5', () => {
-    expect(() => new Trainer(1, 'name', 'surname', 'username', 'password', '00000-ce', true, 'free', 6)).toThrow('Free plan can only has 5 students');
+  test('Must fail on create a new trainer with plan free and athletes limit greater than 5', () => {
+    expect(() => new Trainer(1, 'name', 'surname', 'username', 'password', '00000-ce', true, 'free', 6)).toThrow('Free plan can only has 5 athletes');
   });
 
   test('Must fail on update a trainer with invalid plan', () => {
     expect(() => trainer.update({ plan: 'doesnt exists' })).toThrow('Plan must be Free or Paid');
   });
 
-  test('Must fail on update a trainer with invalid students limit as free plan', () => {
-    expect(() => trainer.update({ students_limit: 10 })).toThrow('Free plan can only has 5 students');
+  test('Must fail on update a trainer with invalid athletes limit as free plan', () => {
+    expect(() => trainer.update({ athletes_limit: 10 })).toThrow('Free plan can only has 5 athletes');
   });
 });
 

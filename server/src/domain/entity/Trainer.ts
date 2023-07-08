@@ -11,7 +11,7 @@ class Trainer extends User{
     private   _cref:           string,
     protected _status:         boolean,
     private   _plan:           string = 'free',
-    private   _students_limit: number = 5,
+    private   _athletes_limit: number = 5,
     private   _athletes:       Athlete[] = [],
     protected _created_at:     Date = new Date(),
     protected _updated_at:     Date = new Date(),
@@ -21,7 +21,7 @@ class Trainer extends User{
 
     this.validateStringLength('CREF',    _cref,    3, 30);
     this.validatePlan(_plan);
-    this.validateStudentsLimit(_students_limit);
+    this.validateAthletesLimit(_athletes_limit);
   }
 
   private validatePlan(plan: string){
@@ -32,13 +32,13 @@ class Trainer extends User{
     this.plan = plan.toUpperCase();
   }
 
-  private validateStudentsLimit(sL: number){
+  private validateAthletesLimit(aL: number){
     const isFreePlan                    = /free/i.test(this.plan);
-    const isStudentsLimitGreaterThanTen = sL > 5;
+    const isathletesLimitGreaterThanTen = aL > 5;
 
-    if(isFreePlan && isStudentsLimitGreaterThanTen) throw new Error('Free plan can only has 5 students');
+    if(isFreePlan && isathletesLimitGreaterThanTen) throw new Error('Free plan can only has 5 athletes');
 
-    this.students_limit = sL;
+    this.athletes_limit = aL;
   }
 
   public addAthlete(x: Athlete){
@@ -58,7 +58,7 @@ class Trainer extends User{
     if(input.cref)                 this.cref    = input.cref;
     if(input.status !== undefined) this.status  = input.status;
     if(input.plan)                 this.validatePlan(input.plan);
-    if(input.students_limit)       this.validateStudentsLimit(input.students_limit);
+    if(input.athletes_limit)       this.validateAthletesLimit(input.athletes_limit);
     if(input.username)             this.username = input.username;
     if(input.password)             this.password = input.password;
 
@@ -73,8 +73,8 @@ class Trainer extends User{
   public get plan(){
     return this._plan;
   }
-  public get students_limit(){
-    return this._students_limit;
+  public get athletes_limit(){
+    return this._athletes_limit;
   }
   public get athletes(){
     return this._athletes;
@@ -87,8 +87,8 @@ class Trainer extends User{
   public set plan(x: string){
     this._plan = x.toUpperCase();
   }
-  public set students_limit(x: number){
-    this._students_limit = x;
+  public set athletes_limit(x: number){
+    this._athletes_limit = x;
   }
 }
 
@@ -98,7 +98,7 @@ type TUpdateInput = {
   cref?:           string;
   status?:         boolean;
   plan?:           string;
-  students_limit?: number;
+  athletes_limit?: number;
   username?:       string;
   password?:       string;
 };
