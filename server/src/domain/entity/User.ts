@@ -28,7 +28,7 @@ class User{
   }
 
   private validateRole(x: string){
-    if(!/admin|trainer|student/i.test(x)) throw new Error('User role must be Admin, Trainer ou Student.');
+    if(!/admin|trainer|athlete/i.test(x)) throw new Error('User role must be Admin, Trainer ou Athlete.');
     this.role = x;
   }
 

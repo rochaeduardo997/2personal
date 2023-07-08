@@ -83,6 +83,10 @@ describe('Success cases', () => {
 });
 
 describe('Fail cases', () => {
+  test('Must fail on create an user with invalid role', () => {
+    expect(() => new User(1, 'name', 'surname', 'username', 'password', 'asdfasdf', true)).toThrow('User role must be Admin, Trainer ou Athlete.');
+  });
+
   test('Must fail on create a new user with name smaller than 3', () => {
     expect(() => new User(1, '12', 'surname', 'username', 'password', 'admin', true)).toThrow('Name must have length between 3 and 30');
   });

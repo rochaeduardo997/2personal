@@ -95,22 +95,6 @@ describe('Success cases', () => {
 });
 
 describe('Fail cases', () => {
-  test('Must fail on create a new trainer with name smaller than 3', () => {
-    expect(() => new Trainer(1, '12', 'surname', 'username', 'password', '00000-ce', true, 'free', 5)).toThrow('Name must have length between 3 and 30');
-  });
-
-  test('Must fail on create a new trainer with name greater than 30', () => {
-    expect(() => new Trainer(1, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'surname', 'username', 'password', '00000-ce', true, 'free', 5)).toThrow('Name must have length between 3 and 30');
-  });
-
-  test('Must fail on create a new trainer with surname smaller than 3', () => {
-    expect(() => new Trainer(1, 'name', '12', 'username', 'password', '00000-ce', true, 'free', 5)).toThrow('Surname must have length between 3 and 30');
-  });
-
-  test('Must fail on create a new trainer with surname greater than 30', () => {
-    expect(() => new Trainer(1, 'name', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'username', 'password', '00000-ce', true, 'free', 5)).toThrow('Surname must have length between 3 and 30');
-  });
-
   test('Must fail on create a new trainer with plan free and students limit greater than 5', () => {
     expect(() => new Trainer(1, 'name', 'surname', 'username', 'password', '00000-ce', true, 'free', 6)).toThrow('Free plan can only has 5 students');
   });
@@ -121,22 +105,6 @@ describe('Fail cases', () => {
 
   test('Must fail on update a trainer with invalid students limit as free plan', () => {
     expect(() => trainer.update({ students_limit: 10 })).toThrow('Free plan can only has 5 students');
-  });
-
-  test('Must fail on update a trainer with name smaller than 3', () => {
-    expect(() => trainer.update({ name: '12' })).toThrow('Name must have length between 3 and 30');
-  });
-
-  test('Must fail on update a trainer with name greater than 30', () => {
-    expect(() => trainer.update({ name: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' })).toThrow('Name must have length between 3 and 30');
-  });
-
-  test('Must fail on update a trainer with surname smaller than 3', () => {
-    expect(() => trainer.update({ surname: '12' })).toThrow('Surname must have length between 3 and 30');
-  });
-
-  test('Must fail on update a trainer with surname greater than 30', () => {
-    expect(() => trainer.update({ surname: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' })).toThrow('Surname must have length between 3 and 30');
   });
 });
 
