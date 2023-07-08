@@ -1,9 +1,12 @@
 import Trainer from '../../src/domain/entity/Trainer';
+import Athlete from '../../src/domain/entity/Athlete';
 
 let trainer: Trainer;
+let athlete: Athlete;
 
 beforeEach(() => {
-  trainer = new Trainer(1, 'name', 'surname', 'username', 'password', '00000-ce', true, 'free', 5, new Date('2023-02-02T00:00:00'), new Date('2023-02-03T00:00:00'), new Date('2023-02-04T00:00:00'));
+  athlete = new Athlete(1, 'name', 'surname', 'username', 'password', true);
+  trainer = new Trainer(1, 'name', 'surname', 'username', 'password', '00000-ce', true, 'free', 5, [ athlete ], new Date('2023-02-02T00:00:00'), new Date('2023-02-03T00:00:00'), new Date('2023-02-04T00:00:00'));
 });
 
 describe('Success cases', () => {
@@ -19,13 +22,14 @@ describe('Success cases', () => {
     expect(trainer.role).toBe('TRAINER');
     expect(trainer.username).toBe('username');
     expect(trainer.password).toBe('password');
+    expect(trainer.athletes).toEqual([ athlete ]);
     expect(trainer.created_at).toEqual(new Date('2023-02-02T00:00:00'));
     expect(trainer.updated_at).toEqual(new Date('2023-02-03T00:00:00'));
     expect(trainer.deleted_at).toEqual(new Date('2023-02-04T00:00:00'));
   });
 
   test('Must create a new paid trainer', () => {
-    trainer = new Trainer(1, 'name', 'surname', 'username', 'password', '00000-ce', true, 'paid', 50, new Date('2023-02-02T00:00:00'), new Date('2023-02-03T00:00:00'), new Date('2023-02-04T00:00:00'));
+    trainer = new Trainer(1, 'name', 'surname', 'username', 'password', '00000-ce', true, 'paid', 50, undefined, new Date('2023-02-02T00:00:00'), new Date('2023-02-03T00:00:00'), new Date('2023-02-04T00:00:00'));
     expect(trainer.id).toBe(1);
     expect(trainer.name).toBe('name');
     expect(trainer.surname).toBe('surname');
@@ -37,6 +41,7 @@ describe('Success cases', () => {
     expect(trainer.role).toBe('TRAINER');
     expect(trainer.username).toBe('username');
     expect(trainer.password).toBe('password');
+    expect(trainer.athletes).toHaveLength(0);
     expect(trainer.created_at).toEqual(new Date('2023-02-02T00:00:00'));
     expect(trainer.updated_at).toEqual(new Date('2023-02-03T00:00:00'));
     expect(trainer.deleted_at).toEqual(new Date('2023-02-04T00:00:00'));
@@ -66,8 +71,10 @@ describe('Success cases', () => {
     expect(trainer.role).toBe('TRAINER');
     expect(trainer.username).toBe('username updated');
     expect(trainer.password).toBe('password updated');
+    expect(trainer.athletes).toEqual([ athlete ]);
     expect(trainer.created_at).toEqual(new Date('2023-02-02T00:00:00'));
     expect(trainer.updated_at).toBeInstanceOf(Date);
+    expect(trainer.deleted_at).toEqual(new Date('2023-02-04T00:00:00'));
   });
 
   test('Must update an existing trainer with less fields', () => {
@@ -88,9 +95,23 @@ describe('Success cases', () => {
     expect(trainer.role).toBe('TRAINER');
     expect(trainer.username).toBe('username');
     expect(trainer.password).toBe('password');
+    expect(trainer.athletes).toEqual([ athlete ]);
     expect(trainer.created_at).toEqual(new Date('2023-02-02T00:00:00'));
     expect(trainer.updated_at).toBeInstanceOf(Date);
     expect(trainer.deleted_at).toEqual(new Date('2023-02-04T00:00:00'));
+  });
+
+  test('Must add a new athlete', () => {
+    const newAthlete = new Athlete(2, 'name 2', 'surname 2', 'username 2', 'password 2', true);
+    trainer.addAthlete(newAthlete);
+    expect(trainer.athletes).toEqual([ athlete, newAthlete ]);
+  });
+
+  test('Must remove an athlete', () => {
+    const newAthlete = new Athlete(2, 'name 2', 'surname 2', 'username 2', 'password 2', true);
+    trainer.addAthlete(newAthlete);
+    trainer.removeAthlete(athlete);
+    expect(trainer.athletes).toEqual([ newAthlete ]);
   });
 });
 

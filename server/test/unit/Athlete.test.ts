@@ -25,15 +25,29 @@ describe('Success cases', () => {
     expect(athlete.deleted_at).toEqual(new Date('2023-02-04T00:00:00'));
   });
 
+  test('Must create a new athlete without trainer', () => {
+    athlete = new Athlete(1, 'name', 'surname', 'username', 'password', true, undefined, new Date('2023-02-02T00:00:00'), new Date('2023-02-03T00:00:00'), new Date('2023-02-04T00:00:00'));
+    expect(athlete.id).toBe(1);
+    expect(athlete.name).toBe('name');
+    expect(athlete.surname).toBe('surname');
+    expect(athlete.fullname).toBe('name surname');
+    expect(athlete.status).toBeTruthy();
+    expect(athlete.role).toBe('ATHLETE');
+    expect(athlete.trainer).toBeUndefined();
+    expect(athlete.username).toBe('username');
+    expect(athlete.password).toBe('password');
+    expect(athlete.created_at).toEqual(new Date('2023-02-02T00:00:00'));
+    expect(athlete.updated_at).toEqual(new Date('2023-02-03T00:00:00'));
+    expect(athlete.deleted_at).toEqual(new Date('2023-02-04T00:00:00'));
+  });
+
   test('Must update an existing athlete', () => {
-    const newTrainer = new Trainer(2, 'name 2', 'surname 2', 'username 2', 'password 2', '11111-ce', true);
     const updateResult = athlete.update({
       name:     'name updated',
       surname:  'surname updated',
       status:   false,
       username: 'username updated',
-      password: 'password updated',
-      trainer:  newTrainer
+      password: 'password updated'
     });
 
     expect(updateResult).toBeTruthy();
@@ -43,7 +57,7 @@ describe('Success cases', () => {
     expect(athlete.fullname).toBe('name updated surname updated');
     expect(athlete.status).toBeFalsy();
     expect(athlete.role).toBe('ATHLETE');
-    expect(athlete.trainer).toBe(newTrainer);
+    expect(athlete.trainer).toBe(trainer);
     expect(athlete.username).toBe('username updated');
     expect(athlete.password).toBe('password updated');
     expect(athlete.created_at).toEqual(new Date('2023-02-02T00:00:00'));
@@ -64,11 +78,23 @@ describe('Success cases', () => {
     expect(athlete.fullname).toBe('name updated surname updated');
     expect(athlete.status).toBeTruthy();
     expect(athlete.role).toBe('ATHLETE');
+    expect(athlete.trainer).toBe(trainer);
     expect(athlete.username).toBe('username');
     expect(athlete.password).toBe('password');
     expect(athlete.created_at).toEqual(new Date('2023-02-02T00:00:00'));
     expect(athlete.updated_at).toBeInstanceOf(Date);
     expect(athlete.deleted_at).toEqual(new Date('2023-02-04T00:00:00'));
+  });
+
+  test('Must change trainer', () => {
+    const newTrainer = new Trainer(2, 'name 2', 'surname 2', 'username 2', 'password 2', '11111-ce', true);
+    newTrainer.addAthlete(athlete);
+    expect(athlete.trainer).toBe(newTrainer);
+  });
+
+  test('Must stay without trainer after been removed', () => {
+    trainer.removeAthlete(athlete);
+    expect(athlete.trainer).toBeUndefined();
   });
 });
 
