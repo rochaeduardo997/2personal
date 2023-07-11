@@ -15,6 +15,14 @@ class UserRepositoryMemory implements IUserRepository{
     this.users.push(user);
     return user;
   }
+
+  async get(id: number){
+    const user = this.users.find((u: User) => u.id === id);
+
+    if(!user) throw new Error(`User not found by id ${id}`);
+
+    return user;
+  }
 }
 
 export default UserRepositoryMemory;
