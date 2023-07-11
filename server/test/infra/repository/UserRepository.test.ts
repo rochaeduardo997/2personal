@@ -10,7 +10,6 @@ beforeAll(() => {
   user2 = new User(1, 'name2', 'surname2', 'username2', 'password2', 'admin', true);
 });
 
-let repositoryFactory = new RepositoryFactoryMemory();
 let userRepository: IUserRepository;
 
 beforeEach(() => {
@@ -18,6 +17,7 @@ beforeEach(() => {
 });
 
 function prepareMemory(){
+  let repositoryFactory = new RepositoryFactoryMemory();
   userRepository = repositoryFactory.userRepository();
 }
 
