@@ -16,12 +16,37 @@ class UserRepositoryMemory implements IUserRepository{
     return user;
   }
 
-  async get(id: number){
+  async get(id: number): Promise<User>{
     const user = this.users.find((u: User) => u.id === id);
 
-    if(!user) throw new Error(`User not found by id ${id}`);
+    if(!user) throw this.userNotFoundBy(id);
 
     return user;
+  }
+
+  async getAll(): Promise<User[]>{
+    return this.users;
+  }
+
+  async delete(id: number): Promise<boolean>{
+    const index = this.users.findIndex((u: User) => u.id === id);
+    if(index < 0) throw this.userNotFoundBy(id);
+
+    this.users.splice(index, 1);
+    
+    return true;
+  }
+
+  async update(user: User): Promise<User>{
+    this.delete(user.id);
+
+    this.users.push(user);
+
+    return user;
+  }
+
+  private userNotFoundBy(id: number): Error{
+    return new Error(`User not found by id ${id}`);
   }
 }
 
