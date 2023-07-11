@@ -39,8 +39,9 @@ describe('Success cases', () => {
   });
 
   test('Must get user informations by user id', async () => {
-    const result = await userRepository.save(user1);
+    const userData = await userRepository.save(user1);
     await userRepository.save(user2);
+    const result = await userRepository.get(userData.id);
     expect(result.id).toBe(user1.id);
     expect(result.name).toBe(user1.name);
     expect(result.surname).toBe(user1.surname);
@@ -83,12 +84,31 @@ describe('Success cases', () => {
       username: 'username updated',
       password: 'password updated'
     });
+    const result = await userRepository.update(userData1);
     const [ first, second ] = await userRepository.getAll();
-    expect(first).toEqual(userData1);
-    expect(second).toEqual(user2);
+    expect(first).toEqual(user2);
+    expect(second).toEqual(userData1);
   });
 });
 
 describe('Fail cases', () => {
+  test('Must fail on get user that doesnt exists', async () => {
+    expect(() => userRepository.get(99))
+      .rejects
+      .toThrow('User not found by id 99');
+  });
+
+  test('Must fail on save an user that username already exists', async () => {
+    await userRepository.save(user1);
+    expect(() => userRepository.save(user1))
+      .rejects
+      .toThrow('Username already in use');
+  });
+
+  test('Must fail on delete user that doesnt exists', async () => {
+    expect(() => userRepository.delete(99))
+      .rejects
+      .toThrow('User not found by id 99');
+  });
 });
 
