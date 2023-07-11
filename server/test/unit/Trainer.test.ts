@@ -15,7 +15,7 @@ describe('Success cases', () => {
     expect(trainer.name).toBe('name');
     expect(trainer.surname).toBe('surname');
     expect(trainer.fullname).toBe('name surname');
-    expect(trainer.cref).toBe('00000-ce');
+    expect(trainer.register).toBe('00000-ce');
     expect(trainer.status).toBeTruthy();
     expect(trainer.plan).toBe('FREE');
     expect(trainer.athletes_limit).toBe(5);
@@ -34,7 +34,7 @@ describe('Success cases', () => {
     expect(trainer.name).toBe('name');
     expect(trainer.surname).toBe('surname');
     expect(trainer.fullname).toBe('name surname');
-    expect(trainer.cref).toBe('00000-ce');
+    expect(trainer.register).toBe('00000-ce');
     expect(trainer.status).toBeTruthy();
     expect(trainer.plan).toBe('PAID');
     expect(trainer.athletes_limit).toBe(50);
@@ -51,7 +51,7 @@ describe('Success cases', () => {
     const updateResult = trainer.update({ 
       name:          'name updated',
       surname:       'surname updated',
-      cref:          '11111-ce',
+      register:          '11111-ce',
       status:        false,
       plan:          'free',
       athletes_limit: 5,
@@ -64,7 +64,7 @@ describe('Success cases', () => {
     expect(trainer.name).toBe('name updated');
     expect(trainer.surname).toBe('surname updated');
     expect(trainer.fullname).toBe('name updated surname updated');
-    expect(trainer.cref).toBe('11111-ce');
+    expect(trainer.register).toBe('11111-ce');
     expect(trainer.status).toBeFalsy();
     expect(trainer.plan).toBe('FREE');
     expect(trainer.athletes_limit).toBe(5);
@@ -88,7 +88,7 @@ describe('Success cases', () => {
     expect(trainer.name).toBe('name updated');
     expect(trainer.surname).toBe('surname updated');
     expect(trainer.fullname).toBe('name updated surname updated');
-    expect(trainer.cref).toBe('00000-ce');
+    expect(trainer.register).toBe('00000-ce');
     expect(trainer.status).toBeTruthy();
     expect(trainer.plan).toBe('FREE');
     expect(trainer.athletes_limit).toBe(5);

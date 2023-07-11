@@ -8,7 +8,7 @@ class Trainer extends User{
     protected _surname:           string,
     protected _username:          string,
     protected _password:          string,
-    private   _cref:              string,
+    private   _register:          string,
     protected _status:            boolean,
     private   _plan:              string = 'free',
     private   _athletes_limit:    number = 5,
@@ -20,7 +20,7 @@ class Trainer extends User{
   ){
     super(_id, _name, _surname, _username, _password, 'trainer', _status, _created_at, _updated_at, _deleted_at);
 
-    this.validateStringLength('CREF',    _cref,    3, 30);
+    this.validateStringLength('Register', _register, 3, 30);
     this.validatePlan(_plan);
     this.validateAthletesLimit(_athletes_limit);
   }
@@ -71,10 +71,10 @@ class Trainer extends User{
   }
 
   public update(input: TUpdateInput): boolean{
-    if(input.name)                 this.name    = input.name;
-    if(input.surname)              this.surname = input.surname;
-    if(input.cref)                 this.cref    = input.cref;
-    if(input.status !== undefined) this.status  = input.status;
+    if(input.name)                 this.name     = input.name;
+    if(input.surname)              this.surname  = input.surname;
+    if(input.register)             this.register = input.register;
+    if(input.status !== undefined) this.status   = input.status;
     if(input.plan)                 this.validatePlan(input.plan);
     if(input.athletes_limit)       this.validateAthletesLimit(input.athletes_limit);
     if(input.username)             this.username = input.username;
@@ -85,8 +85,8 @@ class Trainer extends User{
     return true;
   }
 
-  public get cref(): string{
-    return this._cref;
+  public get register(): string{
+    return this._register;
   }
   public get plan(){
     return this._plan;
@@ -101,9 +101,9 @@ class Trainer extends User{
     return this._last_remove_date;
   }
 
-  public set cref(x: string){
-    this.validateStringLength('CREF', x, 3, 30);
-    this._cref = x;
+  public set register(x: string){
+    this.validateStringLength('Register', x, 3, 30);
+    this._register = x;
   }
   public set plan(x: string){
     this._plan = x.toUpperCase();
@@ -116,7 +116,7 @@ class Trainer extends User{
 type TUpdateInput = { 
   name?:           string;
   surname?:        string;
-  cref?:           string;
+  register?:       string;
   status?:         boolean;
   plan?:           string;
   athletes_limit?: number;
