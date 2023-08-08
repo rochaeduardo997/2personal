@@ -1,5 +1,7 @@
 interface Token{
-  generate(data: any, exp?: number): Promise<string>;
+  generate(data: object, exp?: number): Promise<string>;
+  verify(token: string): Promise<any>;
 }
 
 export default Token;
+

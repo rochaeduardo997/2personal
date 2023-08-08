@@ -6,13 +6,19 @@ class JWTAdapter implements Token{
 
   constructor(){}
 
-  async generate(data: any, exp?: number): Promise<string>{
+  async generate(data: TTokenPayload, exp?: number): Promise<string>{
     if(!this.JWT_PRIVATE_KEY) throw new Error('JWT_PRIVATE_KEY must be declared on environment');
 
-    const tokenPayload: TTokenPayload = { data };
-    exp ? tokenPayload.exp = exp : undefined;
+    const result = exp ?
+      await jwt.sign(data, this.JWT_PRIVATE_KEY, { expiresIn: exp }) :
+      await jwt.sign(data, this.JWT_PRIVATE_KEY);
+    return result;
+  }
 
-    const result = jwt.sign(tokenPayload, this.JWT_PRIVATE_KEY);
+  async verify(token: string): Promise<any>{
+    if(!this.JWT_PRIVATE_KEY) throw new Error('JWT_PRIVATE_KEY must be declared on environment');
+
+    const result = await jwt.verify(token, this.JWT_PRIVATE_KEY);
     return result;
   }
 }
