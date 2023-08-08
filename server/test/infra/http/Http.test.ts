@@ -3,7 +3,6 @@ import IHttp from '../../../src/infra/http/IHttp';
 import supertest from 'supertest';
 
 let http: IHttp;
-let request: any;
 
 beforeAll(() => {
   http = new ExpressAdapter();

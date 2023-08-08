@@ -5,27 +5,41 @@ import GetAll from '../../../../src/application/user/GetAll';
 
 let user1: User;
 let user2: User;
-let user3: User;
 let userRepository: IUserRepository;
 
 beforeAll(async () => {
   user1 = new User(1, 'name',  'surname',  'username1',  'password',  'admin', true);
   user2 = new User(2, 'name',  'surname',  'username2',  'password',  'admin', true);
-  user3 = new User(3, 'name',  'surname',  'username3',  'password',  'admin', true);
 
   const repositoryFactory = new RepositoryFactoryMemory();
   userRepository          = repositoryFactory.userRepository();
 
   await userRepository.save(user1);
   await userRepository.save(user2);
-  await userRepository.save(user3);
 });
 
-test('Must get all users', async () => {
+test('Get all', async () => {
   const getAll = new GetAll(userRepository);
-  const users = await getAll.execute();
+  const users  = await getAll.execute();
 
-  expect(users.length).toBe(3);
-  expect(users).toEqual([ user1, user2, user3 ]);
+  expect(users).toHaveLength(2);
+  expect(users[0].id).toBe(user1.id);
+  expect(users[0].name).toBe(user1.name);
+  expect(users[0].surname).toBe(user1.surname);
+  expect(users[0].username).toBe(user1.username);
+  expect(users[0].role).toBe(user1.role);
+  expect(users[0].status).toBe(user1.status);
+  expect(new Date(users[0].created_at)).toEqual(new Date(user1.created_at));
+  expect(new Date(users[0].updated_at)).toEqual(new Date(user1.updated_at));
+  expect(users[1].deleted_at).toBeUndefined();
+  expect(users[1].id).toBe(user2.id);
+  expect(users[1].name).toBe(user2.name);
+  expect(users[1].surname).toBe(user2.surname);
+  expect(users[1].username).toBe(user2.username);
+  expect(users[1].role).toBe(user2.role);
+  expect(users[1].status).toBe(user2.status);
+  expect(new Date(users[1].created_at)).toEqual(new Date(user2.created_at));
+  expect(new Date(users[1].updated_at)).toEqual(new Date(user2.updated_at));
+  expect(users[1].deleted_at).toBeUndefined();
 });
 

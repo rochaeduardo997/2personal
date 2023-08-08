@@ -1,13 +1,14 @@
 import User from "../../../src/domain/entity/User";
 import IUserRepository from "../../../src/domain/repository/IUserRepository";
 import RepositoryFactoryMemory from '../../../src/infra/factory/RepositoryFactoryMemory';
+import { generateUser } from '../../seeds/user';
 
 let user1: User;
 let user2: User;
 
 beforeAll(() => {
-  user1 = new User(1, 'name',  'surname',  'username',  'password',  'admin', true);
-  user2 = new User(1, 'name2', 'surname2', 'username2', 'password2', 'admin', true);
+  user1 = generateUser(1);
+  user2 = generateUser(2);
 });
 
 let userRepository: IUserRepository;

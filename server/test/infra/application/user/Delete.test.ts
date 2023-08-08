@@ -2,12 +2,13 @@ import User from '../../../../src/domain/entity/User';
 import IUserRepository from '../../../../src/domain/repository/IUserRepository';
 import RepositoryFactoryMemory from '../../../../src/infra/factory/RepositoryFactoryMemory';
 import Delete from '../../../../src/application/user/Delete';
+import { generateUser } from '../../../seeds/user';
 
 let user: User;
 let userRepository: IUserRepository;
 
 beforeAll(async () => {
-  user = new User(1, 'name',  'surname',  'username',  'password',  'admin', true);
+  user = generateUser(1);
 
   const repositoryFactory = new RepositoryFactoryMemory();
   userRepository = repositoryFactory.userRepository();
