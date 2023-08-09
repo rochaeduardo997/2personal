@@ -16,14 +16,20 @@ beforeAll(() => {
 
 test('Must add a new user', async () => {
   const add = new Add(userRepository);
-  const userData = await add.execute(user);
-  expect(user.id).toBe(user.id);
-  expect(user.name).toBe(user.name);
-  expect(user.surname).toBe(user.surname);
-  expect(user.username).toBe(user.username);
-  expect(user.role).toBe(user.role);
-  expect(user.status).toBe(user.status);
-  expect(new Date(user.created_at)).toEqual(new Date(user.created_at));
-  expect(new Date(user.updated_at)).toEqual(new Date(user.updated_at));
+  const input = {
+    name:     user.name,
+    surname:  user.surname,
+    username: user.username,
+    role:     user.role,
+    password: user.password
+  };
+  const userData = await add.execute(input);
+  expect(userData.id).toBe(user.id);
+  expect(userData.name).toBe(user.name);
+  expect(userData.surname).toBe(user.surname);
+  expect(userData.username).toBe(user.username);
+  expect(userData.role).toBe(user.role);
+  expect(userData.status).toBe(user.status);
+  expect(new Date(userData.created_at).toISOString).toEqual(new Date(user.created_at).toISOString);
+  expect(new Date(userData.updated_at).toISOString).toEqual(new Date(user.updated_at).toISOString);
 });
-

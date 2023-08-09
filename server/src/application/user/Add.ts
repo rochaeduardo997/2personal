@@ -4,7 +4,8 @@ import User from '../../domain/entity/User';
 class Add{
   constructor(private userRepository: IUserRepository){}
 
-  async execute(user: User): Promise<TOutput>{
+  async execute(input: TInput): Promise<TOutput>{
+    const user = new User(1, input.name, input.surname, input.username, input.password, input.role, true);
     const result = await this.userRepository.save(user);
     return {
       id: result.id,
@@ -22,7 +23,7 @@ class Add{
 type TOutput = {
   id: number;
   name: string;
-  surname?: string;
+  surname: string;
   username: string;
   role: string;
   status: boolean;
@@ -30,5 +31,12 @@ type TOutput = {
   updated_at: Date;
 };
 
-export default Add;
+type TInput = {
+  name: string;
+  surname: string;
+  username: string;
+  role: string;
+  password: string;
+};
 
+export default Add;

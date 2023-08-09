@@ -27,7 +27,7 @@ class GetAll{
 type TOutput = {
   id: number;
   name: string;
-  surname?: string;
+  surname: string;
   username: string;
   role: string;
   status: boolean;
@@ -37,4 +37,3 @@ type TOutput = {
 };
 
 export default GetAll;
-

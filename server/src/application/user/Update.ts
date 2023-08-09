@@ -1,5 +1,4 @@
 import IUserRepository from '../../domain/repository/IUserRepository';
-import User from '../../domain/entity/User';
 
 class Update{
   constructor(private userRepository: IUserRepository){}
@@ -32,7 +31,7 @@ type TInput = {
 type TOutput = {
   id: number;
   name: string;
-  surname?: string;
+  surname: string;
   username: string;
   role: string;
   status: boolean;
@@ -41,4 +40,3 @@ type TOutput = {
 };
 
 export default Update;
-

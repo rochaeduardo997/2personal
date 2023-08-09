@@ -51,7 +51,7 @@ class User{
   public get name(): string{
     return this._name;
   }
-  public get surname(): string | undefined{
+  public get surname(): string{
     return this._surname;
   }
   public get fullname(): string{

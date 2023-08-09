@@ -1,5 +1,4 @@
 import IUserRepository from '../../domain/repository/IUserRepository';
-import User from '../../domain/entity/User';
 
 class Get{
   constructor(private userRepository: IUserRepository){}
@@ -23,7 +22,7 @@ class Get{
 type TOutput = {
   id: number;
   name: string;
-  surname?: string;
+  surname: string;
   username: string;
   role: string;
   status: boolean;
@@ -33,4 +32,3 @@ type TOutput = {
 };
 
 export default Get;
-
