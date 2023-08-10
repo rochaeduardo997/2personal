@@ -1,11 +1,17 @@
 import IUserRepository from '../../domain/repository/IUserRepository';
 import User from '../../domain/entity/User';
+import ICrypto from '../../infra/crypto/ICrypto';
 
 class Add{
-  constructor(private userRepository: IUserRepository){}
+  constructor(
+    private userRepository: IUserRepository,
+    private crypto: ICrypto
+  ){}
 
   async execute(input: TInput): Promise<TOutput>{
-    const user = new User(1, input.name, input.surname, input.username, input.password, input.role, true);
+    const encryptedPassword = this.crypto.encrypt(input.password);
+
+    const user = new User(1, input.name, input.surname, input.username, encryptedPassword, input.role, true);
     const result = await this.userRepository.save(user);
     return {
       id: result.id,

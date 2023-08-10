@@ -3,12 +3,21 @@ import IUserRepository from '../../../../src/domain/repository/IUserRepository';
 import RepositoryFactoryMemory from '../../../../src/infra/factory/RepositoryFactoryMemory';
 import Update from '../../../../src/application/user/Update';
 import { generateUser } from '../../../seeds/user';
+import ICrypto from '../../../../src/infra/crypto/ICrypto';
+import CryptoAdapter from '../../../../src/infra/crypto/CryptoAdapter';
+
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 let user: User;
 let userData: User;
 let userRepository: IUserRepository;
+let crypto: ICrypto;
 
 beforeAll(async () => {
+  crypto = new CryptoAdapter();
+
   user = generateUser(1);
 
   const repositoryFactory = new RepositoryFactoryMemory();
@@ -24,7 +33,7 @@ beforeAll(async () => {
 });
 
 test('Must update an existing user', async () => {
-  const update = new Update(userRepository);
+  const update = new Update(userRepository, crypto);
   const userUpdated = await update.execute(userData.id, {
     name:     'name updated',
     surname:  'surname updated',

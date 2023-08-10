@@ -2,12 +2,21 @@ import User from '../../../../src/domain/entity/User';
 import IUserRepository from '../../../../src/domain/repository/IUserRepository';
 import RepositoryFactoryMemory from '../../../../src/infra/factory/RepositoryFactoryMemory';
 import Add from '../../../../src/application/user/Add';
+import ICrypto from '../../../../src/infra/crypto/ICrypto';
+import CryptoAdapter from '../../../../src/infra/crypto/CryptoAdapter';
 import { generateUser } from '../../../seeds/user';
+
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 let user: User;
 let userRepository: IUserRepository;
+let crypto: ICrypto;
 
 beforeAll(() => {
+  crypto = new CryptoAdapter();
+
   user = generateUser(1);
 
   const repositoryFactory = new RepositoryFactoryMemory();
@@ -15,7 +24,7 @@ beforeAll(() => {
 });
 
 test('Must add a new user', async () => {
-  const add = new Add(userRepository);
+  const add = new Add(userRepository, crypto);
   const input = {
     name:     user.name,
     surname:  user.surname,

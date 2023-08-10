@@ -1,10 +1,17 @@
 import IUserRepository from '../../domain/repository/IUserRepository';
+import ICrypto from '../../infra/crypto/ICrypto';
 
 class Update{
-  constructor(private userRepository: IUserRepository){}
+  constructor(
+    private userRepository: IUserRepository,
+    private crypto: ICrypto
+  ){}
 
   async execute(id: number, input: TInput): Promise<TOutput>{
     const userData = await this.userRepository.get(id);
+
+    if(input.password) input.password = this.crypto.encrypt(input.password);
+
     userData.update(input);
     const result = await this.userRepository.update(userData);
     return {
