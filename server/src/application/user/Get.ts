@@ -14,7 +14,7 @@ class Get{
       status: result.status,
       created_at: result.created_at,
       updated_at: result.updated_at,
-      deleted_at: result.updated_at
+      deleted_at: result.deleted_at
     };
   }
 }

@@ -56,5 +56,70 @@ describe('Successful cases', () => {
     expect(new Date(result.body[1].updated_at)).toEqual(new Date(user2.updated_at));
     expect(result.body[1].deleted_at).toBeUndefined();
   });
+
+  test('Get by id', async () => {
+    const result = await supertest(http.http).get(`/api/users/${user1.id}`);
+    expect(result.status).toBe(200);
+    expect(result.body.id).toBe(user1.id);
+    expect(result.body.name).toBe(user1.name);
+    expect(result.body.surname).toBe(user1.surname);
+    expect(result.body.username).toBe(user1.username);
+    expect(result.body.role).toBe(user1.role);
+    expect(result.body.status).toBe(user1.status);
+    expect(new Date(result.body.created_at)).toEqual(new Date(user1.created_at));
+    expect(new Date(result.body.updated_at)).toEqual(new Date(user1.updated_at));
+    expect(result.body.deleted_at).toBeUndefined();
+  });
+
+  test('Create user', async () => {
+    const user3 = generateUser(3);
+    const input = {
+      name: user3.name,
+      surname: user3.surname,
+      username: user3.username,
+      role: user3.role,
+      password: user3.password
+    };
+    const result = await supertest(http.http)
+      .post(`/api/users/`)
+      .send(input);
+    expect(result.status).toBe(201);
+    expect(result.body.id).toBe(1);
+    expect(result.body.name).toBe(user3.name);
+    expect(result.body.surname).toBe(user3.surname);
+    expect(result.body.username).toBe(user3.username);
+    expect(result.body.role).toBe(user3.role);
+    expect(result.body.status).toBe(user3.status);
+    expect(new Date(result.body.created_at)).toBeInstanceOf(Date)
+    expect(new Date(result.body.updated_at)).toBeInstanceOf(Date)
+  });
+
+  test('Update user', async () => {
+    const input = {
+      name:     'name updated',
+      surname:  'surname updated',
+      status:   false,
+      username: 'username updated',
+      password: 'password updated'
+    };
+    const result = await supertest(http.http)
+      .put(`/api/users/${user2.id}`)
+      .send(input);
+    expect(result.status).toBe(200);
+    expect(result.body.id).toBe(user2.id);
+    expect(result.body.name).toBe(input.name);
+    expect(result.body.surname).toBe(input.surname);
+    expect(result.body.username).toBe(input.username);
+    expect(result.body.role).toBe(user2.role);
+    expect(result.body.status).toBe(input.status);
+    expect(new Date(result.body.created_at)).toBeInstanceOf(Date)
+    expect(new Date(result.body.updated_at)).toBeInstanceOf(Date)
+  });
+
+  test('Delete user', async () => {
+    const result = await supertest(http.http).delete(`/api/users/${user2.id}`)
+    expect(result.status).toBe(200);
+    expect(result.body).toBeTruthy();
+  });
 });
 

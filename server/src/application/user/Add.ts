@@ -40,3 +40,4 @@ type TInput = {
 };
 
 export default Add;
+

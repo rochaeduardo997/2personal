@@ -11,6 +11,8 @@ class ExpressAdapter implements IHttp {
     this.http = Express();
     this.http.use(cors());
     this.http.use(helmet({ contentSecurityPolicy: false }));
+    this.http.use(Express.json())
+    this.http.use(Express.urlencoded({ extended: true}))
 
     this.router = Router();
   };
