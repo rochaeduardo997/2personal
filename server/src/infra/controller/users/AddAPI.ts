@@ -1,4 +1,5 @@
 import IHttp from '../../http/IHttp';
+import ICrypto from '../../crypto/ICrypto';
 import IUserRepository from '../../../domain/repository/IUserRepository';
 import Add from '../../../application/user/Add';
 
@@ -6,7 +7,8 @@ class AddAPI{
   constructor(
     private routePrefix: string, 
     private http: IHttp, 
-    private userRepository: IUserRepository
+    private userRepository: IUserRepository,
+    private crypto: ICrypto
   ){
     this.init();
   }
@@ -14,7 +16,7 @@ class AddAPI{
   private init(){
     this.http.addRoute('post', `/${this.routePrefix}/`, async (req: any) => {
       const { body } = req;
-      const add = new Add(this.userRepository);
+      const add = new Add(this.userRepository, this.crypto);
 
       try{
         const result = await add.execute(body);

@@ -1,4 +1,5 @@
 import IHttp from '../../http/IHttp';
+import ICrypto from '../../crypto/ICrypto';
 import IUserRepository from '../../../domain/repository/IUserRepository';
 import Update from '../../../application/user/Update';
 
@@ -6,7 +7,8 @@ class UpdateAPI {
   constructor(
     private routePrefix: string, 
     private http: IHttp, 
-    private userRepository: IUserRepository
+    private userRepository: IUserRepository,
+    private crypto: ICrypto
   ){
     this.init();
   }
@@ -16,7 +18,7 @@ class UpdateAPI {
       const { id }   = req.params;
       const { body } = req;
 
-      const update = new Update(this.userRepository);
+      const update = new Update(this.userRepository, this.crypto);
 
       try{
         const result = await update.execute(+id, body);

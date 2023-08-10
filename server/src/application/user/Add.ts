@@ -9,6 +9,8 @@ class Add{
   ){}
 
   async execute(input: TInput): Promise<TOutput>{
+    if(!input.password) throw new Error('Password must be provided.');
+
     const encryptedPassword = this.crypto.encrypt(input.password);
 
     const user = new User(1, input.name, input.surname, input.username, encryptedPassword, input.role, true);

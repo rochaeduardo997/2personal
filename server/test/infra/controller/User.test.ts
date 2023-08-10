@@ -1,29 +1,34 @@
-import supertest from 'supertest';
-import * as dotenv from 'dotenv';
-
 import IHttp from '../../../src/infra/http/IHttp';
 import ExpressAdapter from '../../../src/infra/http/ExpressAdapter';
 import User from '../../../src/domain/entity/User';
 import RepositoryFactoryMemory from '../../../src/infra/factory/RepositoryFactoryMemory';
 import { generateUser } from '../../seeds/user';
 import UserController from '../../../src/infra/controller/UserController';
+import ICrypto from '../../../src/infra/crypto/ICrypto';
+import CryptoAdapter from '../../../src/infra/crypto/CryptoAdapter';
+
+import supertest from 'supertest';
+import * as dotenv from 'dotenv';
 
 dotenv.config();
 
 let http: IHttp;
 let user1: User;
 let user2: User;
+let crypto: ICrypto;
 
 async function prepareController(http: IHttp){
   const repositoryFactory = new RepositoryFactoryMemory();
   const userRepository = repositoryFactory.userRepository();
+
+  crypto = new CryptoAdapter();
 
   user1 = generateUser(1);
   user2 = generateUser(2);
 
   await userRepository.save(user1);
   await userRepository.save(user2);
-  new UserController('users', http, userRepository);
+  new UserController('users', http, userRepository, crypto);
 }
 
 beforeAll(async () => {
@@ -130,14 +135,24 @@ describe('Failure cases', () => {
     expect(result.body).toBe('User not found by id 5');
   });
 
-  test('Fail on create user without fields', async () => {
+  test('Fail on create user without role', async () => {
+    const user3 = generateUser(3);
+    const input = { password: '1234' };
+    const result = await supertest(http.http)
+      .post(`/api/users/`)
+      .send(input);
+    expect(result.status).toBe(403);
+    expect(result.body).toBe('User role must be Admin, Trainer or Athlete.');
+  });
+
+  test('Fail on create user without password', async () => {
     const user3 = generateUser(3);
     const input = {};
     const result = await supertest(http.http)
       .post(`/api/users/`)
       .send(input);
     expect(result.status).toBe(403);
-    expect(result.body).toBe('User role must be Admin, Trainer or Athlete.');
+    expect(result.body).toBe('Password must be provided.');
   });
 
   test('Fail on delete user by nonexistent id', async () => {
@@ -146,3 +161,4 @@ describe('Failure cases', () => {
     expect(result.body).toBe('User not found by id 5');
   });
 });
+
