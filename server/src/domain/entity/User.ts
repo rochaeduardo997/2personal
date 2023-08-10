@@ -18,8 +18,8 @@ class User{
   }
 
   protected validateStringLength(field: string, value: string, minSize: number, maxSize: number): void{
-    const stringSmallerThanThree  = value.length < minSize;
-    const stringGreaterThanThirty = value.length > maxSize;
+    const stringSmallerThanThree  = value?.length < minSize;
+    const stringGreaterThanThirty = value?.length > maxSize;
 
     if(stringSmallerThanThree || stringGreaterThanThirty) 
       throw new Error(`${field} must have length between ${minSize} and ${maxSize}`);
@@ -28,7 +28,7 @@ class User{
   }
 
   private validateRole(x: string){
-    if(!/admin|trainer|athlete/i.test(x)) throw new Error('User role must be Admin, Trainer ou Athlete.');
+    if(!/admin|trainer|athlete/i.test(x)) throw new Error('User role must be Admin, Trainer or Athlete.');
     this.role = x;
   }
 

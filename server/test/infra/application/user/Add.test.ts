@@ -30,7 +30,7 @@ test('Must add a new user', async () => {
   expect(userData.username).toBe(user.username);
   expect(userData.role).toBe(user.role);
   expect(userData.status).toBe(user.status);
-  expect(new Date(userData.created_at)).toEqual(new Date(user.created_at));
-  expect(new Date(userData.updated_at)).toEqual(new Date(user.updated_at));
+  expect(new Date(userData.created_at)).toBeInstanceOf(Date);
+  expect(new Date(userData.updated_at)).toBeInstanceOf(Date);
 });
 

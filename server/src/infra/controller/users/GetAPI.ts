@@ -20,7 +20,7 @@ class GetAPI {
         const result = await get.execute(parseInt(id));
         return { result,  code: 200 };
       }catch(err: any){
-        return { result: err.message, code: 403 };
+        return { result: err.message, code: 404 };
       }
     });
   }

@@ -123,3 +123,26 @@ describe('Successful cases', () => {
   });
 });
 
+describe('Failure cases', () => {
+  test('Fail on get by nonexistent id', async () => {
+    const result = await supertest(http.http).get('/api/users/5');
+    expect(result.status).toBe(404);
+    expect(result.body).toBe('User not found by id 5');
+  });
+
+  test('Fail on create user without fields', async () => {
+    const user3 = generateUser(3);
+    const input = {};
+    const result = await supertest(http.http)
+      .post(`/api/users/`)
+      .send(input);
+    expect(result.status).toBe(403);
+    expect(result.body).toBe('User role must be Admin, Trainer or Athlete.');
+  });
+
+  test('Fail on delete user by nonexistent id', async () => {
+    const result = await supertest(http.http).delete('/api/users/5')
+    expect(result.status).toBe(404);
+    expect(result.body).toBe('User not found by id 5');
+  });
+});
