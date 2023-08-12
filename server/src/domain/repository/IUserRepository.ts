@@ -1,12 +1,14 @@
 import User from "../entity/User";
+import Trainer from "../entity/Trainer";
+import Athlete from "../entity/Athlete";
 
 interface IUserRepository {
-  save(user: User): Promise<User>;
-  get(id: number): Promise<User>;
-  getAll(): Promise<User[]>;
+  save<T extends TUserTypes>(user: T): Promise<T>;
+  get(id: number): Promise<TUserTypes>;
+  getAll(role?: string): Promise<(TUserTypes)[]>;
   delete(id: number): Promise<boolean>;
-  update(user: User): Promise<User>;
-  login(input: TInput): Promise<User>;
+  update<T extends TUserTypes>(user: T): Promise<T>;
+  login(input: TInput): Promise<TUserTypes>;
 }
 
 type TInput = {
@@ -14,7 +16,9 @@ type TInput = {
   password:  string;
 };
 
-export { TInput };
+type TUserTypes = (User | Trainer | Athlete);
+
+export { TInput, TUserTypes };
 
 export default IUserRepository;
 

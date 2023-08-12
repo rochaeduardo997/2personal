@@ -1,22 +1,26 @@
-import IUserRepository, { TInput } from "../../../src/domain/repository/IUserRepository";
+import IUserRepository, { TInput, TUserTypes } from "../../../src/domain/repository/IUserRepository";
 import User from "../../../src/domain/entity/User";
+import Trainer from "../../../src/domain/entity/Trainer";
+import Athlete from "../../../src/domain/entity/Athlete";
 
 class UserRepositoryMemory implements IUserRepository{
-  private users: User[];
+  private users: Array<TUserTypes>;
 
   constructor(){
     this.users = [];
   }
 
-  async save(user: User): Promise<User>{
+  async save<T extends TUserTypes>(user: T): Promise<T>{
     const hasDuplicatedFields = this.users.some((u: User) => u.username === user.username);
+
     if(hasDuplicatedFields) throw new Error('Username already in use');
 
     this.users.push(user);
+
     return user;
   }
 
-  async get(id: number): Promise<User>{
+  async get(id: number): Promise<TUserTypes>{
     const user = this.users.find((u: User) => u.id === id);
 
     if(!user) throw this.userNotFoundBy(id);
@@ -24,12 +28,14 @@ class UserRepositoryMemory implements IUserRepository{
     return user;
   }
 
-  async getAll(): Promise<User[]>{
-    return this.users;
+  async getAll(role: string): Promise<(TUserTypes)[]>{
+    if(role) return this.users.filter((u: TUserTypes) => u.role.match(new RegExp(`\\b(${role})\\b`, 'i')));
+    else return this.users;
   }
 
   async delete(id: number): Promise<boolean>{
     const index = this.users.findIndex((u: User) => u.id === id);
+
     if(index < 0) throw this.userNotFoundBy(id);
 
     this.users.splice(index, 1);
@@ -37,7 +43,7 @@ class UserRepositoryMemory implements IUserRepository{
     return true;
   }
 
-  async update(user: User): Promise<User>{
+  async update<T extends TUserTypes>(user: T): Promise<T>{
     this.delete(user.id);
 
     this.users.push(user);
@@ -45,7 +51,7 @@ class UserRepositoryMemory implements IUserRepository{
     return user;
   }
 
-  async login(input: TInput): Promise<User>{
+  async login(input: TInput): Promise<TUserTypes>{
     const user = this.users.find((u: User) => {
       const regexp = new RegExp(`\\b(${input.login})\\b`, 'gi');
 

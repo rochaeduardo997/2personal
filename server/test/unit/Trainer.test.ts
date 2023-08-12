@@ -20,6 +20,7 @@ describe('Success cases', () => {
     expect(trainer.plan).toBe('FREE');
     expect(trainer.athletes_limit).toBe(5);
     expect(trainer.role).toBe('TRAINER');
+    expect(trainer.email).toBe('email@email.com');
     expect(trainer.username).toBe('username');
     expect(trainer.password).toBe('password');
     expect(trainer.athletes).toEqual([ athlete ]);
@@ -39,6 +40,7 @@ describe('Success cases', () => {
     expect(trainer.plan).toBe('PAID');
     expect(trainer.athletes_limit).toBe(50);
     expect(trainer.role).toBe('TRAINER');
+    expect(trainer.email).toBe('email@email.com');
     expect(trainer.username).toBe('username');
     expect(trainer.password).toBe('password');
     expect(trainer.athletes).toHaveLength(0);
@@ -51,8 +53,9 @@ describe('Success cases', () => {
     const updateResult = trainer.update({ 
       name:          'name updated',
       surname:       'surname updated',
-      register:          '11111-ce',
+      register:      '11111-ce',
       status:        false,
+      email:         'update@email.com',
       plan:          'free',
       athletes_limit: 5,
       username:       'username updated',
@@ -69,6 +72,7 @@ describe('Success cases', () => {
     expect(trainer.plan).toBe('FREE');
     expect(trainer.athletes_limit).toBe(5);
     expect(trainer.role).toBe('TRAINER');
+    expect(trainer.email).toBe('update@email.com');
     expect(trainer.username).toBe('username updated');
     expect(trainer.password).toBe('password updated');
     expect(trainer.athletes).toEqual([ athlete ]);
@@ -93,6 +97,7 @@ describe('Success cases', () => {
     expect(trainer.plan).toBe('FREE');
     expect(trainer.athletes_limit).toBe(5);
     expect(trainer.role).toBe('TRAINER');
+    expect(trainer.email).toBe('email@email.com');
     expect(trainer.username).toBe('username');
     expect(trainer.password).toBe('password');
     expect(trainer.athletes).toEqual([ athlete ]);

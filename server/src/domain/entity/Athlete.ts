@@ -21,6 +21,7 @@ class Athlete extends User{
   public update(input: TUpdateInput): boolean{
     if(input.name)                 this.name    = input.name;
     if(input.surname)              this.surname = input.surname;
+    if(input.email)                this.validateEmail(input.email);
     if(input.status !== undefined) this.status  = input.status;
     if(input.username)             this.username = input.username;
     if(input.password)             this.password = input.password;
@@ -43,6 +44,7 @@ class Athlete extends User{
 type TUpdateInput = { 
   name?:     string;
   surname?:  string;
+  email?:    string;
   username?: string;
   password?: string;
   status?:   boolean;

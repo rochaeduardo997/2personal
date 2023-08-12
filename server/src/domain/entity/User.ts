@@ -34,7 +34,7 @@ class User{
     this.role = x;
   }
 
-  private validateEmail(x: string){
+  protected validateEmail(x: string){
     const emailRegExp = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
     if(!x.match(emailRegExp)) throw new Error('Invalid email format');
     this.email = x.toLowerCase();

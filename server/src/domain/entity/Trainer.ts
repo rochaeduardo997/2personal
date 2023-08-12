@@ -17,7 +17,7 @@ class Trainer extends User{
     protected _created_at:        Date = new Date(),
     protected _updated_at:        Date = new Date(),
     protected _deleted_at?:       Date,
-    protected _last_remove_date?: Date,
+    protected _last_remove_date?: Date
   ){
     super(_id, _name, _surname, _username, _password, 'trainer', _email, _status, _created_at, _updated_at, _deleted_at);
 
@@ -75,6 +75,7 @@ class Trainer extends User{
     if(input.name)                 this.name     = input.name;
     if(input.surname)              this.surname  = input.surname;
     if(input.register)             this.register = input.register;
+    if(input.email)                this.validateEmail(input.email);
     if(input.status !== undefined) this.status   = input.status;
     if(input.plan)                 this.validatePlan(input.plan);
     if(input.athletes_limit)       this.validateAthletesLimit(input.athletes_limit);
@@ -118,6 +119,7 @@ type TUpdateInput = {
   name?:           string;
   surname?:        string;
   register?:       string;
+  email?:          string;
   status?:         boolean;
   plan?:           string;
   athletes_limit?: number;

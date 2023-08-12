@@ -17,6 +17,7 @@ describe('Success cases', () => {
     expect(athlete.fullname).toBe('name surname');
     expect(athlete.status).toBeTruthy();
     expect(athlete.role).toBe('ATHLETE');
+    expect(athlete.email).toBe('email@email.com');
     expect(athlete.trainer).toBe(trainer);
     expect(athlete.username).toBe('username');
     expect(athlete.password).toBe('password');
@@ -33,6 +34,7 @@ describe('Success cases', () => {
     expect(athlete.fullname).toBe('name surname');
     expect(athlete.status).toBeTruthy();
     expect(athlete.role).toBe('ATHLETE');
+    expect(athlete.email).toBe('email@email.com');
     expect(athlete.trainer).toBeUndefined();
     expect(athlete.username).toBe('username');
     expect(athlete.password).toBe('password');
@@ -45,6 +47,7 @@ describe('Success cases', () => {
     const updateResult = athlete.update({
       name:     'name updated',
       surname:  'surname updated',
+      email:    'update@email.com',
       status:   false,
       username: 'username updated',
       password: 'password updated'
@@ -57,6 +60,7 @@ describe('Success cases', () => {
     expect(athlete.fullname).toBe('name updated surname updated');
     expect(athlete.status).toBeFalsy();
     expect(athlete.role).toBe('ATHLETE');
+    expect(athlete.email).toBe('update@email.com');
     expect(athlete.trainer).toBe(trainer);
     expect(athlete.username).toBe('username updated');
     expect(athlete.password).toBe('password updated');
@@ -78,6 +82,7 @@ describe('Success cases', () => {
     expect(athlete.fullname).toBe('name updated surname updated');
     expect(athlete.status).toBeTruthy();
     expect(athlete.role).toBe('ATHLETE');
+    expect(athlete.email).toBe('email@email.com');
     expect(athlete.trainer).toBe(trainer);
     expect(athlete.username).toBe('username');
     expect(athlete.password).toBe('password');
