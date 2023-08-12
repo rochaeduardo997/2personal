@@ -3,8 +3,10 @@ import ExpressAdapter from '../../../src/infra/http/ExpressAdapter';
 import User from '../../../src/domain/entity/User';
 import RepositoryFactoryMemory from '../../../src/infra/factory/RepositoryFactoryMemory';
 import { generateUser } from '../../seeds/user';
+import { generateToken } from '../../seeds/token';
 import UserController from '../../../src/infra/controller/UserController';
 import CryptoAdapter from '../../../src/infra/crypto/CryptoAdapter';
+import JWTAdapter from '../../../src/infra/token/JWTAdapter';
 
 import supertest from 'supertest';
 import * as dotenv from 'dotenv';
@@ -14,6 +16,7 @@ dotenv.config();
 let http: IHttp;
 let user1: User;
 let user2: User;
+let bearerToken: string;
 
 async function prepareController(http: IHttp){
   const repositoryFactory = new RepositoryFactoryMemory();
@@ -24,20 +27,25 @@ async function prepareController(http: IHttp){
   user1 = generateUser(1);
   user2 = generateUser(2);
 
+  bearerToken = `Bearer ${await generateToken(user1)}`;
+
   await userRepository.save(user1);
   await userRepository.save(user2);
   new UserController('users', http, userRepository, crypto);
 }
 
 beforeAll(async () => {
-  http = new ExpressAdapter();
+  const token = new JWTAdapter();
+  http = new ExpressAdapter(token);
   await prepareController(http);
   http.setupRouters();
 });
 
 describe('Successful cases', () => {
   test('Get all', async () => {
-    const result = await supertest(http.http).get('/api/users/');
+    const result = await supertest(http.http)
+      .get('/api/users/')
+      .set('Authorization', bearerToken);
     expect(result.status).toBe(200);
     expect(result.body).toHaveLength(2);
     expect(result.body[0].id).toBe(user1.id);
@@ -61,7 +69,9 @@ describe('Successful cases', () => {
   });
 
   test('Get by id', async () => {
-    const result = await supertest(http.http).get(`/api/users/${user1.id}`);
+    const result = await supertest(http.http)
+      .get(`/api/users/${user1.id}`)
+      .set('Authorization', bearerToken);
     expect(result.status).toBe(200);
     expect(result.body.id).toBe(user1.id);
     expect(result.body.name).toBe(user1.name);
@@ -86,6 +96,7 @@ describe('Successful cases', () => {
     };
     const result = await supertest(http.http)
       .post(`/api/users/`)
+      .set('Authorization', bearerToken)
       .send(input);
     expect(result.status).toBe(201);
     expect(result.body.id).toBe(1);
@@ -109,6 +120,7 @@ describe('Successful cases', () => {
     };
     const result = await supertest(http.http)
       .put(`/api/users/${user2.id}`)
+      .set('Authorization', bearerToken)
       .send(input);
     expect(result.status).toBe(200);
     expect(result.body.id).toBe(user2.id);
@@ -122,7 +134,9 @@ describe('Successful cases', () => {
   });
 
   test('Delete user', async () => {
-    const result = await supertest(http.http).delete(`/api/users/${user2.id}`)
+    const result = await supertest(http.http)
+      .delete(`/api/users/${user2.id}`)
+      .set('Authorization', bearerToken);
     expect(result.status).toBe(200);
     expect(result.body).toBeTruthy();
   });
@@ -130,7 +144,9 @@ describe('Successful cases', () => {
 
 describe('Failure cases', () => {
   test('Fail on get by nonexistent id', async () => {
-    const result = await supertest(http.http).get('/api/users/5');
+    const result = await supertest(http.http)
+      .get('/api/users/5')
+      .set('Authorization', bearerToken);
     expect(result.status).toBe(404);
     expect(result.body).toBe('User not found by id 5');
   });
@@ -140,6 +156,7 @@ describe('Failure cases', () => {
     const input = { password: '1234' };
     const result = await supertest(http.http)
       .post(`/api/users/`)
+      .set('Authorization', bearerToken)
       .send(input);
     expect(result.status).toBe(403);
     expect(result.body).toBe('User role must be Admin, Trainer or Athlete.');
@@ -150,13 +167,16 @@ describe('Failure cases', () => {
     const input = {};
     const result = await supertest(http.http)
       .post(`/api/users/`)
+      .set('Authorization', bearerToken)
       .send(input);
     expect(result.status).toBe(403);
     expect(result.body).toBe('Password must be provided.');
   });
 
   test('Fail on delete user by nonexistent id', async () => {
-    const result = await supertest(http.http).delete('/api/users/5')
+    const result = await supertest(http.http)
+      .delete('/api/users/5')
+      .set('Authorization', bearerToken);
     expect(result.status).toBe(404);
     expect(result.body).toBe('User not found by id 5');
   });

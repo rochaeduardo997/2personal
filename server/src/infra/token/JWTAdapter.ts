@@ -6,7 +6,7 @@ class JWTAdapter implements IToken{
 
   constructor(){}
 
-  async generate(data: TTokenPayload, exp?: number): Promise<string>{
+  async generate(data: Object, exp?: number): Promise<string>{
     if(!this.JWT_PRIVATE_KEY) throw new Error('JWT_PRIVATE_KEY must be declared on environment');
 
     const result = exp ?
@@ -22,8 +22,6 @@ class JWTAdapter implements IToken{
     return result;
   }
 }
-
-type TTokenPayload = { data: object, exp?: number };
 
 export default JWTAdapter;
 

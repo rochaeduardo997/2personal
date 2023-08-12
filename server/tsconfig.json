@@ -11,7 +11,8 @@
       "forceConsistentCasingInFileNames": true,    
       "strict": true,                              
       "allowUnreachableCode": false,               
-      "skipLibCheck": true                         
+      "skipLibCheck": true,
+      "typeRoots": [ "@types", "./node_modules/@types" ] 
     },
   "include": ["src", "test"]
 }
