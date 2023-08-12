@@ -14,7 +14,7 @@ class AddAPI{
   }
 
   private init(){
-    this.http.addRoute('post', `/${this.routePrefix}/`, async (req: any) => {
+    this.http.addRoute('post', `/auth/${this.routePrefix}`, async (req: any) => {
       const { body } = req;
       const add = new Add(this.userRepository, this.crypto);
 

@@ -95,8 +95,7 @@ describe('Successful cases', () => {
       email: user3.email
     };
     const result = await supertest(http.http)
-      .post(`/api/users/`)
-      .set('Authorization', bearerToken)
+      .post(`/api/auth/users/`)
       .send(input);
     expect(result.status).toBe(201);
     expect(result.body.id).toBe(1);
@@ -155,8 +154,7 @@ describe('Failure cases', () => {
     const user3 = generateUser(3);
     const input = { password: '1234' };
     const result = await supertest(http.http)
-      .post(`/api/users/`)
-      .set('Authorization', bearerToken)
+      .post(`/api/auth/users/`)
       .send(input);
     expect(result.status).toBe(403);
     expect(result.body).toBe('User role must be Admin, Trainer or Athlete.');
@@ -166,8 +164,7 @@ describe('Failure cases', () => {
     const user3 = generateUser(3);
     const input = {};
     const result = await supertest(http.http)
-      .post(`/api/users/`)
-      .set('Authorization', bearerToken)
+      .post(`/api/auth/users/`)
       .send(input);
     expect(result.status).toBe(403);
     expect(result.body).toBe('Password must be provided.');
