@@ -53,7 +53,21 @@ describe('Successful cases', () => {
       .send(input);
 
     expect(result.status).toBe(200);
-    expect(result.body).toHaveLength(236);
+    expect(result.body).toHaveLength(272);
+  });
+
+  test('Login as user with email', async () => {
+    const input = {
+      login: user1.email,
+      password: `password${user1.id}`
+    };
+
+    const result = await supertest(http.http)
+      .post('/api/auth/')
+      .send(input);
+
+    expect(result.status).toBe(200);
+    expect(result.body).toHaveLength(272);
   });
 });
 

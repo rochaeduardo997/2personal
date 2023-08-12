@@ -30,7 +30,7 @@ beforeAll(async () => {
 });
 
 describe('Successful cases', () => {
-  test('Login as user(admin)', async () => {
+  test('Login as user(admin) with username', async () => {
     const input = {
       login:    user.username,
       password: `password${user.id}`
@@ -38,10 +38,29 @@ describe('Successful cases', () => {
 
     const result = await login.execute(input);
 
-    expect(result).toHaveLength(236);
+    expect(result).toHaveLength(272);
   });
 
-  test.todo('Login as trainer');
-  test.todo('Login as athlete');
+  test('Login as user(admin) with email', async () => {
+    const input = {
+      login:    user.email,
+      password: `password${user.id}`
+    };
+
+    const result = await login.execute(input);
+
+    expect(result).toHaveLength(272);
+  });
+
+  test('Login as user(admin) with TTL', async () => {
+    const input = {
+      login:    user.username,
+      password: `password${user.id}`
+    };
+
+    const result = await login.execute(input, 1000);
+
+    expect(result).toHaveLength(295);
+  });
 });
 

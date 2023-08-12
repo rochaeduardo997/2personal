@@ -9,7 +9,7 @@ class Login {
     private userRepository: IUserRepository
   ){}
 
-  async execute(input: TInput): Promise<string>{
+  async execute(input: TInput, expireIn?: number): Promise<string>{
     input.password = this.crypto.encrypt(input.password);
 
     const user = await this.userRepository.login(input);
@@ -20,9 +20,11 @@ class Login {
       surname:  user.surname,
       username: user.username,
       role:     user.role,
+      email:    user.email,
       status:   user.status
     };
-    const result = await this.token.generate(tokenData);
+
+    const result = await this.token.generate(tokenData, expireIn);
 
     return result;
   }

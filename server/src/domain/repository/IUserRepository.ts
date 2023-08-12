@@ -10,8 +10,8 @@ interface IUserRepository {
 }
 
 type TInput = {
-  login:    string;
-  password: string;
+  login:     string;
+  password:  string;
 };
 
 export { TInput };

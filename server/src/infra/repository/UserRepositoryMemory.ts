@@ -49,7 +49,7 @@ class UserRepositoryMemory implements IUserRepository{
     const user = this.users.find((u: User) => {
       const regexp = new RegExp(`\\b(${input.login})\\b`, 'gi');
 
-      const sameLogin = (u.username.match(regexp)); //|| (u.email.match(regexp));
+      const sameLogin = (u.username.match(regexp) || (u.email.match(regexp)));
       const samePassword = u.password === input.password;
 
       return sameLogin?.length && samePassword;
