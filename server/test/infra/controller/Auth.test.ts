@@ -6,6 +6,7 @@ import { generateUser } from '../../seeds/user';
 import AuthController from '../../../src/infra/controller/AuthController';
 import CryptoAdapter from '../../../src/infra/crypto/CryptoAdapter';
 import JWTAdapter from '../../../src/infra/token/JWTAdapter';
+import IToken from '../../../src/infra/token/IToken';
 
 import supertest from 'supertest';
 import * as dotenv from 'dotenv';
@@ -15,9 +16,11 @@ let request: any;
 let http: IHttp;
 let user1: User;
 let user2: User;
+let token: IToken;
 
 beforeAll(async () => {
-  http = new ExpressAdapter();
+  token = new JWTAdapter();
+  http = new ExpressAdapter(token);
   await prepareController(http);
   http.setupRouters();
 });
@@ -27,7 +30,6 @@ async function prepareController(http: IHttp){
   const userRepository = repositoryFactory.userRepository();
 
   const crypto = new CryptoAdapter();
-  const token = new JWTAdapter();
 
   user1 = generateUser(1);
   user2 = generateUser(2);

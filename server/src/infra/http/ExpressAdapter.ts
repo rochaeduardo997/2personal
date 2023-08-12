@@ -20,13 +20,17 @@ class ExpressAdapter implements IHttp {
       const { authorization } = req.headers;
       const [ _, token ]      = authorization?.split(/\s/) || [];
 
+      const ignoreRoutesRegExp = new RegExp(/auth/ig);
+      const ignoreRoute        = req.url.match(ignoreRoutesRegExp);
+      if(ignoreRoute?.length) return next();
+
       if(!token) {
         const result = 'Token must be provided';
-        return res.status(401).send({ result });
+        return res.status(401).send(result);
       }
 
       const user = await this.token.verify(token);
-      if(!user.status) return res.status(401).send({ result: `User ${user.name} ${user.surname} was disabled` });
+      if(!user.status) return res.status(401).send(`User ${user.name} ${user.surname} was disabled`);
 
       req.user = user;
 
