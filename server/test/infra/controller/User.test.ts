@@ -4,7 +4,6 @@ import User from '../../../src/domain/entity/User';
 import RepositoryFactoryMemory from '../../../src/infra/factory/RepositoryFactoryMemory';
 import { generateUser } from '../../seeds/user';
 import UserController from '../../../src/infra/controller/UserController';
-import ICrypto from '../../../src/infra/crypto/ICrypto';
 import CryptoAdapter from '../../../src/infra/crypto/CryptoAdapter';
 
 import supertest from 'supertest';
@@ -15,13 +14,12 @@ dotenv.config();
 let http: IHttp;
 let user1: User;
 let user2: User;
-let crypto: ICrypto;
 
 async function prepareController(http: IHttp){
   const repositoryFactory = new RepositoryFactoryMemory();
   const userRepository = repositoryFactory.userRepository();
 
-  crypto = new CryptoAdapter();
+  const crypto = new CryptoAdapter();
 
   user1 = generateUser(1);
   user2 = generateUser(2);

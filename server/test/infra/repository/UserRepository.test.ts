@@ -75,6 +75,17 @@ describe('Success cases', () => {
     expect(users[1]).toBeUndefined();
   });
 
+  test('Login with username', async () => {
+    const userData1 = await userRepository.save(user1);
+    await userRepository.save(user2);
+    const input = { 
+      login:    user1.username,
+      password: `password${user1.id}`,
+    };
+    const result = await userRepository.login(input);
+    expect(result).toEqual(user1);
+  });
+
   test('Must update an existing user and return its new informations', async () => {
     const userData1 = await userRepository.save(user1);
     await userRepository.save(user2);
@@ -110,6 +121,30 @@ describe('Fail cases', () => {
     expect(() => userRepository.delete(99))
       .rejects
       .toThrow('User not found by id 99');
+  });
+
+  test('Fail on login with wrong login', async () => {
+    const userData1 = await userRepository.save(user1);
+    await userRepository.save(user2);
+    const input = { 
+      login:    user1.username,
+      password: `password${user1.id}`,
+    };
+    expect(() => userRepository.login(input))
+      .rejects
+      .toThrow('Login failed, verify provided credentials');
+  });
+
+  test('Fail on login with wrong password', async () => {
+    const userData1 = await userRepository.save(user1);
+    await userRepository.save(user2);
+    const input = { 
+      login:    user1.username,
+      password: `fail`,
+    };
+    expect(() => userRepository.login(input))
+      .rejects
+      .toThrow('Login failed, verify provided credentials');
   });
 });
 

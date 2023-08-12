@@ -1,4 +1,4 @@
-import IUserRepository from "../../../src/domain/repository/IUserRepository";
+import IUserRepository, { TInput } from "../../../src/domain/repository/IUserRepository";
 import User from "../../../src/domain/entity/User";
 
 class UserRepositoryMemory implements IUserRepository{
@@ -41,6 +41,21 @@ class UserRepositoryMemory implements IUserRepository{
     this.delete(user.id);
 
     this.users.push(user);
+
+    return user;
+  }
+
+  async login(input: TInput): Promise<User>{
+    const user = this.users.find((u: User) => {
+      const regexp = new RegExp(`\\b(${input.login})\\b`, 'gi');
+
+      const sameLogin = (u.username.match(regexp)); //|| (u.email.match(regexp));
+      const samePassword = u.password === input.password;
+
+      return sameLogin?.length && samePassword;
+    });
+
+    if(!user) throw new Error('Login failed, verify provided credentials');
 
     return user;
   }

@@ -1,9 +1,9 @@
 import JWTAdapter from '../../../src/infra/token/JWTAdapter';
-import Token from '../../../src/infra/token/Token';
+import IToken from '../../../src/infra/token/IToken';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-const token: Token = new JWTAdapter();
+const token: IToken = new JWTAdapter();
 
 describe('Successful tests', () => {
   test('Generate token', async () => {

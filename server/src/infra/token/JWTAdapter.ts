@@ -1,7 +1,7 @@
-import Token from './Token';
+import IToken from './IToken';
 import jwt from 'jsonwebtoken';
 
-class JWTAdapter implements Token{
+class JWTAdapter implements IToken{
   private JWT_PRIVATE_KEY = process.env.JWT_PRIVATE_KEY;
 
   constructor(){}
