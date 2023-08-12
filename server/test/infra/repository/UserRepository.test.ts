@@ -33,6 +33,7 @@ describe('Success cases', () => {
     expect(result.username).toBe(user1.username);
     expect(result.password).toBe(user1.password);
     expect(result.role).toBe(user1.role);
+    expect(result.email).toBe(user1.email);
     expect(result.status).toBe(user1.status);
     expect(result.created_at).toBe(user1.created_at);
     expect(result.updated_at).toBe(user1.updated_at);
@@ -50,6 +51,7 @@ describe('Success cases', () => {
     expect(result.username).toBe(user1.username);
     expect(result.password).toBe(user1.password);
     expect(result.role).toBe(user1.role);
+    expect(result.email).toBe(user1.email);
     expect(result.status).toBe(user1.status);
     expect(result.created_at).toBe(user1.created_at);
     expect(result.updated_at).toBe(user1.updated_at);
@@ -94,7 +96,8 @@ describe('Success cases', () => {
       surname:  'surname updated',
       status:   false,
       username: 'username updated',
-      password: 'password updated'
+      password: 'password updated',
+      email:    'update@email.com'
     });
     const result = await userRepository.update(userData1);
     const [ first, second ] = await userRepository.getAll();

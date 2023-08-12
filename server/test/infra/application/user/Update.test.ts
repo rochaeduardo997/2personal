@@ -28,7 +28,8 @@ beforeAll(async () => {
     surname:  'surname updated',
     status:   false,
     username: 'username updated',
-    password: 'password updated'
+    password: 'password updated',
+    email:    'update@email.com'
   });
 });
 
@@ -39,7 +40,8 @@ test('Must update an existing user', async () => {
     surname:  'surname updated',
     status:   false,
     username: 'username updated',
-    password: 'password updated'
+    password: 'password updated',
+    email:    'update@email.com'
   });
 
   expect(userUpdated.id).toBe(user.id);
@@ -47,6 +49,7 @@ test('Must update an existing user', async () => {
   expect(userUpdated.surname).toBe(user.surname);
   expect(userUpdated.username).toBe(user.username);
   expect(userUpdated.role).toBe(user.role);
+  expect(userUpdated.email).toBe(user.email);
   expect(userUpdated.status).toBe(user.status);
   expect(new Date(userUpdated.created_at)).toEqual(new Date(user.created_at));
   expect(new Date(userUpdated.updated_at)).toEqual(new Date(user.updated_at));

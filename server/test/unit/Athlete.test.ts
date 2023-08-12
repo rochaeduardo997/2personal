@@ -5,8 +5,8 @@ let trainer: Trainer;
 let athlete: Athlete;
 
 beforeEach(() => {
-  trainer = new Trainer(1, 'name', 'surname', 'username', 'password', '00000-ce', true);
-  athlete = new Athlete(1, 'name', 'surname', 'username', 'password', true, trainer, new Date('2023-02-02T00:00:00'), new Date('2023-02-03T00:00:00'), new Date('2023-02-04T00:00:00'));
+  trainer = new Trainer(1, 'name', 'surname', 'username', 'password', '00000-ce', 'email@email.com', true);
+  athlete = new Athlete(1, 'name', 'surname', 'username', 'password', 'email@email.com', true, trainer, new Date('2023-02-02T00:00:00'), new Date('2023-02-03T00:00:00'), new Date('2023-02-04T00:00:00'));
 });
 
 describe('Success cases', () => {
@@ -26,7 +26,7 @@ describe('Success cases', () => {
   });
 
   test('Must create a new athlete without trainer', () => {
-    athlete = new Athlete(1, 'name', 'surname', 'username', 'password', true, undefined, new Date('2023-02-02T00:00:00'), new Date('2023-02-03T00:00:00'), new Date('2023-02-04T00:00:00'));
+    athlete = new Athlete(1, 'name', 'surname', 'username', 'password', 'email@email.com', true, undefined, new Date('2023-02-02T00:00:00'), new Date('2023-02-03T00:00:00'), new Date('2023-02-04T00:00:00'));
     expect(athlete.id).toBe(1);
     expect(athlete.name).toBe('name');
     expect(athlete.surname).toBe('surname');
@@ -87,7 +87,7 @@ describe('Success cases', () => {
   });
 
   test('Must change trainer', () => {
-    const newTrainer = new Trainer(2, 'name 2', 'surname 2', 'username 2', 'password 2', '11111-ce', true);
+    const newTrainer = new Trainer(2, 'name 2', 'surname 2', 'username 2', 'password 2', '11111-ce', 'email@email.com', true);
     newTrainer.addAthlete(athlete);
     expect(athlete.trainer).toBe(newTrainer);
   });

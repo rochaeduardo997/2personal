@@ -24,14 +24,15 @@ beforeAll(() => {
 });
 
 describe('Successful cases', () => {
-  test('Must add a new user', async () => {
+  test('Add user', async () => {
     const add = new Add(userRepository, crypto);
     const input = {
       name:     user.name,
       surname:  user.surname,
       username: user.username,
       role:     user.role,
-      password: user.password
+      password: user.password,
+      email:    user.email,
     };
     const userData = await add.execute(input);
     expect(userData.id).toBe(user.id);
@@ -39,6 +40,7 @@ describe('Successful cases', () => {
     expect(userData.surname).toBe(user.surname);
     expect(userData.username).toBe(user.username);
     expect(userData.role).toBe(user.role);
+    expect(userData.email).toBe(user.email);
     expect(userData.status).toBe(user.status);
     expect(new Date(userData.created_at)).toBeInstanceOf(Date);
     expect(new Date(userData.updated_at)).toBeInstanceOf(Date);

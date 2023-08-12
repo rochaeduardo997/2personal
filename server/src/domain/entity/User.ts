@@ -6,6 +6,7 @@ class User{
     protected _username:    string,
     protected _password:    string,
     protected _role:        string,
+    protected _email:       string,
     protected _status:      boolean,
     protected _created_at:  Date = new Date(),
     protected _updated_at:  Date = new Date(),
@@ -15,6 +16,7 @@ class User{
     this.validateStringLength('Surname',  _surname, 3, 30);
     this.validateStringLength('Username', _username, 3, 20);
     this.validateRole(_role);
+    this.validateEmail(_email);
   }
 
   protected validateStringLength(field: string, value: string, minSize: number, maxSize: number): void{
@@ -32,12 +34,19 @@ class User{
     this.role = x;
   }
 
+  private validateEmail(x: string){
+    const emailRegExp = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g);
+    if(!x.match(emailRegExp)) throw new Error('Invalid email format');
+    this.email = x.toLowerCase();
+  }
+
   public update(input: TUpdateInput): boolean{
     if(input.name)                 this.name    = input.name;
     if(input.surname)              this.surname = input.surname;
     if(input.username)             this.username = input.username;
     if(input.password)             this.password = input.password;
     if(input.role)                 this.validateRole(input.role);
+    if(input.email)                this.validateEmail(input.email);
     if(input.status !== undefined) this.status = input.status;
 
     this.updated_at = new Date();
@@ -65,6 +74,9 @@ class User{
   }
   public get role(): string{
     return this._role;
+  }
+  public get email(): string{
+    return this._email;
   }
   public get status(): boolean{
     return this._status;
@@ -97,6 +109,9 @@ class User{
   public set role(x: string){
     this._role = x.toUpperCase();
   }
+  public set email(x: string){
+    this._email = x.toLowerCase();
+  }
   public set status(x: boolean){
     this._status = x;
   }
@@ -115,6 +130,7 @@ type TUpdateInput = {
   username?:       string;
   password?:       string;
   role?:           string;
+  email?:          string;
 };
 
 export default User;

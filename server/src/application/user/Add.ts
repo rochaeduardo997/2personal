@@ -13,7 +13,8 @@ class Add{
 
     const encryptedPassword = this.crypto.encrypt(input.password);
 
-    const user = new User(1, input.name, input.surname, input.username, encryptedPassword, input.role, true);
+    const user = new User(1, input.name, input.surname, input.username, encryptedPassword, input.role, input.email, true);
+
     const result = await this.userRepository.save(user);
     return {
       id: result.id,
@@ -21,6 +22,7 @@ class Add{
       surname: result.surname,
       username: result.username,
       role: result.role,
+      email: result.email,
       status: result.status,
       created_at: result.created_at,
       updated_at: result.updated_at
@@ -34,6 +36,7 @@ type TOutput = {
   surname: string;
   username: string;
   role: string;
+  email: string;
   status: boolean;
   created_at: Date;
   updated_at: Date;
@@ -45,6 +48,7 @@ type TInput = {
   username: string;
   role: string;
   password: string;
+  email: string;
 };
 
 export default Add;

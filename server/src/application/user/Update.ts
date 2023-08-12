@@ -20,6 +20,7 @@ class Update{
       surname: result.surname,
       username: result.username,
       role: result.role,
+      email: result.email,
       status: result.status,
       created_at: result.created_at,
       updated_at: result.updated_at
@@ -28,11 +29,12 @@ class Update{
 }
 
 type TInput = {
-  name:     string;
-  surname:  string;
-  status:   boolean;
-  username: string;
-  password: string;
+  name?:     string;
+  surname?:  string;
+  status?:   boolean;
+  username?: string;
+  password?: string;
+  email?:    string;
 };
 
 type TOutput = {
@@ -41,6 +43,7 @@ type TOutput = {
   surname: string;
   username: string;
   role: string;
+  email: string;
   status: boolean;
   created_at: Date;
   updated_at: Date;

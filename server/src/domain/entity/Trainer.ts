@@ -9,6 +9,7 @@ class Trainer extends User{
     protected _username:          string,
     protected _password:          string,
     private   _register:          string,
+    protected _email:             string,
     protected _status:            boolean,
     private   _plan:              string = 'free',
     private   _athletes_limit:    number = 5,
@@ -18,7 +19,7 @@ class Trainer extends User{
     protected _deleted_at?:       Date,
     protected _last_remove_date?: Date,
   ){
-    super(_id, _name, _surname, _username, _password, 'trainer', _status, _created_at, _updated_at, _deleted_at);
+    super(_id, _name, _surname, _username, _password, 'trainer', _email, _status, _created_at, _updated_at, _deleted_at);
 
     this.validateStringLength('Register', _register, 3, 30);
     this.validatePlan(_plan);

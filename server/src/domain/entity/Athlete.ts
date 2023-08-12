@@ -8,13 +8,14 @@ class Athlete extends User{
     protected _surname:        string,
     protected _username:       string,
     protected _password:       string,
+    protected _email:          string,
     protected _status:         boolean,
     private   _trainer?:       Trainer,
     protected _created_at:     Date = new Date(),
     protected _updated_at:     Date = new Date(),
     protected _deleted_at?:    Date
   ){
-    super(_id, _name, _surname, _username, _password, 'athlete', _status, _created_at, _updated_at, _deleted_at);
+    super(_id, _name, _surname, _username, _password, 'athlete', _email, _status, _created_at, _updated_at, _deleted_at);
   }
 
   public update(input: TUpdateInput): boolean{

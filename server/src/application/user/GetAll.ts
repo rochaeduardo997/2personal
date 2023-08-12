@@ -13,6 +13,7 @@ class GetAll{
         surname: user.surname,
         username: user.username,
         role: user.role,
+        email: user.email,
         status: user.status,
         created_at: user.created_at,
         updated_at: user.updated_at,
@@ -30,6 +31,7 @@ type TOutput = {
   surname: string;
   username: string;
   role: string;
+  email: string;
   status: boolean;
   created_at: Date;
   updated_at: Date;

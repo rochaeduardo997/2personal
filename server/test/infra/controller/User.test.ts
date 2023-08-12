@@ -81,7 +81,8 @@ describe('Successful cases', () => {
       surname: user3.surname,
       username: user3.username,
       role: user3.role,
-      password: user3.password
+      password: user3.password,
+      email: user3.email
     };
     const result = await supertest(http.http)
       .post(`/api/users/`)
@@ -92,6 +93,7 @@ describe('Successful cases', () => {
     expect(result.body.surname).toBe(user3.surname);
     expect(result.body.username).toBe(user3.username);
     expect(result.body.role).toBe(user3.role);
+    expect(result.body.email).toBe(user3.email);
     expect(result.body.status).toBe(user3.status);
     expect(new Date(result.body.created_at)).toBeInstanceOf(Date)
     expect(new Date(result.body.updated_at)).toBeInstanceOf(Date)
