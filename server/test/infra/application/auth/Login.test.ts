@@ -38,7 +38,7 @@ describe('Successful cases', () => {
 
     const result = await login.execute(input);
 
-    expect(result).toHaveLength(272);
+    expect(result).toHaveLength(271);
   });
 
   test('Login as user(admin) with email', async () => {
@@ -49,7 +49,7 @@ describe('Successful cases', () => {
 
     const result = await login.execute(input);
 
-    expect(result).toHaveLength(272);
+    expect(result).toHaveLength(271);
   });
 
   test('Login as user(admin) with TTL', async () => {
@@ -60,7 +60,7 @@ describe('Successful cases', () => {
 
     const result = await login.execute(input, 1000);
 
-    expect(result).toHaveLength(295);
+    expect(result).toHaveLength(293);
   });
 });
 

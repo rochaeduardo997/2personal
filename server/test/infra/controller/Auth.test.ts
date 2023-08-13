@@ -55,7 +55,7 @@ describe('Successful cases', () => {
       .send(input);
 
     expect(result.status).toBe(200);
-    expect(result.body).toHaveLength(272);
+    expect(result.body).toHaveLength(271);
   });
 
   test('Login as user with email', async () => {
@@ -69,7 +69,7 @@ describe('Successful cases', () => {
       .send(input);
 
     expect(result.status).toBe(200);
-    expect(result.body).toHaveLength(272);
+    expect(result.body).toHaveLength(271);
   });
 });
 

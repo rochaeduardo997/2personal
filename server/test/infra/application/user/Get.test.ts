@@ -27,5 +27,6 @@ test('Must get an existing user', async () => {
   expect(userData.status).toBe(user.status);
   expect(new Date(userData.created_at)).toEqual(new Date(user.created_at));
   expect(new Date(userData.updated_at)).toEqual(new Date(user.updated_at));
+  expect(userData.deleted_at).toEqual(user.deleted_at);
 });
 
