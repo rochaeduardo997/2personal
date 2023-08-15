@@ -1,5 +1,6 @@
 import IUserRepository from '../../domain/repository/IUserRepository';
 import ICrypto from '../../infra/crypto/ICrypto';
+import Trainer from '../../domain/entity/Trainer';
 
 class Update{
   constructor(
@@ -8,12 +9,13 @@ class Update{
   ){}
 
   async execute(id: number, input: TInput): Promise<TOutput>{
-    const userData = await this.userRepository.get(id);
+    const trainerData = await this.userRepository.get(id) as Trainer;
 
     if(input.password) input.password = this.crypto.encrypt(input.password);
 
-    userData.update(input);
-    const result = await this.userRepository.update(userData);
+    trainerData.update(input);
+    const result = await this.userRepository.update(trainerData);
+
     return {
       id: result.id,
       name: result.name,
@@ -23,18 +25,24 @@ class Update{
       email: result.email,
       status: result.status,
       created_at: result.created_at,
-      updated_at: result.updated_at
+      updated_at: result.updated_at,
+      register: result.register,
+      plan: result.plan,
+      athletes_limit: result.athletes_limit
     };
   }
 }
 
 type TInput = {
-  name?:     string;
-  surname?:  string;
-  status?:   boolean;
-  username?: string;
-  password?: string;
-  email?:    string;
+  name?:           string;
+  surname?:        string;
+  status?:         boolean;
+  username?:       string;
+  password?:       string;
+  email?:          string;
+  register?:       string;
+  plan?:           string;
+  athletes_limit?: number;
 };
 
 type TOutput = {
@@ -47,6 +55,9 @@ type TOutput = {
   status: boolean;
   created_at: Date;
   updated_at: Date;
+  register:       string;
+  plan:           string;
+  athletes_limit: number;
 };
 
 export default Update;
