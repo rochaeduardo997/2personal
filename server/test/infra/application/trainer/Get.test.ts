@@ -61,3 +61,13 @@ describe('Successful cases', () => {
     expect(trainerData.last_remove_date).toEqual(trainer.last_remove_date);
   });
 });
+
+describe('Failure cases', () => {
+  test('Fail on get trainer that doesnt exists', async () => {
+    const get = new Get(userRepository);
+    expect(() => get.execute(3))
+      .rejects
+      .toThrow('User not found by id 3');
+  });
+});
+
