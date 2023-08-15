@@ -15,12 +15,23 @@ beforeAll(async () => {
   await userRepository.save(user);
 });
 
-test('Must delete an existing user', async () => {
-  const deleteAction = new Delete(userRepository);
-  const userHasDeleted = await deleteAction.execute(user.id);
-  const users = await userRepository.getAll();
+describe('Successful cases', () => {
+  test('Delete', async () => {
+    const deleteAction = new Delete(userRepository);
+    const userHasDeleted = await deleteAction.execute(user.id);
+    const users = await userRepository.getAll();
 
-  expect(userHasDeleted).toBeTruthy();
-  expect(users.length).toBe(0);
+    expect(userHasDeleted).toBeTruthy();
+    expect(users.length).toBe(0);
+  });
+});
+
+describe('Successful cases', () => {
+  test('Fail on delete user that doesnt exists', async () => {
+    const deleteAction = new Delete(userRepository);
+    expect(() => deleteAction.execute(3))
+      .rejects
+      .toThrow('User not found by id 3');
+  });
 });
 
