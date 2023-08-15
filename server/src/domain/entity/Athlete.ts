@@ -52,3 +52,4 @@ type TUpdateInput = {
 };
 
 export default Athlete;
+

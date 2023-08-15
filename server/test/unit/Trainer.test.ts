@@ -110,6 +110,7 @@ describe('Success cases', () => {
     const newAthlete = new Athlete(2, 'name 2', 'surname 2', 'username 2', 'password 2', 'email@email.com', true);
     trainer.addAthlete(newAthlete);
     expect(trainer.athletes).toEqual([ athlete, newAthlete ]);
+    expect(newAthlete.trainer).toEqual(trainer);
   });
 
   test('Must remove an athlete', () => {
