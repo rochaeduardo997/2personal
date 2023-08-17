@@ -98,5 +98,12 @@ describe('Successful cases', () => {
       .rejects
       .toThrow('Request doesn\'t exists');
   });
+
+  test('Fail on handle request that athlete isnt owner', async () => {
+    const request = await requestAthleteRepository.make(requestAthlete);
+    expect(() => requestAthleteRepository.handle(request.id, 2, false))
+      .rejects
+      .toThrow('Request doesn\'t exists');
+  });
 });
 
