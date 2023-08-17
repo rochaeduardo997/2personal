@@ -1,11 +1,10 @@
 import IRequestAthleteRepository from '../../domain/repository/IRequestAthleteRepository';
-import IUserRepository from '../../domain/repository/IUserRepository';
 import RequestAthlete from '../../domain/entity/RequestAthlete';
 
 class RequestAthleteRepositoryMemory implements IRequestAthleteRepository {
   private requestAthletes: RequestAthlete[];
 
-  constructor(private userRepository: IUserRepository){
+  constructor(){
     this.requestAthletes = [];
   }
 
@@ -17,10 +16,19 @@ class RequestAthleteRepositoryMemory implements IRequestAthleteRepository {
     return this.requestAthletes.filter((a: RequestAthlete) => a.trainer.id === id);
   }
 
-  async make(requestAthlete: RequestAthlete): Promise<boolean>{
+  async handle(id: number, athleteId: number, wasAccepted: boolean): Promise<boolean>{
+    const request = this.requestAthletes.find((r: RequestAthlete) => r.id === id);
+    if(!request) throw new Error('Request doesn\'t exists');
+    request.handle(athleteId, wasAccepted);
+
+    return true;
+  }
+
+  async make(requestAthlete: RequestAthlete): Promise<RequestAthlete>{
     this.requestValidation(requestAthlete);
     this.requestAthletes.push(requestAthlete);
-    return true;
+
+    return requestAthlete;
   }
 
   private requestValidation(requestAthlete: RequestAthlete): void{

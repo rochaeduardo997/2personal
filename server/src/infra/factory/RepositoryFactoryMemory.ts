@@ -9,7 +9,7 @@ class RepositoryFactoryMemory implements IRepository{
     return new UserRepositoryMemory();
   }
   requestAthleteRepository(): IRequestAthleteRepository{
-    return new RequestAthleteRepositoryMemory(this.userRepository());
+    return new RequestAthleteRepositoryMemory();
   }
 }
 
