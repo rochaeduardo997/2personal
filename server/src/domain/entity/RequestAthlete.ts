@@ -10,7 +10,10 @@ class RequestAthlete {
   ){}
 
   handle(id: number, accept: boolean = true){
-    if(id === this._athlete.id) this._wasAccepted = accept;
+    if(id === this._athlete.id) {
+      this._wasAccepted = accept;
+      if(this._wasAccepted) this._athlete.trainer = this._trainer;
+    }
     else throw new Error('Athlete doesnt\'t have this trainer request');
   }
 

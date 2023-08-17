@@ -7,13 +7,27 @@ let trainer: Trainer;
 let athlete: Athlete;
 let requestAthlete: RequestAthlete;
 
-beforeAll(() => {
+beforeEach(() => {
   trainer = generateTrainer(1);
   athlete = generateAthlete(2);
   requestAthlete = new RequestAthlete(1, trainer, athlete);
 });
 
 describe('Successful cases', () => {
+  test('Denied trainer request to associate to athlete', () =>{
+    const requestAthlete2 = new RequestAthlete(2, trainer, athlete, false);
+    expect(requestAthlete2.trainer).toEqual(trainer);
+    expect(requestAthlete2.athlete).toEqual(athlete);
+    expect(requestAthlete2.wasAccepted).toBeFalsy();
+  });
+
+  test('Accepted trainer request to associate to athlete', () =>{
+    const requestAthlete2 = new RequestAthlete(2, trainer, athlete, true);
+    expect(requestAthlete2.trainer).toEqual(trainer);
+    expect(requestAthlete2.athlete).toEqual(athlete);
+    expect(requestAthlete2.wasAccepted).toBeTruthy();
+  });
+
   test('Trainer request to associate to athlete', () =>{
     expect(requestAthlete.trainer).toEqual(trainer);
     expect(requestAthlete.athlete).toEqual(athlete);
@@ -28,11 +42,13 @@ describe('Successful cases', () => {
   test('Athlete accept trainer\'s request', () =>{
     requestAthlete.handle(athlete.id, true);
     expect(requestAthlete.wasAccepted).toBeTruthy();
+    expect(athlete.trainer).toEqual(trainer);
   });
 
   test('Athlete refuse trainer\'s request', () =>{
     requestAthlete.handle(athlete.id, false);
     expect(requestAthlete.wasAccepted).toBeFalsy();
+    expect(athlete.trainer).toBeUndefined();
   });
 });
 

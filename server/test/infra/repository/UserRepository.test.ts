@@ -193,6 +193,17 @@ describe('Success cases', () => {
       expect(result).toEqual(trainer1);
     });
 
+    test('Login with email', async () => {
+      const trainerData1 = await userRepository.save(trainer1);
+      await userRepository.save(trainer2);
+      const input = { 
+        login:    trainer1.email,
+        password: `password${trainer1.id}`,
+      };
+      const result = await userRepository.login(input);
+      expect(result).toEqual(trainer1);
+    });
+
     test('Must update an existing trainer and return its new informations', async () => {
       const trainerData1 = await userRepository.save(trainer1);
       await userRepository.save(trainer2);
