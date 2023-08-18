@@ -37,7 +37,6 @@ beforeEach(async () => {
 describe('Successful cases', () => {
   test('Get all', async () =>{
     const result = await getAllByAthlete.execute(athlete.id);
-    console.log(athlete);
     expect(result[0].id).toBe(requestAthlete1.id);
     expect(result[0].trainerId).toBe(requestAthlete1.trainer.id);
     expect(result[0].athleteId).toBe(requestAthlete1.athlete.id);
