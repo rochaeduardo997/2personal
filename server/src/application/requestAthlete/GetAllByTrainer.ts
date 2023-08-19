@@ -10,10 +10,10 @@ class GetAllByTrainer{
     const requests = await this.requestAthleteRepository.getAllByTrainer(id);
     for(const request of requests){
       result.push({
-        id:        request.id,
-        athleteId: request.athlete.id,
-        trainerId: request.trainer.id,
-        status:    request.wasAccepted
+        id:           request.id,
+        athlete_id:   request.athlete.id,
+        trainer_id:   request.trainer.id,
+        was_accepted: request.was_accepted
       });
     }
 
@@ -22,10 +22,11 @@ class GetAllByTrainer{
 }
 
 type TOutput = {
-  id:        number;
-  athleteId: number;
-  trainerId: number;
-  status:    boolean | undefined;
+  id:           number;
+  athlete_id:   number;
+  trainer_id:   number;
+  was_accepted: boolean | undefined;
 };
 
 export default GetAllByTrainer;
+

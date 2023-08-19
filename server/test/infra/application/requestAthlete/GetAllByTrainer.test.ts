@@ -38,13 +38,13 @@ describe('Successful cases', () => {
   test('Get all', async () =>{
     const result = await getAllByTrainer.execute(trainer.id);
     expect(result[0].id).toBe(requestAthlete1.id);
-    expect(result[0].trainerId).toBe(requestAthlete1.trainer.id);
-    expect(result[0].athleteId).toBe(requestAthlete1.athlete.id);
-    expect(result[0].status).toBe(requestAthlete1.wasAccepted);
+    expect(result[0].trainer_id).toBe(requestAthlete1.trainer.id);
+    expect(result[0].athlete_id).toBe(requestAthlete1.athlete.id);
+    expect(result[0].was_accepted).toBe(requestAthlete1.was_accepted);
     expect(result[1].id).toBe(requestAthlete2.id);
-    expect(result[1].trainerId).toBe(requestAthlete2.trainer.id);
-    expect(result[1].athleteId).toBe(requestAthlete2.athlete.id);
-    expect(result[1].status).toBe(requestAthlete2.wasAccepted);
+    expect(result[1].trainer_id).toBe(requestAthlete2.trainer.id);
+    expect(result[1].athlete_id).toBe(requestAthlete2.athlete.id);
+    expect(result[1].was_accepted).toBe(requestAthlete2.was_accepted);
   });
 });
 

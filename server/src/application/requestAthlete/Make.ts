@@ -11,29 +11,29 @@ class Make{
   ){}
 
   async execute(input: TInput): Promise<TOutput>{
-    const trainer = await this.userRepository.get(input.trainerId) as Trainer;
-    const athlete = await this.userRepository.get(input.athleteId) as Athlete;
+    const trainer = await this.userRepository.get(input.trainer_id) as Trainer;
+    const athlete = await this.userRepository.get(input.athlete_id) as Athlete;
     const requestAthlete = new RequestAthlete(1, trainer, athlete);
     const result = await this.requestAthleteRepository.make(requestAthlete);
     return {
-      id:        result.id,
-      trainerId: result.trainer.id,
-      athleteId: result.athlete.id,
-      status:    undefined
+      id:           result.id,
+      trainer_id:   result.trainer.id,
+      athlete_id:   result.athlete.id,
+      was_accepted: undefined
     };
   }
 }
 
 type TOutput = {
-  id:        number;
-  trainerId: number;
-  athleteId: number;
-  status:    undefined;
+  id:           number;
+  trainer_id:   number;
+  athlete_id:   number;
+  was_accepted: undefined;
 };
 
 type TInput = {
-  trainerId: number;
-  athleteId: number;
+  trainer_id: number;
+  athlete_id: number;
 };
 
 export default Make;

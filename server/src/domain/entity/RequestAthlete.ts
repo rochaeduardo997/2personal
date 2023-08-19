@@ -6,13 +6,13 @@ class RequestAthlete {
     private _id: number,
     private _trainer: Trainer,
     private _athlete: Athlete,
-    private _wasAccepted?: boolean
+    private _was_accepted?: boolean
   ){}
 
   handle(id: number, accept: boolean = true){
     if(id === this._athlete.id) {
-      this._wasAccepted = accept;
-      if(this._wasAccepted) this._athlete.trainer = this._trainer;
+      this._was_accepted = accept;
+      if(this._was_accepted) this._athlete.trainer = this._trainer;
     }
     else throw new Error('Athlete doesnt\'t have this trainer request');
   }
@@ -26,8 +26,8 @@ class RequestAthlete {
   get athlete(): Athlete{
     return this._athlete;
   }
-  get wasAccepted(): boolean|undefined{
-    return this._wasAccepted;
+  get was_accepted(): boolean|undefined{
+    return this._was_accepted;
   }
 }
 

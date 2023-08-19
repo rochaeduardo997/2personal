@@ -18,36 +18,36 @@ describe('Successful cases', () => {
     const requestAthlete2 = new RequestAthlete(2, trainer, athlete, false);
     expect(requestAthlete2.trainer).toEqual(trainer);
     expect(requestAthlete2.athlete).toEqual(athlete);
-    expect(requestAthlete2.wasAccepted).toBeFalsy();
+    expect(requestAthlete2.was_accepted).toBeFalsy();
   });
 
   test('Accepted trainer request to associate to athlete', () =>{
     const requestAthlete2 = new RequestAthlete(2, trainer, athlete, true);
     expect(requestAthlete2.trainer).toEqual(trainer);
     expect(requestAthlete2.athlete).toEqual(athlete);
-    expect(requestAthlete2.wasAccepted).toBeTruthy();
+    expect(requestAthlete2.was_accepted).toBeTruthy();
   });
 
   test('Trainer request to associate to athlete', () =>{
     expect(requestAthlete.trainer).toEqual(trainer);
     expect(requestAthlete.athlete).toEqual(athlete);
-    expect(requestAthlete.wasAccepted).toBeUndefined();
+    expect(requestAthlete.was_accepted).toBeUndefined();
   });
 
   test('Athlete accept trainer\'s request as default value', () =>{
     requestAthlete.handle(athlete.id);
-    expect(requestAthlete.wasAccepted).toBeTruthy();
+    expect(requestAthlete.was_accepted).toBeTruthy();
   });
 
   test('Athlete accept trainer\'s request', () =>{
     requestAthlete.handle(athlete.id, true);
-    expect(requestAthlete.wasAccepted).toBeTruthy();
+    expect(requestAthlete.was_accepted).toBeTruthy();
     expect(athlete.trainer).toEqual(trainer);
   });
 
   test('Athlete refuse trainer\'s request', () =>{
     requestAthlete.handle(athlete.id, false);
-    expect(requestAthlete.wasAccepted).toBeFalsy();
+    expect(requestAthlete.was_accepted).toBeFalsy();
     expect(athlete.trainer).toBeUndefined();
   });
 });

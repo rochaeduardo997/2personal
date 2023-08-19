@@ -16,15 +16,15 @@ class RequestAthleteRepositoryMemory implements IRequestAthleteRepository {
     return this.requestAthletes.filter((a: RequestAthlete) => a.trainer.id === id);
   }
 
-  async handle(id: number, athleteId: number, wasAccepted: boolean): Promise<boolean>{
+  async handle(id: number, athlete_id: number, was_accepted: boolean): Promise<boolean>{
     const request = this.requestAthletes.find((r: RequestAthlete) => {
       const sameRequest = r.id === id
-      const sameAthlete = r.athlete.id === athleteId;
+      const sameAthlete = r.athlete.id === athlete_id;
       return sameRequest && sameAthlete;
     });
 
     if(!request) throw new Error('Request doesn\'t exists');
-    request.handle(athleteId, wasAccepted);
+    request.handle(athlete_id, was_accepted);
 
     return true;
   }

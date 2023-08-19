@@ -29,11 +29,11 @@ beforeEach(async () => {
 
 describe('Successful case', () => {
   test('Make solicitation', async () => {
-    const result = await make.execute({ trainerId: trainer.id, athleteId: athlete.id });
+    const result = await make.execute({ trainer_id: trainer.id, athlete_id: athlete.id });
     expect(result.id).toBe(1);
-    expect(result.trainerId).toBe(trainer.id);
-    expect(result.athleteId).toBe(athlete.id);
-    expect(result.status).toBeUndefined();
+    expect(result.trainer_id).toBe(trainer.id);
+    expect(result.athlete_id).toBe(athlete.id);
+    expect(result.was_accepted).toBeUndefined();
   });
 });
 
