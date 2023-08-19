@@ -20,7 +20,8 @@ let http: IHttp;
 
 let trainer1: Trainer;
 let trainer2: Trainer;
-let athlete: Athlete;
+let athlete1: Athlete;
+let athlete2: Athlete;
 let requestAthlete1: RequestAthlete;
 let requestAthlete2: RequestAthlete;
 
@@ -36,16 +37,18 @@ async function prepareController(http: IHttp){
 
   trainer1 = generateTrainer(1);
   trainer2 = generateTrainer(2);
-  athlete = generateAthlete(3);
+  athlete1 = generateAthlete(3);
+  athlete2 = generateAthlete(4);
 
-  requestAthlete1 = generateRequestAthlete(1, trainer1, athlete);
-  requestAthlete2 = generateRequestAthlete(2, trainer2, athlete);
+  requestAthlete1 = generateRequestAthlete(1, trainer1, athlete1);
+  requestAthlete2 = generateRequestAthlete(2, trainer2, athlete1);
 
-  athleteBearerToken = `Bearer ${await generateToken(athlete)}`;
+  athleteBearerToken = `Bearer ${await generateToken(athlete1)}`;
   trainerBearerToken = `Bearer ${await generateToken(trainer1)}`;
 
   await userRepository.save(trainer1);
-  await userRepository.save(athlete);
+  await userRepository.save(athlete1);
+  await userRepository.save(athlete2);
 
   await requestAthleteRepository.make(requestAthlete1);
   await requestAthleteRepository.make(requestAthlete2);
@@ -70,11 +73,11 @@ describe('Successful cases', () => {
       expect(result.body).toHaveLength(2);
       expect(result.body[0].id).toBe(requestAthlete1.id);
       expect(result.body[0].trainer_id).toBe(trainer1.id);
-      expect(result.body[0].athlete_id).toBe(athlete.id);
+      expect(result.body[0].athlete_id).toBe(athlete1.id);
       expect(result.body[0].was_accepted).toBe(requestAthlete1.was_accepted);
       expect(result.body[1].id).toBe(requestAthlete2.id);
       expect(result.body[1].trainer_id).toBe(trainer2.id);
-      expect(result.body[1].athlete_id).toBe(athlete.id);
+      expect(result.body[1].athlete_id).toBe(athlete1.id);
       expect(result.body[1].was_accepted).toBe(requestAthlete2.was_accepted);
     });
   });
@@ -88,8 +91,19 @@ describe('Successful cases', () => {
       expect(result.body).toHaveLength(1);
       expect(result.body[0].id).toBe(requestAthlete1.id);
       expect(result.body[0].trainer_id).toBe(trainer1.id);
-      expect(result.body[0].athlete_id).toBe(athlete.id);
+      expect(result.body[0].athlete_id).toBe(athlete1.id);
       expect(result.body[0].was_accepted).toBe(requestAthlete1.was_accepted);
+    });
+
+    test('Make athlete request', async () => {
+      const result = await supertest(http.http)
+        .get(`/api/requestAthlete/make/${athlete2.id}`)
+        .set('Authorization', trainerBearerToken);
+      expect(result.status).toBe(201);
+      expect(result.body.id).toBe(1);
+      expect(result.body.trainer_id).toBe(trainer1.id);
+      expect(result.body.athlete_id).toBe(athlete2.id);
+      expect(result.body.was_accepted).toBeUndefined();
     });
   })
 });
