@@ -4,6 +4,7 @@ import IRequestAthleteRepository from '../../domain/repository/IRequestAthleteRe
 import GetAllByAthleteAPI from './requestAthlete/GetAllByAthleteAPI';
 import GetAllByTrainerAPI from './requestAthlete/GetAllByTrainerAPI';
 import MakeAPI from './requestAthlete/MakeAPI';
+import HandleAPI from './requestAthlete/HandleAPI';
 
 class UserController{
   constructor(
@@ -15,6 +16,7 @@ class UserController{
     new GetAllByAthleteAPI(routePrefix, http, requestAthleteRepository);
     new GetAllByTrainerAPI(routePrefix, http, requestAthleteRepository);
     new MakeAPI(routePrefix, http, userRepository, requestAthleteRepository);
+    new HandleAPI(routePrefix, http, requestAthleteRepository);
   }
 }
 
