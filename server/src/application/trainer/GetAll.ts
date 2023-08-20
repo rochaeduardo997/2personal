@@ -6,7 +6,7 @@ class GetAll{
   constructor(private userRepository: IUserRepository){}
 
   async execute(): Promise<TOutput[]>{
-    const trainers = await this.userRepository.getAll() as Trainer[];
+    const trainers = await this.userRepository.getAll('trainer') as Trainer[];
     const result: TOutput[] = trainers.map((t: Trainer) => {
       return {
         id: t.id,
@@ -14,6 +14,7 @@ class GetAll{
         surname: t.surname,
         username: t.username,
         role: t.role,
+        email: t.email,
         status: t.status,
         created_at: t.created_at,
         updated_at: t.updated_at,
@@ -21,7 +22,7 @@ class GetAll{
         register: t.register,
         plan: t.plan,
         athletes_limit: t.athletes_limit,
-        athletes_total: t.athletes.length,
+        athletes_total: t.athletes?.length,
         last_remove_date: t.last_remove_date
       };
     });
@@ -36,6 +37,7 @@ type TOutput = {
   surname: string;
   username: string;
   role: string;
+  email: string;
   status: boolean;
   created_at: Date;
   updated_at: Date;

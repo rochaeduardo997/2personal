@@ -31,6 +31,7 @@ test('Get all', async () => {
   expect(trainers[0].surname).toBe(trainer1.surname);
   expect(trainers[0].username).toBe(trainer1.username);
   expect(trainers[0].role).toBe(trainer1.role);
+  expect(trainers[0].email).toBe(trainer1.email);
   expect(trainers[0].status).toBe(trainer1.status);
   expect(new Date(trainers[0].created_at)).toEqual(new Date(trainer1.created_at));
   expect(new Date(trainers[0].updated_at)).toEqual(new Date(trainer1.updated_at));
@@ -45,6 +46,7 @@ test('Get all', async () => {
   expect(trainers[1].surname).toBe(trainer2.surname);
   expect(trainers[1].username).toBe(trainer2.username);
   expect(trainers[1].role).toBe(trainer2.role);
+  expect(trainers[1].email).toBe(trainer2.email);
   expect(trainers[1].status).toBe(trainer2.status);
   expect(new Date(trainers[1].created_at)).toEqual(new Date(trainer2.created_at));
   expect(new Date(trainers[1].updated_at)).toEqual(new Date(trainer2.updated_at));
