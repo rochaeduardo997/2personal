@@ -18,7 +18,7 @@ class GetAll{
         created_at: a.created_at,
         updated_at: a.updated_at,
         deleted_at: a.deleted_at,
-        has_athlete: !!a.trainer
+        has_trainer: !!a.trainer
       };
     });
 
@@ -37,7 +37,7 @@ type TOutput = {
   created_at: Date;
   updated_at: Date;
   deleted_at?: Date;
-  has_athlete: boolean;
+  has_trainer: boolean;
 };
 
 export default GetAll;

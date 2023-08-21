@@ -39,7 +39,7 @@ test('Get all', async () => {
   expect(athletes[0].status).toBe(athlete1.status);
   expect(new Date(athletes[0].created_at)).toEqual(new Date(athlete1.created_at));
   expect(new Date(athletes[0].updated_at)).toEqual(new Date(athlete1.updated_at));
-  expect(athletes[0].has_athlete).toBeFalsy();
+  expect(athletes[0].has_trainer).toBeFalsy();
   expect(athletes[1].deleted_at).toBeUndefined();
   expect(athletes[1].id).toBe(athlete2.id);
   expect(athletes[1].name).toBe(athlete2.name);
@@ -51,6 +51,6 @@ test('Get all', async () => {
   expect(new Date(athletes[1].created_at)).toEqual(new Date(athlete2.created_at));
   expect(new Date(athletes[1].updated_at)).toEqual(new Date(athlete2.updated_at));
   expect(athletes[1].deleted_at).toBeUndefined();
-  expect(athletes[1].has_athlete).toBeTruthy();
+  expect(athletes[1].has_trainer).toBeTruthy();
 });
 

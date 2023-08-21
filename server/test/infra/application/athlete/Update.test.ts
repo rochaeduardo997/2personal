@@ -1,35 +1,32 @@
-import Trainer from '../../../../src/domain/entity/Trainer';
+import Athlete from '../../../../src/domain/entity/Athlete';
 import IUserRepository from '../../../../src/domain/repository/IUserRepository';
 import RepositoryFactoryMemory from '../../../../src/infra/factory/RepositoryFactoryMemory';
-import Update from '../../../../src/application/trainer/Update';
+import Update from '../../../../src/application/athlete/Update';
 import ICrypto from '../../../../src/infra/crypto/ICrypto';
 import CryptoAdapter from '../../../../src/infra/crypto/CryptoAdapter';
-import { generateTrainer } from '../../../seeds/user';
+import { generateAthlete } from '../../../seeds/user';
 
 import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-let trainer: Trainer;
+let athlete: Athlete;
 let userRepository: IUserRepository;
 let crypto: ICrypto;
 
 beforeAll(async () => {
   crypto = new CryptoAdapter();
 
-  trainer = generateTrainer(1);
+  athlete = generateAthlete(1);
 
   const repositoryFactory = new RepositoryFactoryMemory();
   userRepository = repositoryFactory.userRepository();
-  trainer = await userRepository.save(trainer);
-  trainer.update({
+  athlete = await userRepository.save(athlete);
+  athlete.update({
     name:          'name updated',
     surname:       'surname updated',
-    register:      '11111-ce',
     status:        false,
     email:         'update@email.com',
-    plan:          'free',
-    athletes_limit: 5,
     username:       'username updated',
     password:       'password updated'
   });
@@ -38,30 +35,25 @@ beforeAll(async () => {
 describe('Successful cases', () => {
   test('Update', async () => {
     const update = new Update(userRepository, crypto);
-    const trainerUpdated = await update.execute(trainer.id, {
+    const athleteUpdated = await update.execute(athlete.id, {
       name:          'name updated',
       surname:       'surname updated',
-      register:      '11111-ce',
       status:        false,
       email:         'update@email.com',
-      plan:          'free',
-      athletes_limit: 5,
       username:       'username updated',
       password:       'password updated'
     });
 
-    expect(trainerUpdated.id).toBe(trainer.id);
-    expect(trainerUpdated.name).toBe(trainer.name);
-    expect(trainerUpdated.surname).toBe(trainer.surname);
-    expect(trainerUpdated.username).toBe(trainer.username);
-    expect(trainerUpdated.role).toBe(trainer.role);
-    expect(trainerUpdated.email).toBe(trainer.email);
-    expect(trainerUpdated.status).toBe(trainer.status);
-    expect(new Date(trainerUpdated.created_at)).toBeInstanceOf(Date);
-    expect(new Date(trainerUpdated.updated_at)).toBeInstanceOf(Date);
-    expect(trainerUpdated.register).toBe(trainer.register);
-    expect(trainerUpdated.plan).toBe(trainer.plan);
-    expect(trainerUpdated.athletes_limit).toBe(trainer.athletes_limit);
+    expect(athleteUpdated.id).toBe(athlete.id);
+    expect(athleteUpdated.name).toBe(athlete.name);
+    expect(athleteUpdated.surname).toBe(athlete.surname);
+    expect(athleteUpdated.username).toBe(athlete.username);
+    expect(athleteUpdated.role).toBe(athlete.role);
+    expect(athleteUpdated.email).toBe(athlete.email);
+    expect(athleteUpdated.status).toBe(athlete.status);
+    expect(new Date(athleteUpdated.created_at)).toBeInstanceOf(Date);
+    expect(new Date(athleteUpdated.updated_at)).toBeInstanceOf(Date);
+    expect(athleteUpdated.has_trainer).toBe(!!athlete.trainer);
   });
 });
 

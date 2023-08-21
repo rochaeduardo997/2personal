@@ -9,6 +9,7 @@ import { generateUser, generateAthlete, generateTrainer } from '../../seeds/user
 import { generateToken } from '../../seeds/token';
 import UserController from '../../../src/infra/controller/UserController';
 import TrainerController from '../../../src/infra/controller/TrainerController';
+import AthleteController from '../../../src/infra/controller/AthleteController';
 import CryptoAdapter from '../../../src/infra/crypto/CryptoAdapter';
 import JWTAdapter from '../../../src/infra/token/JWTAdapter';
 
@@ -44,6 +45,7 @@ async function prepareController(http: IHttp){
 
   new UserController('users', http, userRepository, crypto);
   new TrainerController('trainers', http, userRepository, crypto);
+  new AthleteController('athletes', http, userRepository, crypto);
 }
 
 beforeAll(async () => {
@@ -271,6 +273,101 @@ describe('Successful cases', () => {
       expect(result.body.register).toBe(input.register);
       expect(result.body.plan).toBe(input.plan);
       expect(result.body.athletes_limit).toBe(input.athletes_limit);
+    });
+  });
+
+  describe('Athlete', () => {
+    test('Get all', async () => {
+      const trainerAthletes = [{ id: athlete1.id, name: athlete1.name, surname: athlete1.surname }];
+
+      const result = await supertest(http.http)
+        .get('/api/athletes/')
+        .set('Authorization', bearerToken);
+      expect(result.status).toBe(200);
+      expect(result.body).toHaveLength(1);
+      expect(result.body[0].id).toBe(athlete1.id);
+      expect(result.body[0].name).toBe(athlete1.name);
+      expect(result.body[0].surname).toBe(athlete1.surname);
+      expect(result.body[0].username).toBe(athlete1.username);
+      expect(result.body[0].role).toBe(athlete1.role);
+      expect(result.body[0].status).toBe(athlete1.status);
+      expect(result.body[0].email).toBe(athlete1.email);
+      expect(new Date(result.body[0].created_at)).toEqual(new Date(athlete1.created_at));
+      expect(new Date(result.body[0].updated_at)).toEqual(new Date(athlete1.updated_at));
+      expect(result.body[0].deleted_at).toBeUndefined();
+      expect(result.body[0].has_trainer).toBeTruthy();
+    });
+
+    test('Get by id', async () => {
+      const athleteTrainer = { id: trainer1.id, name: trainer1.name, surname: trainer1.surname };
+      const result = await supertest(http.http)
+        .get(`/api/athletes/${athlete1.id}`)
+        .set('Authorization', bearerToken);
+
+      expect(result.status).toBe(200);
+      expect(result.body.id).toBe(athlete1.id);
+      expect(result.body.name).toBe(athlete1.name);
+      expect(result.body.surname).toBe(athlete1.surname);
+      expect(result.body.username).toBe(athlete1.username);
+      expect(result.body.role).toBe(athlete1.role);
+      expect(result.body.email).toBe(athlete1.email);
+      expect(result.body.status).toBe(athlete1.status);
+      expect(new Date(result.body.created_at)).toEqual(new Date(athlete1.created_at));
+      expect(new Date(result.body.updated_at)).toEqual(new Date(athlete1.updated_at));
+      expect(result.body.deleted_at).toBeUndefined();
+      expect(result.body.trainer).toEqual(athleteTrainer);
+    });
+
+    test('Create', async () => {
+      const athlete2 = generateAthlete(99);
+      const input = {
+        name: athlete2.name,
+        surname: athlete2.surname,
+        username: athlete2.username,
+        role: athlete2.role,
+        password: athlete2.password,
+        email: athlete2.email
+      };
+      const result = await supertest(http.http)
+        .post(`/api/auth/athletes/`)
+        .send(input);
+      expect(result.status).toBe(201);
+      expect(result.body.id).toBe(1);
+      expect(result.body.name).toBe(athlete2.name);
+      expect(result.body.surname).toBe(athlete2.surname);
+      expect(result.body.username).toBe(athlete2.username);
+      expect(result.body.role).toBe(athlete2.role);
+      expect(result.body.email).toBe(athlete2.email);
+      expect(result.body.status).toBe(athlete2.status);
+      expect(new Date(result.body.created_at)).toBeInstanceOf(Date)
+      expect(new Date(result.body.updated_at)).toBeInstanceOf(Date)
+      expect(result.body.trainer).toBeUndefined();
+    });
+
+    test('Update', async () => {
+      const input = {
+        name:           'name updated',
+        surname:        'surname updated',
+        status:         false,
+        username:       'username updated',
+        password:       'password updated',
+        email:          'email@update.com'
+      };
+      const result = await supertest(http.http)
+        .put(`/api/athletes/${athlete1.id}`)
+        .set('Authorization', bearerToken)
+        .send(input);
+      expect(result.status).toBe(200);
+      expect(result.body.id).toBe(athlete1.id);
+      expect(result.body.name).toBe(input.name);
+      expect(result.body.surname).toBe(input.surname);
+      expect(result.body.username).toBe(input.username);
+      expect(result.body.role).toBe(athlete1.role);
+      expect(result.body.email).toBe(input.email);
+      expect(result.body.status).toBe(input.status);
+      expect(new Date(result.body.created_at)).toBeInstanceOf(Date)
+      expect(new Date(result.body.updated_at)).toBeInstanceOf(Date)
+      expect(result.body.has_trainer).toBe(!!athlete1.trainer);
     });
   });
 });
