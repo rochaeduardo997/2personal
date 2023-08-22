@@ -1,10 +1,10 @@
 import IHttp from '../http/IHttp';
 import ICrypto from '../crypto/ICrypto';
 import IUserRepository from '../../domain/repository/IUserRepository';
-import GetAPI from './trainers/GetAPI';
-import GetAllAPI from './trainers/GetAllAPI';
-import AddAPI from './trainers/AddAPI';
-import UpdateAPI from './trainers/UpdateAPI';
+import GetAPI from './users/trainers/GetAPI';
+import GetAllAPI from './users/trainers/GetAllAPI';
+import AddAPI from './users/trainers/AddAPI';
+import UpdateAPI from './users/trainers/UpdateAPI';
 
 class TrainerController{
   constructor(

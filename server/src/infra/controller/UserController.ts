@@ -1,11 +1,11 @@
 import IHttp from '../http/IHttp';
 import ICrypto from '../crypto/ICrypto';
 import IUserRepository from '../../domain/repository/IUserRepository';
-import GetAllAPI from './users/GetAllAPI';
-import GetAPI from './users/GetAPI';
-import AddAPI from './users/AddAPI';
-import UpdateAPI from './users/UpdateAPI';
-import DeleteAPI from './users/DeleteAPI';
+import AddAPI from './users/user/AddAPI';
+import DeleteAPI from './users/user/DeleteAPI';
+import GetAPI from './users/user/GetAPI';
+import GetAllAPI from './users/user/GetAllAPI';
+import UpdateAPI from './users/user/UpdateAPI';
 
 class UserController{
   constructor(

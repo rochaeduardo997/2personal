@@ -1,7 +1,7 @@
-import IHttp from '../../http/IHttp';
-import ICrypto from '../../crypto/ICrypto';
-import IUserRepository from '../../../domain/repository/IUserRepository';
-import Add from '../../../application/athlete/Add';
+import IHttp from '../../../http/IHttp';
+import ICrypto from '../../../crypto/ICrypto';
+import IUserRepository from '../../../../domain/repository/IUserRepository';
+import Add from '../../../../application/user/Add';
 
 class AddAPI{
   constructor(

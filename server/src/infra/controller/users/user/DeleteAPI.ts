@@ -1,6 +1,6 @@
-import IHttp from '../../http/IHttp';
-import IUserRepository from '../../../domain/repository/IUserRepository';
-import Delete from '../../../application/user/Delete';
+import Delete from "../../../../application/user/Delete";
+import IUserRepository from "../../../../domain/repository/IUserRepository";
+import IHttp from "../../../http/IHttp";
 
 class DeleteAPI{
   constructor(

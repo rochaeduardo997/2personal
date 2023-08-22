@@ -1,6 +1,6 @@
-import IHttp from '../../http/IHttp';
-import IRequestAthleteRepository from '../../../domain/repository/IRequestAthleteRepository';
-import Handle from '../../../application/requestAthlete/Handle';
+import Handle from "../../../../application/requestAthlete/Handle";
+import IRequestAthleteRepository from "../../../../domain/repository/IRequestAthleteRepository";
+import IHttp from "../../../http/IHttp";
 
 class HandleAPI{
   constructor(

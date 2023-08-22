@@ -1,7 +1,7 @@
-import IHttp from '../../http/IHttp';
-import ICrypto from '../../crypto/ICrypto';
-import IUserRepository from '../../../domain/repository/IUserRepository';
-import Update from '../../../application/user/Update';
+import Update from "../../../../application/user/Update";
+import IUserRepository from "../../../../domain/repository/IUserRepository";
+import ICrypto from "../../../crypto/ICrypto";
+import IHttp from "../../../http/IHttp";
 
 class UpdateAPI {
   constructor(

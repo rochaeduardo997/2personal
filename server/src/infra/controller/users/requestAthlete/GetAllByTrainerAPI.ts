@@ -1,6 +1,6 @@
-import IHttp from '../../http/IHttp';
-import IRequestAthleteRepository from '../../../domain/repository/IRequestAthleteRepository';
-import GetAllByTrainer from '../../../application/requestAthlete/GetAllByTrainer';
+import GetAllByTrainer from "../../../../application/requestAthlete/GetAllByTrainer";
+import IRequestAthleteRepository from "../../../../domain/repository/IRequestAthleteRepository";
+import IHttp from "../../../http/IHttp";
 
 class GetAllByTrainerAPI{
   constructor(

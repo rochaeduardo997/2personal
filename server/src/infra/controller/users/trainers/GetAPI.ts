@@ -1,6 +1,6 @@
-import IHttp from '../../http/IHttp';
-import IUserRepository from '../../../domain/repository/IUserRepository';
-import Get from '../../../application/user/Get';
+import Get from "../../../../application/trainer/Get";
+import IUserRepository from "../../../../domain/repository/IUserRepository";
+import IHttp from "../../../http/IHttp";
 
 class GetAPI {
   constructor(

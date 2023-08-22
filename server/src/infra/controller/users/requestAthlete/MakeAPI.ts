@@ -1,7 +1,7 @@
-import IHttp from '../../http/IHttp';
-import IRequestAthleteRepository from '../../../domain/repository/IRequestAthleteRepository';
-import IUserRepository from '../../../domain/repository/IUserRepository';
-import Make from '../../../application/requestAthlete/Make';
+import Make from "../../../../application/requestAthlete/Make";
+import IRequestAthleteRepository from "../../../../domain/repository/IRequestAthleteRepository";
+import IUserRepository from "../../../../domain/repository/IUserRepository";
+import IHttp from "../../../http/IHttp";
 
 class MakeAPI{
   constructor(

@@ -1,6 +1,6 @@
-import IHttp from '../../http/IHttp';
-import IUserRepository from '../../../domain/repository/IUserRepository';
-import GetAll from '../../../application/athlete/GetAll';
+import GetAll from "../../../../application/user/GetAll";
+import IUserRepository from "../../../../domain/repository/IUserRepository";
+import IHttp from "../../../http/IHttp";
 
 class GetAllAPI{
   constructor(
@@ -26,4 +26,3 @@ class GetAllAPI{
 }
 
 export default GetAllAPI;
-

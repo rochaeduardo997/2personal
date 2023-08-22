@@ -1,10 +1,10 @@
 import IHttp from '../http/IHttp';
 import ICrypto from '../crypto/ICrypto';
 import IUserRepository from '../../domain/repository/IUserRepository';
-import GetAPI from './athletes/GetAPI';
-import GetAllAPI from './athletes/GetAllAPI';
-import AddAPI from './athletes/AddAPI';
-import UpdateAPI from './athletes/UpdateAPI';
+import AddAPI from './users/athletes/AddAPI';
+import GetAPI from './users/athletes/GetAPI';
+import GetAllAPI from './users/athletes/GetAllAPI';
+import UpdateAPI from './users/athletes/UpdateAPI';
 
 class AthleteController{
   constructor(
