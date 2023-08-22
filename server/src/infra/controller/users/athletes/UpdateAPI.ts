@@ -1,4 +1,4 @@
-import Update from "../../../../application/athlete/Update";
+import Update from "../../../../application/users/athlete/Update";
 import IUserRepository from "../../../../domain/repository/IUserRepository";
 import ICrypto from "../../../crypto/ICrypto";
 import IHttp from "../../../http/IHttp";

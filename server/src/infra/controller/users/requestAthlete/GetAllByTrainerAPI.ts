@@ -1,4 +1,4 @@
-import GetAllByTrainer from "../../../../application/requestAthlete/GetAllByTrainer";
+import GetAllByTrainer from "../../../../application/users/requestAthlete/GetAllByTrainer";
 import IRequestAthleteRepository from "../../../../domain/repository/IRequestAthleteRepository";
 import IHttp from "../../../http/IHttp";
 

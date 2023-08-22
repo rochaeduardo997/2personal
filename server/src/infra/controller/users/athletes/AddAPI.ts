@@ -1,4 +1,4 @@
-import Add from "../../../../application/athlete/Add";
+import Add from "../../../../application/users/athlete/Add";
 import IUserRepository from "../../../../domain/repository/IUserRepository";
 import ICrypto from "../../../crypto/ICrypto";
 import IHttp from "../../../http/IHttp";

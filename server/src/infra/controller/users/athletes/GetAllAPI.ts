@@ -1,4 +1,4 @@
-import GetAll from "../../../../application/athlete/GetAll";
+import GetAll from "../../../../application/users/athlete/GetAll";
 import IUserRepository from "../../../../domain/repository/IUserRepository";
 import IHttp from "../../../http/IHttp";
 

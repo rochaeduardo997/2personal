@@ -1,4 +1,4 @@
-import Handle from "../../../../application/requestAthlete/Handle";
+import Handle from "../../../../application/users/requestAthlete/Handle";
 import IRequestAthleteRepository from "../../../../domain/repository/IRequestAthleteRepository";
 import IHttp from "../../../http/IHttp";
 

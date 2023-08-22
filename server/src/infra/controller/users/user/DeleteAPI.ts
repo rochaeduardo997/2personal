@@ -1,4 +1,4 @@
-import Delete from "../../../../application/user/Delete";
+import Delete from "../../../../application/users/user/Delete";
 import IUserRepository from "../../../../domain/repository/IUserRepository";
 import IHttp from "../../../http/IHttp";
 
