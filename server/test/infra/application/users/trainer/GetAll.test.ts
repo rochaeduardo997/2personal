@@ -1,6 +1,6 @@
 import GetAll from '../../../../../src/application/users/trainer/GetAll';
-import Trainer from '../../../../../src/domain/entity/Trainer';
-import IUserRepository from '../../../../../src/domain/repository/IUserRepository';
+import Trainer from '../../../../../src/domain/entity/users/Trainer';
+import IUserRepository from '../../../../../src/domain/repository/users/IUserRepository';
 import RepositoryFactoryMemory from '../../../../../src/infra/factory/RepositoryFactoryMemory';
 import { generateTrainer, generateAthlete } from '../../../../seeds/user';
 

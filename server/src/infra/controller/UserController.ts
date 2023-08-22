@@ -1,6 +1,6 @@
 import IHttp from '../http/IHttp';
 import ICrypto from '../crypto/ICrypto';
-import IUserRepository from '../../domain/repository/IUserRepository';
+import IUserRepository from '../../domain/repository/users/IUserRepository';
 import AddAPI from './users/user/AddAPI';
 import DeleteAPI from './users/user/DeleteAPI';
 import GetAPI from './users/user/GetAPI';

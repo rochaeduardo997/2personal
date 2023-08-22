@@ -1,6 +1,6 @@
 import IHttp from '../../../http/IHttp';
 import ICrypto from '../../../crypto/ICrypto';
-import IUserRepository from '../../../../domain/repository/IUserRepository';
+import IUserRepository from '../../../../domain/repository/users/IUserRepository';
 import Add from '../../../../application/users/user/Add';
 
 class AddAPI{

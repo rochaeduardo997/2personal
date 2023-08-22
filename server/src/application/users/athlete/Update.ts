@@ -1,5 +1,5 @@
-import Athlete from "../../../domain/entity/Athlete";
-import IUserRepository from "../../../domain/repository/IUserRepository";
+import Athlete from "../../../domain/entity/users/Athlete";
+import IUserRepository from "../../../domain/repository/users/IUserRepository";
 import ICrypto from "../../../infra/crypto/ICrypto";
 
 class Update{

@@ -1,6 +1,6 @@
-import User from "../entity/User";
-import Trainer from "../entity/Trainer";
-import Athlete from "../entity/Athlete";
+import Athlete from "../../entity/users/Athlete";
+import Trainer from "../../entity/users/Trainer";
+import User from "../../entity/users/User";
 
 interface IUserRepository {
   save<T extends TUserTypes>(user: T): Promise<T>;

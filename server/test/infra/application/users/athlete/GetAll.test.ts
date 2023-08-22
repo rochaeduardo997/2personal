@@ -1,7 +1,7 @@
 import GetAll from '../../../../../src/application/users/athlete/GetAll';
-import Athlete from '../../../../../src/domain/entity/Athlete';
-import Trainer from '../../../../../src/domain/entity/Trainer';
-import IUserRepository from '../../../../../src/domain/repository/IUserRepository';
+import Athlete from '../../../../../src/domain/entity/users/Athlete';
+import Trainer from '../../../../../src/domain/entity/users/Trainer';
+import IUserRepository from '../../../../../src/domain/repository/users/IUserRepository';
 import RepositoryFactoryMemory from '../../../../../src/infra/factory/RepositoryFactoryMemory';
 import { generateAthlete } from '../../../../seeds/user';
 import { generateTrainer } from '../../../../seeds/user';

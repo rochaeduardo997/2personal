@@ -1,8 +1,7 @@
-
 import * as dotenv from 'dotenv';
 import Update from '../../../../../src/application/users/user/Update';
-import User from '../../../../../src/domain/entity/User';
-import IUserRepository from '../../../../../src/domain/repository/IUserRepository';
+import User from '../../../../../src/domain/entity/users/User';
+import IUserRepository from '../../../../../src/domain/repository/users/IUserRepository';
 import CryptoAdapter from '../../../../../src/infra/crypto/CryptoAdapter';
 import ICrypto from '../../../../../src/infra/crypto/ICrypto';
 import RepositoryFactoryMemory from '../../../../../src/infra/factory/RepositoryFactoryMemory';

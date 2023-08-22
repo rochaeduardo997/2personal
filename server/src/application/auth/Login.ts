@@ -1,6 +1,6 @@
 import IToken from '../../infra/token/IToken';
 import ICrypto from '../../infra/crypto/ICrypto';
-import IUserRepository, { TInput } from '../../domain/repository/IUserRepository';
+import IUserRepository, { TInput } from '../../domain/repository/users/IUserRepository';
 
 class Login {
   constructor(

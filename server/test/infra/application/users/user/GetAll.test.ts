@@ -1,6 +1,6 @@
 import GetAll from "../../../../../src/application/users/user/GetAll";
-import User from "../../../../../src/domain/entity/User";
-import IUserRepository from "../../../../../src/domain/repository/IUserRepository";
+import User from "../../../../../src/domain/entity/users/User";
+import IUserRepository from "../../../../../src/domain/repository/users/IUserRepository";
 import RepositoryFactoryMemory from "../../../../../src/infra/factory/RepositoryFactoryMemory";
 import { generateUser } from "../../../../seeds/user";
 

@@ -1,4 +1,4 @@
-import IRequestAthleteRepository from "../../../domain/repository/IRequestAthleteRepository";
+import IRequestAthleteRepository from "../../../domain/repository/users/IRequestAthleteRepository";
 
 class Handle{
   constructor(private requestAthleteRepository: IRequestAthleteRepository){}

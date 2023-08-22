@@ -1,7 +1,7 @@
 import IHttp from '../../http/IHttp';
 import ICrypto from '../../crypto/ICrypto';
 import IToken from '../../token/IToken';
-import IUserRepository from '../../../domain/repository/IUserRepository';
+import IUserRepository from '../../../domain/repository/users/IUserRepository';
 import Login from '../../../application/auth/Login';
 
 class LoginAPI{

@@ -1,8 +1,8 @@
-import Athlete from "../../../domain/entity/Athlete";
-import RequestAthlete from "../../../domain/entity/RequestAthlete";
-import Trainer from "../../../domain/entity/Trainer";
-import IRequestAthleteRepository from "../../../domain/repository/IRequestAthleteRepository";
-import IUserRepository from "../../../domain/repository/IUserRepository";
+import Athlete from "../../../domain/entity/users/Athlete";
+import RequestAthlete from "../../../domain/entity/users/RequestAthlete";
+import Trainer from "../../../domain/entity/users/Trainer";
+import IRequestAthleteRepository from "../../../domain/repository/users/IRequestAthleteRepository";
+import IUserRepository from "../../../domain/repository/users/IUserRepository";
 
 class Make{
   constructor(

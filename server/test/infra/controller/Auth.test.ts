@@ -1,6 +1,6 @@
 import IHttp from '../../../src/infra/http/IHttp';
 import ExpressAdapter from '../../../src/infra/http/ExpressAdapter';
-import User from '../../../src/domain/entity/User';
+import User from '../../../src/domain/entity/users/User';
 import RepositoryFactoryMemory from '../../../src/infra/factory/RepositoryFactoryMemory';
 import { generateUser } from '../../seeds/user';
 import AuthController from '../../../src/infra/controller/AuthController';

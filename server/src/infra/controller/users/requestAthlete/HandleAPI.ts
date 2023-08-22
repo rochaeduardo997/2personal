@@ -1,5 +1,5 @@
 import Handle from "../../../../application/users/requestAthlete/Handle";
-import IRequestAthleteRepository from "../../../../domain/repository/IRequestAthleteRepository";
+import IRequestAthleteRepository from "../../../../domain/repository/users/IRequestAthleteRepository";
 import IHttp from "../../../http/IHttp";
 
 class HandleAPI{

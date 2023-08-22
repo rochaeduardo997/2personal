@@ -1,5 +1,5 @@
 import Update from "../../../../application/users/trainer/Update";
-import IUserRepository from "../../../../domain/repository/IUserRepository";
+import IUserRepository from "../../../../domain/repository/users/IUserRepository";
 import ICrypto from "../../../crypto/ICrypto";
 import IHttp from "../../../http/IHttp";
 

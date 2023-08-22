@@ -1,5 +1,5 @@
 import IUserRepository from '../repository/IUserRepository';
-import IRequestAthleteRepository from '../repository/IRequestAthleteRepository';
+import IRequestAthleteRepository from '../repository/users/IRequestAthleteRepository';
 
 interface IRepository{
   userRepository(): IUserRepository;

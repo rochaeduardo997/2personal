@@ -1,7 +1,7 @@
-import Trainer from '../../src/domain/entity/Trainer';
-import Athlete from '../../src/domain/entity/Athlete';
-import RequestAthlete from '../../src/domain/entity/RequestAthlete';
-import { generateTrainer, generateAthlete } from '../seeds/user';
+import Athlete from "../../../src/domain/entity/users/Athlete";
+import RequestAthlete from "../../../src/domain/entity/users/RequestAthlete";
+import Trainer from "../../../src/domain/entity/users/Trainer";
+import { generateTrainer, generateAthlete } from "../../seeds/user";
 
 let trainer: Trainer;
 let athlete: Athlete;

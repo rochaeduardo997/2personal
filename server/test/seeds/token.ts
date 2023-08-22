@@ -1,5 +1,5 @@
 import JWTAdapter from '../../src/infra/token/JWTAdapter';
-import User from '../../src/domain/entity/User';
+import User from '../../src/domain/entity/users/User';
 
 import * as dotenv from 'dotenv';
 

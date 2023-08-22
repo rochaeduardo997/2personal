@@ -1,20 +1,19 @@
-import IHttp from '../../../src/infra/http/IHttp';
-import IUserRepository from '../../../src/domain/repository/IUserRepository';
-import ExpressAdapter from '../../../src/infra/http/ExpressAdapter';
-import User from '../../../src/domain/entity/User';
-import Trainer from '../../../src/domain/entity/Trainer';
-import Athlete from '../../../src/domain/entity/Athlete';
-import RepositoryFactoryMemory from '../../../src/infra/factory/RepositoryFactoryMemory';
-import { generateUser, generateAthlete, generateTrainer } from '../../seeds/user';
-import { generateToken } from '../../seeds/token';
-import UserController from '../../../src/infra/controller/UserController';
-import TrainerController from '../../../src/infra/controller/TrainerController';
-import AthleteController from '../../../src/infra/controller/AthleteController';
-import CryptoAdapter from '../../../src/infra/crypto/CryptoAdapter';
-import JWTAdapter from '../../../src/infra/token/JWTAdapter';
-
 import supertest from 'supertest';
 import * as dotenv from 'dotenv';
+import Athlete from '../../../../src/domain/entity/users/Athlete';
+import Trainer from '../../../../src/domain/entity/users/Trainer';
+import User from '../../../../src/domain/entity/users/User';
+import IUserRepository from '../../../../src/domain/repository/users/IUserRepository';
+import AthleteController from '../../../../src/infra/controller/AthleteController';
+import UserController from '../../../../src/infra/controller/UserController';
+import TrainerController from '../../../../src/infra/controller/TrainerController';
+import CryptoAdapter from '../../../../src/infra/crypto/CryptoAdapter';
+import RepositoryFactoryMemory from '../../../../src/infra/factory/RepositoryFactoryMemory';
+import ExpressAdapter from '../../../../src/infra/http/ExpressAdapter';
+import IHttp from '../../../../src/infra/http/IHttp';
+import JWTAdapter from '../../../../src/infra/token/JWTAdapter';
+import { generateToken } from '../../../seeds/token';
+import { generateUser, generateTrainer, generateAthlete } from '../../../seeds/user';
 
 dotenv.config();
 

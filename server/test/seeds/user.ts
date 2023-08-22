@@ -1,6 +1,6 @@
-import User from "../../src/domain/entity/User";
-import Trainer from "../../src/domain/entity/Trainer";
-import Athlete from "../../src/domain/entity/Athlete";
+import Athlete from "../../src/domain/entity/users/Athlete";
+import Trainer from "../../src/domain/entity/users/Trainer";
+import User from "../../src/domain/entity/users/User";
 
 function generateUser(i: number){
   return new User(i, `name ${i}`,  `surname ${i}`,  `username${i}`,  `password${i}`,  'admin', `email${i}@email.com`, true);

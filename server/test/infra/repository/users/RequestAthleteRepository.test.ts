@@ -1,10 +1,10 @@
-import RequestAthlete from '../../../src/domain/entity/RequestAthlete';
-import Athlete from '../../../src/domain/entity/Athlete';
-import Trainer from '../../../src/domain/entity/Trainer';
-import RepositoryFactoryMemory from '../../../src/infra/factory/RepositoryFactoryMemory';
-import IRequestAthleteRepository from '../../../src/domain/repository/IRequestAthleteRepository';
-import { generateAthlete, generateTrainer } from '../../seeds/user';
-import { generateRequestAthlete } from '../../seeds/requestAthlete';
+import Athlete from "../../../../src/domain/entity/users/Athlete";
+import RequestAthlete from "../../../../src/domain/entity/users/RequestAthlete";
+import Trainer from "../../../../src/domain/entity/users/Trainer";
+import IRequestAthleteRepository from "../../../../src/domain/repository/users/IRequestAthleteRepository";
+import RepositoryFactoryMemory from "../../../../src/infra/factory/RepositoryFactoryMemory";
+import { generateRequestAthlete } from "../../../seeds/requestAthlete";
+import { generateAthlete, generateTrainer } from "../../../seeds/user";
 
 let athlete: Athlete;
 let trainer: Trainer;

@@ -1,4 +1,4 @@
-import IRequestAthleteRepository from "../../../domain/repository/IRequestAthleteRepository";
+import IRequestAthleteRepository from "../../../domain/repository/users/IRequestAthleteRepository";
 
 class GetAllByTrainer{
   constructor(private requestAthleteRepository: IRequestAthleteRepository){}

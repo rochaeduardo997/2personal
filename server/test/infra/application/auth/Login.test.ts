@@ -1,9 +1,9 @@
 import Login from '../../../../src/application/auth/Login';
 import JWTAdapter from '../../../../src/infra/token/JWTAdapter';
 import RepositoryFactoryMemory from '../../../../src/infra/factory/RepositoryFactoryMemory';
-import User from '../../../../src/domain/entity/User';
-import Trainer from '../../../../src/domain/entity/Trainer';
-import Athlete from '../../../../src/domain/entity/Athlete';
+import User from '../../../../src/domain/entity/users/User';
+import Trainer from '../../../../src/domain/entity/users/Trainer';
+import Athlete from '../../../../src/domain/entity/users/Athlete';
 import CryptoAdapter from '../../../../src/infra/crypto/CryptoAdapter';
 import { generateUser } from '../../../seeds/user';
 

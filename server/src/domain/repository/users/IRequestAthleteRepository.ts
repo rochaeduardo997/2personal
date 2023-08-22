@@ -1,4 +1,4 @@
-import RequestAthlete from '../entity/RequestAthlete';
+import RequestAthlete from '../../entity/RequestAthlete';
 
 interface IRequestAthleteRepository{
   getAllByAthlete(id: number): Promise<RequestAthlete[]>;

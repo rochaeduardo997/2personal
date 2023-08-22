@@ -1,5 +1,5 @@
 import Add from "../../../../application/users/athlete/Add";
-import IUserRepository from "../../../../domain/repository/IUserRepository";
+import IUserRepository from "../../../../domain/repository/users/IUserRepository";
 import ICrypto from "../../../crypto/ICrypto";
 import IHttp from "../../../http/IHttp";
 

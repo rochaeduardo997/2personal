@@ -1,4 +1,4 @@
-import User from '../../src/domain/entity/User';
+import User from "../../../src/domain/entity/users/User";
 
 let user: User;
 

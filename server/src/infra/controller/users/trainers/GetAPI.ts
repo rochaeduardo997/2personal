@@ -1,5 +1,5 @@
 import Get from "../../../../application/users/trainer/Get";
-import IUserRepository from "../../../../domain/repository/IUserRepository";
+import IUserRepository from "../../../../domain/repository/users/IUserRepository";
 import IHttp from "../../../http/IHttp";
 
 class GetAPI {

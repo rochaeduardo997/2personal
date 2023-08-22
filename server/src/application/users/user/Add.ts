@@ -1,5 +1,5 @@
-import IUserRepository from '../../../domain/repository/IUserRepository';
-import User from '../../../domain/entity/User';
+import User from '../../../domain/entity/users/User';
+import IUserRepository from '../../../domain/repository/users/IUserRepository';
 import ICrypto from '../../../infra/crypto/ICrypto';
 
 class Add{

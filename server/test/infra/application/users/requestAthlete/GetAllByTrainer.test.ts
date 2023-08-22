@@ -1,6 +1,6 @@
-import RequestAthlete from '../../../../../src/domain/entity/RequestAthlete';
-import Trainer from '../../../../../src/domain/entity/Trainer';
-import Athlete from '../../../../../src/domain/entity/Athlete';
+import RequestAthlete from '../../../../../src/domain/entity/users/RequestAthlete';
+import Trainer from '../../../../../src/domain/entity/users/Trainer';
+import Athlete from '../../../../../src/domain/entity/users/Athlete';
 import RepositoryFactoryMemory from '../../../../../src/infra/factory/RepositoryFactoryMemory';
 import { generateTrainer, generateAthlete } from '../../../../seeds/user';
 import { generateRequestAthlete } from '../../../../seeds/requestAthlete';

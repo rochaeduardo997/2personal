@@ -1,6 +1,6 @@
 import Make from "../../../../application/users/requestAthlete/Make";
-import IRequestAthleteRepository from "../../../../domain/repository/IRequestAthleteRepository";
-import IUserRepository from "../../../../domain/repository/IUserRepository";
+import IRequestAthleteRepository from "../../../../domain/repository/users/IRequestAthleteRepository";
+import IUserRepository from "../../../../domain/repository/users/IUserRepository";
 import IHttp from "../../../http/IHttp";
 
 class MakeAPI{

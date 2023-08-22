@@ -1,5 +1,5 @@
-import User from "../../../domain/entity/User";
-import IUserRepository from "../../../domain/repository/IUserRepository";
+import User from "../../../domain/entity/users/User";
+import IUserRepository from "../../../domain/repository/users/IUserRepository";
 
 class GetAll{
   constructor(private userRepository: IUserRepository){}

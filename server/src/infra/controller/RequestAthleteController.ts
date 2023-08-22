@@ -1,10 +1,10 @@
 import IHttp from '../http/IHttp';
-import IUserRepository from '../../domain/repository/IUserRepository';
-import IRequestAthleteRepository from '../../domain/repository/IRequestAthleteRepository';
+import IRequestAthleteRepository from '../../domain/repository/users/IRequestAthleteRepository';
 import GetAllByAthleteAPI from './users/requestAthlete/GetAllByAthleteAPI';
 import GetAllByTrainerAPI from './users/requestAthlete/GetAllByTrainerAPI';
 import HandleAPI from './users/requestAthlete/HandleAPI';
 import MakeAPI from './users/requestAthlete/MakeAPI';
+import IUserRepository from '../../domain/repository/users/IUserRepository';
 
 class UserController{
   constructor(

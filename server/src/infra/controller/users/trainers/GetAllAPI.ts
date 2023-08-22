@@ -1,5 +1,5 @@
 import GetAll from "../../../../application/users/trainer/GetAll";
-import IUserRepository from "../../../../domain/repository/IUserRepository";
+import IUserRepository from "../../../../domain/repository/users/IUserRepository";
 import IHttp from "../../../http/IHttp";
 
 class GetAllAPI{

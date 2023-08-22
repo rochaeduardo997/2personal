@@ -1,9 +1,8 @@
-import User from "../../../src/domain/entity/User";
-import Trainer from "../../../src/domain/entity/Trainer";
-import Athlete from "../../../src/domain/entity/Athlete";
-import IUserRepository from "../../../src/domain/repository/IUserRepository";
-import RepositoryFactoryMemory from '../../../src/infra/factory/RepositoryFactoryMemory';
-import { generateUser, generateTrainer } from '../../seeds/user';
+import Trainer from "../../../../src/domain/entity/users/Trainer";
+import User from "../../../../src/domain/entity/users/User";
+import IUserRepository from "../../../../src/domain/repository/users/IUserRepository";
+import RepositoryFactoryMemory from "../../../../src/infra/factory/RepositoryFactoryMemory";
+import { generateUser, generateTrainer } from "../../../seeds/user";
 
 let user1: User;
 let user2: User;

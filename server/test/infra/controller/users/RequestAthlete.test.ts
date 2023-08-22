@@ -1,24 +1,24 @@
-import IHttp from '../../../src/infra/http/IHttp';
-import ExpressAdapter from '../../../src/infra/http/ExpressAdapter';
-import Trainer from '../../../src/domain/entity/Trainer';
-import Athlete from '../../../src/domain/entity/Athlete';
-import RequestAthlete from '../../../src/domain/entity/RequestAthlete';
-import RepositoryFactoryMemory from '../../../src/infra/factory/RepositoryFactoryMemory';
-import RequestAthleteController from '../../../src/infra/controller/RequestAthleteController';
-import CryptoAdapter from '../../../src/infra/crypto/CryptoAdapter';
-import JWTAdapter from '../../../src/infra/token/JWTAdapter';
-import { generateTrainer, generateAthlete } from '../../seeds/user';
-import { generateToken } from '../../seeds/token';
-import { generateRequestAthlete } from '../../seeds/requestAthlete';
+import IHttp from '../../../../src/infra/http/IHttp';
+import { generateTrainer, generateAthlete } from '../../../seeds/user';
+import { generateToken } from '../../../seeds/token';
+import { generateRequestAthlete } from '../../../seeds/requestAthlete';
 
 import supertest from 'supertest';
 import * as dotenv from 'dotenv';
+import Athlete from '../../../../src/domain/entity/users/Athlete';
+import RequestAthlete from '../../../../src/domain/entity/users/RequestAthlete';
+import Trainer from '../../../../src/domain/entity/users/Trainer';
+import RequestAthleteController from '../../../../src/infra/controller/RequestAthleteController';
+import CryptoAdapter from '../../../../src/infra/crypto/CryptoAdapter';
+import RepositoryFactoryMemory from '../../../../src/infra/factory/RepositoryFactoryMemory';
+import ExpressAdapter from '../../../../src/infra/http/ExpressAdapter';
+import JWTAdapter from '../../../../src/infra/token/JWTAdapter';
 
 dotenv.config();
 
 let http: IHttp;
 
-let trainer1: Trainer;
+let trainer1: Trainer
 let trainer2: Trainer;
 let athlete1: Athlete;
 let athlete2: Athlete;

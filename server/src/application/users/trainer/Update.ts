@@ -1,5 +1,5 @@
-import Trainer from "../../../domain/entity/Trainer";
-import IUserRepository from "../../../domain/repository/IUserRepository";
+import Trainer from "../../../domain/entity/users/Trainer";
+import IUserRepository from "../../../domain/repository/users/IUserRepository";
 import ICrypto from "../../../infra/crypto/ICrypto";
 
 class Update{

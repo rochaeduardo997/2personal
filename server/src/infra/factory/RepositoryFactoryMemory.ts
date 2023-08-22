@@ -1,6 +1,6 @@
 import IRepository from '../../domain/factory/IRepository';
-import IUserRepository from '../../domain/repository/IUserRepository';
-import IRequestAthleteRepository from '../../domain/repository/IRequestAthleteRepository';
+import IUserRepository from '../../domain/repository/users/IUserRepository';
+import IRequestAthleteRepository from '../../domain/repository/users/IRequestAthleteRepository';
 import UserRepositoryMemory from '../../infra/repository/UserRepositoryMemory';
 import RequestAthleteRepositoryMemory from '../../infra/repository/RequestAthleteRepositoryMemory';
 

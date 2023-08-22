@@ -1,5 +1,5 @@
-import Trainer from '../../src/domain/entity/Trainer';
-import Athlete from '../../src/domain/entity/Athlete';
+import Athlete from "../../../src/domain/entity/users/Athlete";
+import Trainer from "../../../src/domain/entity/users/Trainer";
 
 let trainer: Trainer;
 let athlete: Athlete;

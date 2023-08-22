@@ -1,6 +1,6 @@
 import Make from "../../../../../src/application/users/requestAthlete/Make";
-import Athlete from "../../../../../src/domain/entity/Athlete";
-import Trainer from "../../../../../src/domain/entity/Trainer";
+import Athlete from "../../../../../src/domain/entity/users/Athlete";
+import Trainer from "../../../../../src/domain/entity/users/Trainer";
 import RepositoryFactoryMemory from "../../../../../src/infra/factory/RepositoryFactoryMemory";
 import { generateTrainer, generateAthlete } from "../../../../seeds/user";
 

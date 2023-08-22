@@ -1,7 +1,5 @@
-import IUserRepository, { TInput, TUserTypes } from "../../../src/domain/repository/IUserRepository";
-import User from "../../../src/domain/entity/User";
-import Trainer from "../../../src/domain/entity/Trainer";
-import Athlete from "../../../src/domain/entity/Athlete";
+import User from "../../domain/entity/users/User";
+import IUserRepository, { TUserTypes, TInput } from "../../domain/repository/users/IUserRepository";
 
 class UserRepositoryMemory implements IUserRepository{
   private users: Array<TUserTypes>;

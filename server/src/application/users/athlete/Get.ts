@@ -1,6 +1,6 @@
-import Athlete from "../../../domain/entity/Athlete";
-import Trainer from "../../../domain/entity/Trainer";
-import IUserRepository from "../../../domain/repository/IUserRepository";
+import Athlete from "../../../domain/entity/users/Athlete";
+import Trainer from "../../../domain/entity/users/Trainer";
+import IUserRepository from "../../../domain/repository/users/IUserRepository";
 
 class Get{
   constructor(private userRepository: IUserRepository){}

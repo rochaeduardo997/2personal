@@ -1,5 +1,5 @@
 import IHttp from '../../../http/IHttp';
-import IRequestAthleteRepository from '../../../../domain/repository/IRequestAthleteRepository';
+import IRequestAthleteRepository from '../../../../domain/repository/users/IRequestAthleteRepository';
 import GetAllByAthlete from '../../../../application/users/requestAthlete/GetAllByAthlete';
 
 class GetAllByAthleteAPI{
