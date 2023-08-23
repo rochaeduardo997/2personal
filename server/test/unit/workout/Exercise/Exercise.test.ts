@@ -5,7 +5,7 @@ import Reps from "../../../../src/domain/entity/workout/Exercise/Reps";
 import { generateTrainer } from "../../../seeds/user";
 import DateRegisters from "../../../../src/domain/entity/common/DateRegisters";
 import { generateDateRegisters } from "../../../seeds/common";
-import { generateReps, generateRest } from "../../../seeds/exercise";
+import { generateReps, generateRest } from "../../../seeds/workout/exercise";
 
 let trainer: Trainer;
 let reps: Reps;

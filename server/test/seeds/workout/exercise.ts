@@ -1,8 +1,8 @@
-import DateRegisters from "../../src/domain/entity/common/DateRegisters";
-import Trainer from "../../src/domain/entity/users/Trainer";
-import Exercise from "../../src/domain/entity/workout/Exercise/Exercise";
-import Reps from "../../src/domain/entity/workout/Exercise/Reps";
-import Rest from "../../src/domain/entity/workout/Exercise/Rest";
+import DateRegisters from "../../../src/domain/entity/common/DateRegisters";
+import Trainer from "../../../src/domain/entity/users/Trainer";
+import Exercise from "../../../src/domain/entity/workout/Exercise/Exercise";
+import Reps from "../../../src/domain/entity/workout/Exercise/Reps";
+import Rest from "../../../src/domain/entity/workout/Exercise/Rest";
 
 function generateReps(sets: number = 3, reps: number[] = [ 10, 15, 20 ], type: string = 'normal'){
   return new Reps(sets, reps, type);

@@ -1,6 +1,6 @@
 import Exercise from "../../../../src/domain/entity/workout/Exercise/Exercise";
 import DayTraining from "../../../../src/domain/entity/workout/Sheet/DayTraining";
-import { generateExercise } from "../../../seeds/exercise";
+import { generateExercise } from "../../../seeds/workout/exercise";
 import { generateTrainer } from "../../../seeds/user";
 
 let dayTraining: DayTraining;
@@ -14,7 +14,7 @@ beforeAll(() => {
 });
 
 beforeEach(() => {
-  dayTraining = new DayTraining(1, 1, [ exercise1, exercise2 ]);
+  dayTraining = new DayTraining(1, 1, [ exercise1, exercise2 ], 5, 'kg');
 });
 
 describe('Successful cases', () =>{
@@ -22,13 +22,21 @@ describe('Successful cases', () =>{
     expect(dayTraining.id).toBe(1);
     expect(dayTraining.day).toBe(1);
     expect(dayTraining.exercises).toEqual([ exercise1, exercise2 ]);
+    expect(dayTraining.weight).toBe(5);
+    expect(dayTraining.measure).toBe('kg');
   });
 
   test('Update all day training fields', () => {
-    dayTraining.update({ exercises: [ exercise2 ] });
+    dayTraining.update({ 
+      exercises: [ exercise2 ],
+      weight:    10,
+      measure:   'lb'
+    });
 
     expect(dayTraining.id).toBe(1);
     expect(dayTraining.day).toBe(1);
     expect(dayTraining.exercises).toEqual([ exercise2 ]);
+    expect(dayTraining.weight).toBe(10);
+    expect(dayTraining.measure).toBe('lb');
   });
 });

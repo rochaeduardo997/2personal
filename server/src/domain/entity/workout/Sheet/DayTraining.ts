@@ -4,15 +4,18 @@ class DayTraining {
   constructor(
     private _id: number,
     private _day: DAYS,
-    private _exercises: Exercise[]
+    private _exercises: Exercise[],
+    private _weight?: number,
+    private _measure?: string
   ){}
 
   public update(input: TUpdateInput): boolean{
     if(input.exercises) this.exercises = input.exercises;
+    if(input.weight)    this.weight    = input.weight;
+    if(input.measure)   this.measure   = input.measure;
 
     return true;
   }
-
 
   public get id(): number {
     return this._id;
@@ -23,14 +26,28 @@ class DayTraining {
   public get exercises(): Exercise[] {
     return this._exercises;
   }
+  public get weight(): number | undefined {
+    return this._weight;
+  }
+  public get measure(): string | undefined {
+    return this._measure;
+  }
 
   public set exercises(value: Exercise[]) {
     this._exercises = value;
+  }
+  public set weight(value: number) {
+    this._weight = value;
+  }
+  public set measure(value: string) {
+    this._measure = value;
   }
 }
 
 type TUpdateInput = { 
   exercises?: Exercise[];
+  weight?: number;
+  measure?: string;
 };
 
 enum DAYS {
