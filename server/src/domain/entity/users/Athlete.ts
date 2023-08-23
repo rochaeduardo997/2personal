@@ -1,5 +1,6 @@
 import User from './User';
 import Trainer from './Trainer';
+import DateRegisters from '../common/DateRegisters';
 
 class Athlete extends User{
   constructor(
@@ -10,12 +11,10 @@ class Athlete extends User{
     protected _password:       string,
     protected _email:          string,
     protected _status:         boolean,
-    private   _trainer?:       Trainer,
-    protected _created_at:     Date = new Date(),
-    protected _updated_at:     Date = new Date(),
-    protected _deleted_at?:    Date
+    protected _dateRegisters:  DateRegisters = new DateRegisters(),
+    private   _trainer?:       Trainer
   ){
-    super(_id, _name, _surname, _username, _password, 'athlete', _email, _status, _created_at, _updated_at, _deleted_at);
+    super(_id, _name, _surname, _username, _password, 'athlete', _email, _status, _dateRegisters);
   }
 
   public update(input: TUpdateInput): boolean{
@@ -52,4 +51,3 @@ type TUpdateInput = {
 };
 
 export default Athlete;
-

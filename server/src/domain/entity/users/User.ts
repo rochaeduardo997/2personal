@@ -1,16 +1,16 @@
+import DateRegisters from "../common/DateRegisters";
+
 class User{
   constructor(
-    protected _id:          number,
-    protected _name:        string,
-    protected _surname:     string,
-    protected _username:    string,
-    protected _password:    string,
-    protected _role:        string,
-    protected _email:       string,
-    protected _status:      boolean,
-    protected _created_at:  Date = new Date(),
-    protected _updated_at:  Date = new Date(),
-    protected _deleted_at?: Date
+    protected _id:            number,
+    protected _name:          string,
+    protected _surname:       string,
+    protected _username:      string,
+    protected _password:      string,
+    protected _role:          string,
+    protected _email:         string,
+    protected _status:        boolean,
+    protected _dateRegisters: DateRegisters = new DateRegisters()
   ){
     this.validateStringLength('Name',     _name,    3, 30);
     this.validateStringLength('Surname',  _surname, 3, 30);
@@ -82,13 +82,13 @@ class User{
     return this._status;
   }
   public get created_at(): Date{
-    return this._created_at;
+    return this._dateRegisters.created_at;
   }
   public get updated_at(): Date{
-    return this._updated_at;
+    return this._dateRegisters.updated_at;
   }
   public get deleted_at(): Date | undefined{
-    return this._deleted_at;
+    return this._dateRegisters.deleted_at;
   }
 
   public set name(x: string){
@@ -116,10 +116,10 @@ class User{
     this._status = x;
   }
   public set updated_at(x: Date){
-    this._updated_at = x;
+    this._dateRegisters.updated_at = x;
   }
   public set deleted_at(x: Date){
-    this._deleted_at = x;
+    this._dateRegisters.deleted_at = x;
   }
 }
 
@@ -134,4 +134,3 @@ type TUpdateInput = {
 };
 
 export default User;
-

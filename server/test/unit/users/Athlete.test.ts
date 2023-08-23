@@ -1,12 +1,17 @@
+import DateRegisters from "../../../src/domain/entity/common/DateRegisters";
 import Athlete from "../../../src/domain/entity/users/Athlete";
 import Trainer from "../../../src/domain/entity/users/Trainer";
+import { generateDateRegisters } from "../../seeds/common";
+import { generateTrainer } from "../../seeds/user";
 
 let trainer: Trainer;
 let athlete: Athlete;
+let dateRegisters: DateRegisters;
 
 beforeEach(() => {
-  trainer = new Trainer(1, 'name', 'surname', 'username', 'password', '00000-ce', 'email@email.com', true);
-  athlete = new Athlete(1, 'name', 'surname', 'username', 'password', 'email@email.com', true, trainer, new Date('2023-02-02T00:00:00'), new Date('2023-02-03T00:00:00'), new Date('2023-02-04T00:00:00'));
+  dateRegisters = generateDateRegisters(1);
+  trainer = generateTrainer(1);
+  athlete = new Athlete(1, 'name', 'surname', 'username', 'password', 'email@email.com', true, dateRegisters, trainer);
 });
 
 describe('Success cases', () => {
@@ -21,13 +26,13 @@ describe('Success cases', () => {
     expect(athlete.trainer).toBe(trainer);
     expect(athlete.username).toBe('username');
     expect(athlete.password).toBe('password');
-    expect(athlete.created_at).toEqual(new Date('2023-02-02T00:00:00'));
-    expect(athlete.updated_at).toEqual(new Date('2023-02-03T00:00:00'));
-    expect(athlete.deleted_at).toEqual(new Date('2023-02-04T00:00:00'));
+    expect(athlete.created_at).toEqual(dateRegisters.created_at);
+    expect(athlete.updated_at).toEqual(dateRegisters.updated_at);
+    expect(athlete.deleted_at).toEqual(dateRegisters.deleted_at);
   });
 
   test('Must create a new athlete without trainer', () => {
-    athlete = new Athlete(1, 'name', 'surname', 'username', 'password', 'email@email.com', true, undefined, new Date('2023-02-02T00:00:00'), new Date('2023-02-03T00:00:00'), new Date('2023-02-04T00:00:00'));
+    athlete = new Athlete(1, 'name', 'surname', 'username', 'password', 'email@email.com', true, dateRegisters);
     expect(athlete.id).toBe(1);
     expect(athlete.name).toBe('name');
     expect(athlete.surname).toBe('surname');
@@ -38,9 +43,9 @@ describe('Success cases', () => {
     expect(athlete.trainer).toBeUndefined();
     expect(athlete.username).toBe('username');
     expect(athlete.password).toBe('password');
-    expect(athlete.created_at).toEqual(new Date('2023-02-02T00:00:00'));
-    expect(athlete.updated_at).toEqual(new Date('2023-02-03T00:00:00'));
-    expect(athlete.deleted_at).toEqual(new Date('2023-02-04T00:00:00'));
+    expect(athlete.created_at).toEqual(dateRegisters.created_at);
+    expect(athlete.updated_at).toEqual(dateRegisters.updated_at);
+    expect(athlete.deleted_at).toEqual(dateRegisters.deleted_at);
   });
 
   test('Must update an existing athlete', () => {
@@ -64,9 +69,9 @@ describe('Success cases', () => {
     expect(athlete.trainer).toBe(trainer);
     expect(athlete.username).toBe('username updated');
     expect(athlete.password).toBe('password updated');
-    expect(athlete.created_at).toEqual(new Date('2023-02-02T00:00:00'));
+    expect(athlete.created_at).toEqual(dateRegisters.created_at);
     expect(athlete.updated_at).toBeInstanceOf(Date);
-    expect(athlete.deleted_at).toEqual(new Date('2023-02-04T00:00:00'));
+    expect(athlete.deleted_at).toEqual(dateRegisters.deleted_at);
   });
 
   test('Must update an existing athlete with less fields', () => {
@@ -86,13 +91,13 @@ describe('Success cases', () => {
     expect(athlete.trainer).toBe(trainer);
     expect(athlete.username).toBe('username');
     expect(athlete.password).toBe('password');
-    expect(athlete.created_at).toEqual(new Date('2023-02-02T00:00:00'));
+    expect(athlete.created_at).toEqual(dateRegisters.created_at);
     expect(athlete.updated_at).toBeInstanceOf(Date);
-    expect(athlete.deleted_at).toEqual(new Date('2023-02-04T00:00:00'));
+    expect(athlete.deleted_at).toEqual(dateRegisters.deleted_at);
   });
 
   test('Must change trainer', () => {
-    const newTrainer = new Trainer(2, 'name 2', 'surname 2', 'username 2', 'password 2', '11111-ce', 'email@email.com', true);
+    const newTrainer = new Trainer(2, 'name 2', 'surname 2', 'username 2', 'password 2', '11111-ce', 'email@email.com', true, undefined, undefined, undefined, dateRegisters);
     newTrainer.addAthlete(athlete);
     expect(athlete.trainer).toBe(newTrainer);
   });
@@ -102,4 +107,3 @@ describe('Success cases', () => {
     expect(athlete.trainer).toBeUndefined();
   });
 });
-

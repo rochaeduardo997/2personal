@@ -1,12 +1,17 @@
+import DateRegisters from "../../../src/domain/entity/common/DateRegisters";
 import Athlete from "../../../src/domain/entity/users/Athlete";
 import Trainer from "../../../src/domain/entity/users/Trainer";
+import { generateDateRegisters } from "../../seeds/common";
+import { generateAthlete } from "../../seeds/user";
 
 let trainer: Trainer;
 let athlete: Athlete;
+let dateRegisters: DateRegisters;
 
 beforeEach(() => {
-  athlete = new Athlete(1, 'name', 'surname', 'username', 'password', 'email@email.com', true);
-  trainer = new Trainer(1, 'name', 'surname', 'username', 'password', '00000-ce', 'email@email.com', true, 'free', 5, [ athlete ], new Date('2023-02-02T00:00:00'), new Date('2023-02-03T00:00:00'), new Date('2023-02-04T00:00:00'));
+  dateRegisters = generateDateRegisters(1);
+  athlete = generateAthlete(1);
+  trainer = new Trainer(1, 'name', 'surname', 'username', 'password', '00000-ce', 'email@email.com', true, 'free', 5, [ athlete ], dateRegisters);
 });
 
 describe('Success cases', () => {
@@ -24,13 +29,13 @@ describe('Success cases', () => {
     expect(trainer.username).toBe('username');
     expect(trainer.password).toBe('password');
     expect(trainer.athletes).toEqual([ athlete ]);
-    expect(trainer.created_at).toEqual(new Date('2023-02-02T00:00:00'));
-    expect(trainer.updated_at).toEqual(new Date('2023-02-03T00:00:00'));
-    expect(trainer.deleted_at).toEqual(new Date('2023-02-04T00:00:00'));
+    expect(trainer.created_at).toEqual(dateRegisters.created_at);
+    expect(trainer.updated_at).toEqual(dateRegisters.updated_at);
+    expect(trainer.deleted_at).toEqual(dateRegisters.deleted_at);
   });
 
   test('Must create a new paid trainer', () => {
-    trainer = new Trainer(1, 'name', 'surname', 'username', 'password', '00000-ce', 'email@email.com', true, 'paid', 50, undefined, new Date('2023-02-02T00:00:00'), new Date('2023-02-03T00:00:00'), new Date('2023-02-04T00:00:00'));
+    trainer = new Trainer(1, 'name', 'surname', 'username', 'password', '00000-ce', 'email@email.com', true, 'paid', 50, undefined, dateRegisters, dateRegisters.deleted_at);
     expect(trainer.id).toBe(1);
     expect(trainer.name).toBe('name');
     expect(trainer.surname).toBe('surname');
@@ -44,9 +49,9 @@ describe('Success cases', () => {
     expect(trainer.username).toBe('username');
     expect(trainer.password).toBe('password');
     expect(trainer.athletes).toHaveLength(0);
-    expect(trainer.created_at).toEqual(new Date('2023-02-02T00:00:00'));
-    expect(trainer.updated_at).toEqual(new Date('2023-02-03T00:00:00'));
-    expect(trainer.deleted_at).toEqual(new Date('2023-02-04T00:00:00'));
+    expect(trainer.created_at).toEqual(dateRegisters.created_at);
+    expect(trainer.updated_at).toEqual(dateRegisters.updated_at);
+    expect(trainer.deleted_at).toEqual(dateRegisters.deleted_at);
   });
 
   test('Must update an existing trainer', () => {
@@ -76,9 +81,9 @@ describe('Success cases', () => {
     expect(trainer.username).toBe('username updated');
     expect(trainer.password).toBe('password updated');
     expect(trainer.athletes).toEqual([ athlete ]);
-    expect(trainer.created_at).toEqual(new Date('2023-02-02T00:00:00'));
+    expect(trainer.created_at).toEqual(dateRegisters.created_at);
     expect(trainer.updated_at).toBeInstanceOf(Date);
-    expect(trainer.deleted_at).toEqual(new Date('2023-02-04T00:00:00'));
+    expect(trainer.deleted_at).toEqual(dateRegisters.deleted_at);
   });
 
   test('Must update an existing trainer with less fields', () => {
@@ -101,27 +106,27 @@ describe('Success cases', () => {
     expect(trainer.username).toBe('username');
     expect(trainer.password).toBe('password');
     expect(trainer.athletes).toEqual([ athlete ]);
-    expect(trainer.created_at).toEqual(new Date('2023-02-02T00:00:00'));
+    expect(trainer.created_at).toEqual(dateRegisters.created_at);
     expect(trainer.updated_at).toBeInstanceOf(Date);
-    expect(trainer.deleted_at).toEqual(new Date('2023-02-04T00:00:00'));
+    expect(trainer.deleted_at).toEqual(dateRegisters.deleted_at);
   });
 
   test('Must add a new athlete', () => {
-    const newAthlete = new Athlete(2, 'name 2', 'surname 2', 'username 2', 'password 2', 'email@email.com', true);
+    const newAthlete = new Athlete(2, 'name 2', 'surname 2', 'username 2', 'password 2', 'email@email.com', true, dateRegisters);
     trainer.addAthlete(newAthlete);
     expect(trainer.athletes).toEqual([ athlete, newAthlete ]);
     expect(newAthlete.trainer).toEqual(trainer);
   });
 
   test('Must remove an athlete', () => {
-    const newAthlete = new Athlete(2, 'name 2', 'surname 2', 'username 2', 'password 2', 'email@email.com', true);
+    const newAthlete = new Athlete(2, 'name 2', 'surname 2', 'username 2', 'password 2', 'email@email.com', true, dateRegisters);
     trainer.addAthlete(newAthlete);
     trainer.removeAthlete(athlete);
     expect(trainer.athletes).toEqual([ newAthlete ]);
   });
 
   test('Must remove two athletes at the same day as paid plan', () => {
-    const newAthlete = new Athlete(2, 'name 2', 'surname 2', 'username 2', 'password 2', 'email@email.com', true);
+    const newAthlete = new Athlete(2, 'name 2', 'surname 2', 'username 2', 'password 2', 'email@email.com', true, dateRegisters);
     trainer.plan = 'paid';
     trainer.addAthlete(newAthlete);
     trainer.removeAthlete(athlete);
@@ -132,7 +137,7 @@ describe('Success cases', () => {
 
 describe('Fail cases', () => {
   test('Must fail on create a new trainer with plan free and athletes limit greater than 5', () => {
-    expect(() => new Trainer(1, 'name', 'surname', 'username', 'password', '00000-ce', 'email@email.com', true, 'free', 6)).toThrow('Free plan can only has 5 athletes');
+    expect(() => new Trainer(1, 'name', 'surname', 'username', 'password', '00000-ce', 'email@email.com', true, 'free', 6, undefined, dateRegisters)).toThrow('Free plan can only has 5 athletes');
   });
 
   test('Must fail on update a trainer with invalid plan', () => {
@@ -144,7 +149,7 @@ describe('Fail cases', () => {
   });
 
   test('Must fail on try to exclude two athletes in less than 24 hours as free plan', () => {
-    const athlete2 = new Athlete(2, 'name 2', 'surname 2', 'username 2', 'password 2', 'email@email.com', true);
+    const athlete2 = new Athlete(2, 'name 2', 'surname 2', 'username 2', 'password 2', 'email@email.com', true, dateRegisters);
     trainer.addAthlete(athlete2);
     trainer.removeAthlete(athlete);
     expect(() => trainer.removeAthlete(athlete2)).toThrow('You only can remove one athlete by day');

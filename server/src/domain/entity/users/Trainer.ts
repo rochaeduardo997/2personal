@@ -1,5 +1,6 @@
 import User from './User';
 import Athlete from './Athlete';
+import DateRegisters from '../common/DateRegisters';
 
 class Trainer extends User{
   constructor(
@@ -14,12 +15,10 @@ class Trainer extends User{
     private   _plan:              string = 'free',
     private   _athletes_limit:    number = 5,
     private   _athletes:          Athlete[] = [],
-    protected _created_at:        Date = new Date(),
-    protected _updated_at:        Date = new Date(),
-    protected _deleted_at?:       Date,
+    protected _dateRegisters:     DateRegisters = new DateRegisters(),
     protected _last_remove_date?: Date
   ){
-    super(_id, _name, _surname, _username, _password, 'trainer', _email, _status, _created_at, _updated_at, _deleted_at);
+    super(_id, _name, _surname, _username, _password, 'trainer', _email, _status, _dateRegisters);
 
     this.validateStringLength('Register', _register, 3, 30);
     this.validatePlan(_plan);

@@ -1,6 +1,6 @@
 class DateRegisters{
   constructor(
-    private _created_at: Date,
+    private _created_at: Date = new Date(),
     private _updated_at: Date = new Date(),
     private _deleted_at?: Date
   ){}
@@ -17,6 +17,10 @@ class DateRegisters{
 
   public set updated_at(x: Date) {
     this._updated_at = x;
+  }
+
+  public set deleted_at(x: Date) {
+    this._deleted_at = x;
   }
 }
 
