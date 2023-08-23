@@ -7,14 +7,16 @@ class Exercise{
   constructor(
     private _id:            number,
     private _trainer:       Trainer,
+    private _category:      string,
     private _name:          string,
     private _reps:          Reps,
     private _rest:          Rest,
     private _dateRegisters: DateRegisters,
     private _note?:         string
   ){
-    this.validateStringLength('Name', _name, 2, 20);
-    if(_note) this.validateStringLength('Note', _note, 2, 100);
+    this.validateStringLength('Category',       _category, 2, 20);
+    this.validateStringLength('Name',           _name,     2, 20);
+    if(_note) this.validateStringLength('Note', _note,     2, 100);
   }
 
   protected validateStringLength(field: string, value: string, minSize: number, maxSize: number): void{
@@ -28,6 +30,7 @@ class Exercise{
   }
 
   public update(input: TUpdateInput): boolean{
+    if(input.category) this.category = input.category;
     if(input.name) this.name = input.name;
     if(input.reps) this.reps = input.reps;
     if(input.rest) this.rest = input.rest;
@@ -43,6 +46,9 @@ class Exercise{
   }
   public get trainer(): Trainer {
     return this._trainer;
+  }
+  public get category(): string {
+    return this._category;
   }
   public get name(): string {
     return this._name;
@@ -66,6 +72,10 @@ class Exercise{
     return this._dateRegisters.deleted_at;
   }
 
+  public set category(x: string) {
+    this.validateStringLength('Category', x, 2, 20);
+    this._category = x;
+  }
   public set name(x: string) {
     this.validateStringLength('Name', x, 2, 20);
     this._name = x;
@@ -83,10 +93,11 @@ class Exercise{
 }
 
 type TUpdateInput = { 
-  name?:    string;
-  reps?:    Reps;
-  rest?:    Rest;
-  note?:    string;
+  category?: string;
+  name?:     string;
+  reps?:     Reps;
+  rest?:     Rest;
+  note?:     string;
 };
 
 export default Exercise;

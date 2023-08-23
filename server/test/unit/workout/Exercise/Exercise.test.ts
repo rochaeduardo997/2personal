@@ -21,9 +21,10 @@ beforeAll(() => {
 
 describe('Successful cases', () => {
   test('Normal exercise instance', () => {
-    const exercise = new Exercise(1, trainer, 'exercise name', reps, rest, dateRegisters, 'note');
+    const exercise = new Exercise(1, trainer, 'chest', 'exercise name', reps, rest, dateRegisters, 'note');
     expect(exercise.id).toBe(1);
     expect(exercise.trainer).toEqual(trainer);
+    expect(exercise.category).toBe('chest');
     expect(exercise.name).toBe('exercise name');
     expect(exercise.reps).toEqual(reps);
     expect(exercise.rest).toEqual(rest);
@@ -33,9 +34,10 @@ describe('Successful cases', () => {
     expect(exercise.deleted_at).toEqual(dateRegisters.deleted_at);
   });
   test('Exercise without optional fields', () => {
-    const exercise = new Exercise(1, trainer, 'exercise name', reps, rest, dateRegisters);
+    const exercise = new Exercise(1, trainer, 'chest', 'exercise name', reps, rest, dateRegisters);
     expect(exercise.id).toBe(1);
     expect(exercise.trainer).toEqual(trainer);
+    expect(exercise.category).toBe('chest');
     expect(exercise.name).toBe('exercise name');
     expect(exercise.reps).toEqual(reps);
     expect(exercise.rest).toEqual(rest);
@@ -46,19 +48,21 @@ describe('Successful cases', () => {
   });
 
   test('Update exercise', () => {
-    const exercise = new Exercise(1, trainer, 'exercise name', reps, rest, dateRegisters, 'note');
+    const exercise = new Exercise(1, trainer, 'chest', 'exercise name', reps, rest, dateRegisters, 'note');
     const newReps  = new Reps(1, [ 1 ], 'dropset');
     const newRest  = new Rest(2, 'normal');
 
     exercise.update({
-      name: 'name update',
-      reps: newReps,
-      rest: newRest,
-      note: 'note update'
+      category: 'leg',
+      name:     'name update',
+      reps:     newReps,
+      rest:     newRest,
+      note:     'note update'
     });
 
     expect(exercise.id).toBe(1);
     expect(exercise.trainer).toEqual(trainer);
+    expect(exercise.category).toBe('leg');
     expect(exercise.name).toBe('name update');
     expect(exercise.reps).toEqual(newReps);
     expect(exercise.rest).toEqual(newRest);
@@ -70,21 +74,30 @@ describe('Successful cases', () => {
 });
 
 describe('Failure cases', () => {
+  test('Fail on instance exercise with invalid CATEGORY length', () => {
+    expect(() => new Exercise(1, trainer, '1', 'chest', reps, rest, dateRegisters, 'note')).toThrow('Category must have length between 2 and 20');
+  });
+
   test('Fail on instance exercise with invalid NAME length', () => {
-    expect(() => new Exercise(1, trainer, '1', reps, rest, dateRegisters, 'note')).toThrow('Name must have length between 2 and 20');
+    expect(() => new Exercise(1, trainer, 'chest', '1', reps, rest, dateRegisters, 'note')).toThrow('Name must have length between 2 and 20');
   });
 
   test('Fail on instance exercise with invalid note length', () => {
-    expect(() => new Exercise(1, trainer, 'name', reps, rest, dateRegisters, '1')).toThrow('Note must have length between 2 and 100');
+    expect(() => new Exercise(1, trainer, 'chest', 'name', reps, rest, dateRegisters, '1')).toThrow('Note must have length between 2 and 100');
+  });
+
+  test('Fail on update exercise with invalid CATEGORY length', () => {
+    const exercise = new Exercise(1, trainer, 'chest', 'exercise name', reps, rest, dateRegisters, 'note');
+    expect(() => exercise.update({ category: '1' })).toThrow('Category must have length between 2 and 20');
   });
 
   test('Fail on update exercise with invalid NAME length', () => {
-    const exercise = new Exercise(1, trainer, 'exercise name', reps, rest, dateRegisters, 'note');
+    const exercise = new Exercise(1, trainer, 'chest', 'exercise name', reps, rest, dateRegisters, 'note');
     expect(() => exercise.update({ name: '1' })).toThrow('Name must have length between 2 and 20');
   });
 
   test('Fail on update exercise with invalid NOTE length', () => {
-    const exercise = new Exercise(1, trainer, 'exercise name', reps, rest, dateRegisters, 'note');
+    const exercise = new Exercise(1, trainer, 'chest', 'exercise name', reps, rest, dateRegisters, 'note');
     expect(() => exercise.update({ note: '1' })).toThrow('Note must have length between 2 and 100');
   });
 });
