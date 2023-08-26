@@ -12,7 +12,8 @@ class Exercise{
     private _reps:          Reps,
     private _rest:          Rest,
     private _dateRegisters: DateRegisters,
-    private _note?:         string
+    private _note?:         string,
+    private _compound?:     Exercise
   ){
     this.validateStringLength('Category',       _category, 2, 20);
     this.validateStringLength('Name',           _name,     2, 20);
@@ -70,6 +71,9 @@ class Exercise{
   }
   public get deleted_at(): Date | undefined{
     return this._dateRegisters.deleted_at;
+  }
+  public get compound(): Exercise | undefined{
+    return this._compound;
   }
 
   public set category(x: string) {

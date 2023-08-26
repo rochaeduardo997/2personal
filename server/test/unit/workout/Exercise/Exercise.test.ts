@@ -2,8 +2,8 @@ import Trainer from "../../../../src/domain/entity/users/Trainer";
 import Exercise from "../../../../src/domain/entity/workout/Exercise/Exercise";
 import Rest from "../../../../src/domain/entity/workout/Exercise/Rest";
 import Reps from "../../../../src/domain/entity/workout/Exercise/Reps";
-import { generateTrainer } from "../../../seeds/user";
 import DateRegisters from "../../../../src/domain/entity/common/DateRegisters";
+import { generateTrainer } from "../../../seeds/user";
 import { generateDateRegisters } from "../../../seeds/common";
 import { generateReps, generateRest } from "../../../seeds/workout/exercise";
 
@@ -20,6 +20,12 @@ beforeAll(() => {
 });
 
 describe('Successful cases', () => {
+  test('Compound exercise instance', () => {
+    const compound = new Exercise(1, trainer, 'chest', 'exercise name', reps, rest, dateRegisters, 'note');
+    const exercise = new Exercise(2, trainer, 'chest', 'exercise name', reps, rest, dateRegisters, 'note', compound);
+    expect(exercise.compound).toEqual(compound);
+  });
+
   test('Normal exercise instance', () => {
     const exercise = new Exercise(1, trainer, 'chest', 'exercise name', reps, rest, dateRegisters, 'note');
     expect(exercise.id).toBe(1);
@@ -33,6 +39,7 @@ describe('Successful cases', () => {
     expect(exercise.updated_at).toEqual(dateRegisters.updated_at);
     expect(exercise.deleted_at).toEqual(dateRegisters.deleted_at);
   });
+
   test('Exercise without optional fields', () => {
     const exercise = new Exercise(1, trainer, 'chest', 'exercise name', reps, rest, dateRegisters);
     expect(exercise.id).toBe(1);
