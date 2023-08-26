@@ -1,5 +1,5 @@
-import RequestAthlete from "../../domain/entity/users/RequestAthlete";
-import IRequestAthleteRepository from "../../domain/repository/users/IRequestAthleteRepository";
+import RequestAthlete from "../../../domain/entity/users/RequestAthlete";
+import IRequestAthleteRepository from "../../../domain/repository/users/IRequestAthleteRepository";
 
 class RequestAthleteRepositoryMemory implements IRequestAthleteRepository {
   private requestAthletes: RequestAthlete[];

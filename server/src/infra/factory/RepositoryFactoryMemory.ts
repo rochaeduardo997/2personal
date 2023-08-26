@@ -1,8 +1,10 @@
 import IRepository from '../../domain/factory/IRepository';
 import IUserRepository from '../../domain/repository/users/IUserRepository';
 import IRequestAthleteRepository from '../../domain/repository/users/IRequestAthleteRepository';
-import UserRepositoryMemory from '../../infra/repository/UserRepositoryMemory';
-import RequestAthleteRepositoryMemory from '../../infra/repository/RequestAthleteRepositoryMemory';
+import RequestAthleteRepositoryMemory from '../repository/users/RequestAthleteRepositoryMemory';
+import IExerciseRepository from '../../domain/repository/workout/IExerciseRepository';
+import ExerciseRepositoryMemory from '../repository/workout/ExerciseRepositoryMemory';
+import UserRepositoryMemory from '../repository/users/UserRepositoryMemory';
 
 class RepositoryFactoryMemory implements IRepository{
   userRepository(): IUserRepository{
@@ -10,6 +12,9 @@ class RepositoryFactoryMemory implements IRepository{
   }
   requestAthleteRepository(): IRequestAthleteRepository{
     return new RequestAthleteRepositoryMemory();
+  }
+  exerciseRepository(): IExerciseRepository{
+    return new ExerciseRepositoryMemory();
   }
 }
 
