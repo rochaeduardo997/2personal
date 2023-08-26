@@ -1,4 +1,4 @@
-import DayTraining from "../Sheet/DayTraining";
+import DayTraining from "../sheet/DayTraining";
 import Exercise from "./Exercise";
 
 class WeightProgression{

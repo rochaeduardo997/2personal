@@ -1,4 +1,4 @@
-import Reps from "../../../../src/domain/entity/workout/Exercise/Reps";
+import Reps from "../../../../src/domain/entity/workout/exercise/Reps";
 
 describe('Successful cases', () => {
   test('Normal reps', () => {

@@ -1,4 +1,4 @@
-import Rest from "../../../../src/domain/entity/workout/Exercise/Rest";
+import Rest from "../../../../src/domain/entity/workout/exercise/Rest";
 
 describe('Successful cases', () => {
   test('Normal rest', () => {

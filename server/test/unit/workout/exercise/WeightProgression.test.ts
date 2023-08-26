@@ -1,5 +1,5 @@
-import WeightProgression from "../../../../src/domain/entity/workout/Exercise/WeightProgression";
-import DayTraining from "../../../../src/domain/entity/workout/Sheet/DayTraining";
+import WeightProgression from "../../../../src/domain/entity/workout/exercise/WeightProgression";
+import DayTraining from "../../../../src/domain/entity/workout/sheet/DayTraining";
 import { generateTrainer } from "../../../seeds/user";
 import { generateExercise } from "../../../seeds/workout/exercise";
 import { generateDayTraining } from "../../../seeds/workout/sheet";

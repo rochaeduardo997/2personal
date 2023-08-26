@@ -1,7 +1,7 @@
 import Trainer from "../../../../src/domain/entity/users/Trainer";
-import Exercise from "../../../../src/domain/entity/workout/Exercise/Exercise";
-import Rest from "../../../../src/domain/entity/workout/Exercise/Rest";
-import Reps from "../../../../src/domain/entity/workout/Exercise/Reps";
+import Exercise from "../../../../src/domain/entity/workout/exercise/Exercise";
+import Rest from "../../../../src/domain/entity/workout/exercise/Rest";
+import Reps from "../../../../src/domain/entity/workout/exercise/Reps";
 import DateRegisters from "../../../../src/domain/entity/common/DateRegisters";
 import { generateTrainer } from "../../../seeds/user";
 import { generateDateRegisters } from "../../../seeds/common";

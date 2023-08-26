@@ -1,5 +1,5 @@
-import Exercise from "../Exercise/Exercise";
-import WeightProgression from "../Exercise/WeightProgression";
+import Exercise from "../exercise/Exercise";
+import WeightProgression from "../exercise/WeightProgression";
 
 class DayTraining {
   constructor(

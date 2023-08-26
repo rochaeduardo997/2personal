@@ -1,10 +1,10 @@
 import DateRegisters from "../../../../src/domain/entity/common/DateRegisters";
-import DayTraining from "../../../../src/domain/entity/workout/Sheet/DayTraining";
+import DayTraining from "../../../../src/domain/entity/workout/sheet/DayTraining";
 import { generateDateRegisters } from "../../../seeds/common";
 import { generateExercise } from "../../../seeds/workout/exercise";
 import { generateTrainer } from "../../../seeds/user";
 import { generateDayTraining } from "../../../seeds/workout/sheet";
-import TrainingSheet from "../../../../src/domain/entity/workout/Sheet/TrainingSheet";
+import TrainingSheet from "../../../../src/domain/entity/workout/sheet/TrainingSheet";
 import Trainer from "../../../../src/domain/entity/users/Trainer";
 import Athlete from "../../../../src/domain/entity/users/Athlete";
 
