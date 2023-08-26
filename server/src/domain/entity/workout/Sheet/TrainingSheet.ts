@@ -31,8 +31,6 @@ class TrainingSheet {
     const has = this.dayTrainings.find((dt: DayTraining) => {
       const hasOnWeek = dt.week === x.week;
       const hasOnDay  = dt.day  === x.day;
-      console.log(dt.week, dt.day);
-      console.log(x.week, x.day);
       return hasOnWeek && hasOnDay;
     });
     if(has) throw new Error('Already exists a training on this day at this week');

@@ -1,17 +1,35 @@
 import Exercise from "../Exercise/Exercise";
+import WeightProgression from "../Exercise/WeightProgression";
 
 class DayTraining {
   constructor(
-    private _id:        number,
-    private _day:       DAYS,
-    private _week:      WEEKS,
-    private _exercises: Exercise[]
+    private _id:                 number,
+    private _day:                DAYS,
+    private _week:               WEEKS,
+    private _exercises:          Exercise[],
+    private _weight_progression: WeightProgression[] = []
   ){}
 
   public update(input: TUpdateInput): boolean{
     if(input.exercises) this.exercises = input.exercises;
 
     return true;
+  }
+
+  public addWeightProgression(x: WeightProgression): boolean{
+    this.hasExercise(x.exercise);
+    this.hasWeightProgressionForExercise(x.exercise);
+
+    this.weight_progression.push(x);
+    return true;
+  }
+  private hasExercise(x: Exercise){
+    const hasExercise = this.exercises.some((e: Exercise) => x === e);
+    if(!hasExercise) throw new Error('Exercise doesn\'t exists on day training');
+  }
+  private hasWeightProgressionForExercise(x: Exercise){
+    const hasExercise = this.weight_progression.some((w: WeightProgression) => w.exercise === x);
+    if(hasExercise) throw new Error('Weight progression already exists for this exercise');
   }
 
   public get id(): number {
@@ -25,6 +43,9 @@ class DayTraining {
   }
   public get exercises(): Exercise[] {
     return this._exercises;
+  }
+  public get weight_progression(): WeightProgression[] {
+    return this._weight_progression;
   }
 
   public set exercises(value: Exercise[]) {

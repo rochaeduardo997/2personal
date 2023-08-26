@@ -15,13 +15,16 @@ let dayTraining2: DayTraining;
 let trainer: Trainer;
 let athlete: Athlete;
 
-beforeEach(() => {
+beforeAll(() => {
   trainer  = generateTrainer(1);
   const exercise1 = generateExercise(1, trainer);
   const exercise2 = generateExercise(1, trainer);
   dayTraining1 = generateDayTraining(1, 1, [ exercise1 ]);
   dayTraining2 = generateDayTraining(2, 2, [ exercise1, exercise2 ]);
   dateRegisters = generateDateRegisters(1);
+});
+
+beforeEach(() => {
   trainingSheet = new TrainingSheet(1, trainer, athlete, [ dayTraining1, dayTraining2 ], dateRegisters, new Date('2024-01-01'));
 });
 

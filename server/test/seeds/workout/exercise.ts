@@ -3,6 +3,8 @@ import Trainer from "../../../src/domain/entity/users/Trainer";
 import Exercise from "../../../src/domain/entity/workout/Exercise/Exercise";
 import Reps from "../../../src/domain/entity/workout/Exercise/Reps";
 import Rest from "../../../src/domain/entity/workout/Exercise/Rest";
+import WeightProgression from "../../../src/domain/entity/workout/Exercise/WeightProgression";
+import DayTraining from "../../../src/domain/entity/workout/Sheet/DayTraining";
 
 function generateReps(sets: number = 3, reps: number[] = [ 10, 15, 20 ], type: string = 'normal'){
   return new Reps(sets, reps, type);
@@ -16,4 +18,13 @@ function generateExercise(i: number, trainer: Trainer, reps: Reps = generateReps
   return new Exercise(i, trainer, 'chest', `exercise name ${i}`, reps, rest, dateRegisters, `note ${i}`);
 }
 
-export { generateReps, generateRest, generateExercise };
+function generateWeightProgression(i: number, exercise: Exercise, dayTraining: DayTraining, weight: number = 5, measure: string = 'kg'){
+  return new WeightProgression(i, weight, measure, exercise, dayTraining);
+}
+
+export { 
+  generateReps, 
+  generateRest, 
+  generateExercise,
+  generateWeightProgression
+};
