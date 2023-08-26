@@ -2,17 +2,14 @@ import Exercise from "../Exercise/Exercise";
 
 class DayTraining {
   constructor(
-    private _id: number,
-    private _day: DAYS,
-    private _exercises: Exercise[],
-    private _weight?: number,
-    private _measure?: string
+    private _id:        number,
+    private _day:       DAYS,
+    private _week:      WEEKS,
+    private _exercises: Exercise[]
   ){}
 
   public update(input: TUpdateInput): boolean{
     if(input.exercises) this.exercises = input.exercises;
-    if(input.weight)    this.weight    = input.weight;
-    if(input.measure)   this.measure   = input.measure;
 
     return true;
   }
@@ -23,31 +20,20 @@ class DayTraining {
   public get day(): DAYS {
     return this._day;
   }
+  public get week(): WEEKS {
+    return this._week;
+  }
   public get exercises(): Exercise[] {
     return this._exercises;
-  }
-  public get weight(): number | undefined {
-    return this._weight;
-  }
-  public get measure(): string | undefined {
-    return this._measure;
   }
 
   public set exercises(value: Exercise[]) {
     this._exercises = value;
   }
-  public set weight(value: number) {
-    this._weight = value;
-  }
-  public set measure(value: string) {
-    this._measure = value;
-  }
 }
 
 type TUpdateInput = { 
   exercises?: Exercise[];
-  weight?: number;
-  measure?: string;
 };
 
 enum DAYS {
@@ -58,6 +44,13 @@ enum DAYS {
   FRIDAY    = 5,
   SATURDAY  = 6,
   SUNDAY    = 7
+}
+
+enum WEEKS {
+  FIRST  = 1,
+  SECOND = 2,
+  THIRD  = 3,
+  FOURTH = 4
 }
 
 export default DayTraining;

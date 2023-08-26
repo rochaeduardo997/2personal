@@ -14,29 +14,23 @@ beforeAll(() => {
 });
 
 beforeEach(() => {
-  dayTraining = new DayTraining(1, 1, [ exercise1, exercise2 ], 5, 'kg');
+  dayTraining = new DayTraining(1, 1, 1, [ exercise1, exercise2 ]);
 });
 
 describe('Successful cases', () =>{
   test('Normal day training', () => {
     expect(dayTraining.id).toBe(1);
     expect(dayTraining.day).toBe(1);
+    expect(dayTraining.week).toBe(1);
     expect(dayTraining.exercises).toEqual([ exercise1, exercise2 ]);
-    expect(dayTraining.weight).toBe(5);
-    expect(dayTraining.measure).toBe('kg');
   });
 
   test('Update all day training fields', () => {
-    dayTraining.update({ 
-      exercises: [ exercise2 ],
-      weight:    10,
-      measure:   'lb'
-    });
+    dayTraining.update({ exercises: [ exercise2 ] });
 
     expect(dayTraining.id).toBe(1);
     expect(dayTraining.day).toBe(1);
+    expect(dayTraining.week).toBe(1);
     expect(dayTraining.exercises).toEqual([ exercise2 ]);
-    expect(dayTraining.weight).toBe(10);
-    expect(dayTraining.measure).toBe('lb');
   });
 });
