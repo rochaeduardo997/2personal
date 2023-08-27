@@ -10,7 +10,7 @@ function generateReps(sets: number = 3, reps: number[] = [ 10, 15, 20 ], type: s
   return new Reps(sets, reps, type);
 }
 
-function generateRest(rest: number = 30, type: string = 'seconds'){
+function generateRest(rest: number = 30, type: number = 1){
   return new Rest(rest, type);
 }
 

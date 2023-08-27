@@ -57,7 +57,7 @@ describe('Successful cases', () => {
   test('Update exercise', () => {
     const exercise = new Exercise(1, trainer, 'chest', 'exercise name', reps, rest, dateRegisters, 'note');
     const newReps  = new Reps(1, [ 1 ], 'dropset');
-    const newRest  = new Rest(2, 'normal');
+    const newRest  = new Rest(2, 1);
 
     exercise.update({
       category: 'leg',
