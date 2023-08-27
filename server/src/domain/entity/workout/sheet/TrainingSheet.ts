@@ -8,7 +8,7 @@ class TrainingSheet {
     private _id:            number,
     private _trainer:       Trainer,
     private _athlete:       Athlete,
-    private _dayTrainings:  DayTraining[],
+    private _day_trainings: DayTraining[],
     private _dateRegisters: DateRegisters = new DateRegisters(),
     private _when_change?:  Date
   ){}
@@ -23,12 +23,12 @@ class TrainingSheet {
 
   public addDayTraining(x: DayTraining): boolean{
     this.alreadyExists(x);
-    this.dayTrainings.push(x);
+    this.day_trainings.push(x);
 
     return true;
   }
   private alreadyExists(x: DayTraining): void{
-    const has = this.dayTrainings.find((dt: DayTraining) => {
+    const has = this.day_trainings.find((dt: DayTraining) => {
       const hasOnWeek = dt.week === x.week;
       const hasOnDay  = dt.day  === x.day;
       return hasOnWeek && hasOnDay;
@@ -38,10 +38,10 @@ class TrainingSheet {
   }
 
   public removeDayTraining(x: DayTraining): boolean{
-    const index = this.dayTrainings.findIndex((dt: DayTraining) => dt.id === x.id);
+    const index = this.day_trainings.findIndex((dt: DayTraining) => dt.id === x.id);
     if(index < 0) throw new Error('Training doesn\'t exists');
 
-    this.dayTrainings.splice(index, 1);
+    this.day_trainings.splice(index, 1);
 
     return true;
   }
@@ -55,8 +55,8 @@ class TrainingSheet {
   public get athlete(): Athlete {
     return this._athlete;
   }
-  public get dayTrainings(): DayTraining[] {
-    return this._dayTrainings;
+  public get day_trainings(): DayTraining[] {
+    return this._day_trainings;
   }
   public get created_at(): Date {
     return this._dateRegisters.created_at;

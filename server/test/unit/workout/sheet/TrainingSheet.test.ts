@@ -33,7 +33,7 @@ describe('Successful cases', () =>{
     expect(trainingSheet.id).toBe(1);
     expect(trainingSheet.trainer).toEqual(trainer);
     expect(trainingSheet.athlete).toEqual(athlete);
-    expect(trainingSheet.dayTrainings).toEqual([ dayTraining1, dayTraining2 ]);
+    expect(trainingSheet.day_trainings).toEqual([ dayTraining1, dayTraining2 ]);
     expect(trainingSheet.created_at).toEqual(dateRegisters.created_at);
     expect(trainingSheet.updated_at).toEqual(dateRegisters.updated_at);
     expect(trainingSheet.deleted_at).toEqual(dateRegisters.deleted_at);
@@ -45,7 +45,7 @@ describe('Successful cases', () =>{
 
     trainingSheet.addDayTraining(dayTraining3);
 
-    expect(trainingSheet.dayTrainings).toEqual([ dayTraining1, dayTraining2, dayTraining3 ]);
+    expect(trainingSheet.day_trainings).toEqual([ dayTraining1, dayTraining2, dayTraining3 ]);
   });
   test('Adding day training to sheet', () => {
     const exercise     = generateExercise(3, trainer);
@@ -54,7 +54,7 @@ describe('Successful cases', () =>{
     trainingSheet.addDayTraining(dayTraining3);
     trainingSheet.removeDayTraining(dayTraining2);
 
-    expect(trainingSheet.dayTrainings).toEqual([ dayTraining1, dayTraining3 ]);
+    expect(trainingSheet.day_trainings).toEqual([ dayTraining1, dayTraining3 ]);
   });
 
   test('Update training sheet', () => {
@@ -63,7 +63,7 @@ describe('Successful cases', () =>{
     expect(trainingSheet.id).toBe(1);
     expect(trainingSheet.trainer).toEqual(trainer);
     expect(trainingSheet.athlete).toEqual(athlete);
-    expect(trainingSheet.dayTrainings).toEqual([ dayTraining1, dayTraining2 ]);
+    expect(trainingSheet.day_trainings).toEqual([ dayTraining1, dayTraining2 ]);
     expect(trainingSheet.created_at).toEqual(dateRegisters.created_at);
     expect(trainingSheet.updated_at).toEqual(dateRegisters.updated_at);
     expect(trainingSheet.deleted_at).toEqual(dateRegisters.deleted_at);

@@ -13,8 +13,8 @@ function generateTrainer(i: number, athletes?: Athlete[]){
   return new Trainer(i, `name ${i}`, `surname ${i}`, `trainer_username${i}`, `password${i}`, `0000${i}-ce`, `email${i}@email.com`, true, 'free', 5, athletes, dateRegisters);
 }
 
-function generateAthlete(i: number){
-  return new Athlete(i, `name ${i}`, `surname ${i}`, `athlete_username${i}`, `password${i}`, `email${i}@email.com`, true, dateRegisters);
+function generateAthlete(i: number, trainer?: Trainer){
+  return new Athlete(i, `name ${i}`, `surname ${i}`, `athlete_username${i}`, `password${i}`, `email${i}@email.com`, true, dateRegisters, trainer);
 }
 
 export { 
