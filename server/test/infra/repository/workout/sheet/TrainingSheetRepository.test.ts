@@ -79,7 +79,10 @@ describe('Successful cases', () => {
     expect(result).toEqual(trainingSheet1);
   });
 
-  test.todo('Delete');
+  test('Delete', async () => {
+    const result = await trainingSheetRepository.deleteBy(trainingSheet1.id, trainer1.id);
+    expect(result).toBeTruthy();
+  });
 
   test('Add day training to training sheet', async () => {
     const exercise1 = generateExercise(4, trainer1);
@@ -101,7 +104,18 @@ describe('Successful cases', () => {
     expect(result).toEqual(dayTrainings1);
     expect(newTrainingSheet.day_trainings[0]).toEqual(dayTrainings1);
   });
-  test.todo('Remove day training to training sheet');
+
+  test('Remove day training to training sheet', async () => {
+    const exercise1 = generateExercise(4, trainer1);
+    const exercise2 = generateExercise(5, trainer1);
+    const newDayTraining = generateDayTraining(3, 1, [ exercise1, exercise2 ]);
+    await trainingSheetRepository.addTraining(newDayTraining, trainingSheet1.id, trainer1.id);
+    const result = await trainingSheetRepository.deleteTrainingBy(dayTrainings1.id, trainingSheet1.id, trainer1.id);
+    const newTrainingSheet = await trainingSheetRepository.getByTrainerBy(trainingSheet1.id, trainer1.id);
+
+    expect(result).toBeTruthy();
+    expect(newTrainingSheet.day_trainings).toHaveLength(1);
+  });
 });
 
 describe('Successful cases', () => {

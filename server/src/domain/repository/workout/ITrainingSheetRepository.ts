@@ -10,9 +10,11 @@ interface ITrainingSheetRepository {
   getByAthleteBy(id: number, athleteId: number): Promise<TrainingSheet>;
 
   update(trainingSheet: TrainingSheet, trainerId: number): Promise<TrainingSheet>;
+  deleteBy(id: number, trainerId: number): Promise<boolean>;
 
   addTraining(dayTraining: DayTraining, trainingSheetId: number, trainerId: number): Promise<DayTraining>;
   updateTraining(dayTraining: DayTraining, trainingSheetId: number, trainerId: number): Promise<DayTraining>;
+  deleteTrainingBy(id: number, trainingSheetId: number, trainerId: number): Promise<boolean>;
 }
 
 export default ITrainingSheetRepository;
