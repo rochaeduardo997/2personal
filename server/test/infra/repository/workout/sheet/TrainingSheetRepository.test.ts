@@ -1,3 +1,4 @@
+import Athlete from "../../../../../src/domain/entity/users/Athlete";
 import Trainer from "../../../../../src/domain/entity/users/Trainer";
 import TrainingSheet from "../../../../../src/domain/entity/workout/sheet/TrainingSheet";
 import ITrainingSheetRepository from "../../../../../src/domain/repository/workout/ITrainingSheetRepository";
@@ -6,22 +7,24 @@ import { generateAthlete, generateTrainer } from "../../../../seeds/user";
 import { generateExercise } from "../../../../seeds/workout/exercise";
 import { generateDayTraining, generateTrainingSheet } from "../../../../seeds/workout/sheet";
 
-let trainer: Trainer;
+let athlete1: Athlete;
+let trainer1: Trainer;
+let trainer2: Trainer;
 let trainingSheet1: TrainingSheet;
 let trainingSheet2: TrainingSheet;
 
 let trainingSheetRepository: ITrainingSheetRepository;
 
 beforeEach(() => {
-  trainer        = generateTrainer(1);
-  const athlete1 = generateAthlete(1, trainer);
-  const athlete2 = generateAthlete(2);
-  const exercise1 = generateExercise(1, trainer);
-  const exercise2 = generateExercise(2, trainer);
+  trainer1        = generateTrainer(1);
+  trainer2        = generateTrainer(2);
+  athlete1        = generateAthlete(3, trainer1);
+  const exercise1 = generateExercise(1, trainer1);
+  const exercise2 = generateExercise(2, trainer1);
   const dayTrainings1 = generateDayTraining(1, 1, [ exercise1, exercise2 ]);
   const dayTrainings2 = generateDayTraining(2, 1, [ exercise2, exercise1 ]);
-  trainingSheet1 = generateTrainingSheet(1, trainer, athlete1, [ dayTrainings1 ]);
-  trainingSheet2 = generateTrainingSheet(2, trainer, athlete2, [ dayTrainings2 ]);
+  trainingSheet1 = generateTrainingSheet(1, trainer1, athlete1, [ dayTrainings1 ]);
+  trainingSheet2 = generateTrainingSheet(2, trainer1, athlete1, [ dayTrainings2 ]);
   prepareMemory();
 });
 
@@ -32,16 +35,58 @@ async function prepareMemory(){
 
 describe('Successful cases', () => {
   test('Save', async () => {
-    const result1 = await trainingSheetRepository.save(trainer.id, trainingSheet1);
+    const result = await trainingSheetRepository.save(trainingSheet1, trainer1.id);
 
-    expect(result1).toEqual(trainingSheet1);
+    expect(result).toEqual(trainingSheet1);
+  });
+
+  test('Get by trainer id', async () => {
+    await trainingSheetRepository.save(trainingSheet1, trainer1.id);
+    await trainingSheetRepository.save(trainingSheet2, trainer1.id);
+    const result = await trainingSheetRepository.getAllByTrainer(trainer1.id);
+
+    expect(result).toHaveLength(2);
+    expect(result[0]).toEqual(trainingSheet1);
+    expect(result[1]).toEqual(trainingSheet2);
+  });
+
+  test('Get all by athlete id', async () => {
+    await trainingSheetRepository.save(trainingSheet1, trainer1.id);
+    await trainingSheetRepository.save(trainingSheet2, trainer1.id);
+    const result = await trainingSheetRepository.getAllByAthlete(athlete1.id);
+
+    expect(result).toHaveLength(2);
+    expect(result[0]).toEqual(trainingSheet1);
+    expect(result[1]).toEqual(trainingSheet2);
+  });
+
+  test('Get sheet by trainer by id', async () => {
+    await trainingSheetRepository.save(trainingSheet1, trainer1.id);
+    await trainingSheetRepository.save(trainingSheet2, trainer1.id);
+    const result = await trainingSheetRepository.getByTrainerBy(trainingSheet1.id, trainer1.id);
+
+    expect(result).toEqual(trainingSheet1);
+  });
+
+  test('Get sheet by athlete by id', async () => {
+    await trainingSheetRepository.save(trainingSheet1, trainer1.id);
+    await trainingSheetRepository.save(trainingSheet2, trainer1.id);
+    const result = await trainingSheetRepository.getByAthleteBy(trainingSheet2.id, athlete1.id);
+
+    expect(result).toEqual(trainingSheet2);
   });
 });
 
 describe('Successful cases', () => {
   test('Fail on try to save traning sheet for athlete that doesnt has association', async () => {
-    expect(() => trainingSheetRepository.save(trainer.id, trainingSheet2))
+    const exercise1 = generateExercise(1, trainer1);
+    const exercise2 = generateExercise(2, trainer1);
+    const dayTrainings2 = generateDayTraining(2, 1, [ exercise2, exercise1 ]);
+    const athlete2      = generateAthlete(4, trainer2);
+    const trainingSheet3 = generateTrainingSheet(3, trainer1, athlete2, [ dayTrainings2 ]);
+
+    expect(() => trainingSheetRepository.save(trainingSheet3, trainer1.id))
       .rejects
-      .toThrow('Athlete haven\'t association with you');
+      .toThrow('Athlete haven\'t association with trainer');
   });
 });
