@@ -49,6 +49,20 @@ class TrainingSheetRepositoryMemory implements ITrainingSheetRepository {
     if(!result) throw new Error();
     return result;
   }
+
+  async update(trainingSheet: TrainingSheet, trainerId: number): Promise<TrainingSheet> {
+    this.hasAthleteAssociation(trainerId, trainingSheet.athlete.trainer?.id);
+    await this.deleteBy(trainingSheet.id, trainerId);
+    this.save(trainingSheet, trainerId);
+    return trainingSheet;
+  }
+
+  async deleteBy(id: number, trainerId: number): Promise<boolean>{
+    await this.getByTrainerBy(id, trainerId);
+    const sheetIndex = this.trainingSheets.findIndex((ts: TrainingSheet) => ts.id === id);
+    this.trainingSheets.splice(sheetIndex, 1);
+    return true;
+  }
 }
 
 export default TrainingSheetRepositoryMemory;

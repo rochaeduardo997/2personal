@@ -76,6 +76,15 @@ describe('Successful cases', () => {
     expect(result).toEqual(trainingSheet2);
   });
 
+  test('Update', async () => {
+    await trainingSheetRepository.save(trainingSheet1, trainer1.id);
+    await trainingSheetRepository.save(trainingSheet2, trainer1.id);
+    trainingSheet1.update({ when_change: new Date('2024-01-01') });
+    const result = await trainingSheetRepository.update(trainingSheet1, trainer1.id);
+
+    expect(result).toEqual(trainingSheet1);
+  });
+
   test.todo('Add day training to training sheet');
   test.todo('Update day training from training sheet');
   test.todo('Remove day training to training sheet');
@@ -93,4 +102,10 @@ describe('Successful cases', () => {
       .rejects
       .toThrow('Athlete haven\'t association with trainer');
   });
+
+  test.todo('Error when try to get sheet from other trainer');
+
+  test.todo('Error when try to get sheet from other athlete');
+
+  test.todo('Error when try to update sheet from other trainer');
 });
