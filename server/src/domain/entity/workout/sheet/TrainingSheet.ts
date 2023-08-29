@@ -27,6 +27,7 @@ class TrainingSheet {
 
     return true;
   }
+
   private alreadyExists(x: DayTraining): void{
     const has = this.day_trainings.find((dt: DayTraining) => {
       const hasOnWeek = dt.week === x.week;

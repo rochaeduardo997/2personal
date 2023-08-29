@@ -69,6 +69,8 @@ describe('Successful cases', () =>{
     expect(trainingSheet.deleted_at).toEqual(dateRegisters.deleted_at);
     expect(trainingSheet.when_change).toEqual(new Date('2024-02-02'));
   });
+
+  test.todo('Update day training from sheet');
 });
 
 describe('Failure cases', () =>{

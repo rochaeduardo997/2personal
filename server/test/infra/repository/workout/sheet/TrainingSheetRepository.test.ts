@@ -75,6 +75,10 @@ describe('Successful cases', () => {
 
     expect(result).toEqual(trainingSheet2);
   });
+
+  test.todo('Add day training to training sheet');
+  test.todo('Update day training from training sheet');
+  test.todo('Remove day training to training sheet');
 });
 
 describe('Successful cases', () => {
