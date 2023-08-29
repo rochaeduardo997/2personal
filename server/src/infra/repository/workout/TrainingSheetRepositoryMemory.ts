@@ -72,6 +72,16 @@ class TrainingSheetRepositoryMemory implements ITrainingSheetRepository {
     this.update(trainingSheet, trainerId);
     return dayTraining;
   }
+
+  async updateTraining(dayTraining: DayTraining, trainingSheetId: number, trainerId: number): Promise<DayTraining> {
+    const trainingSheet = await this.getByTrainerBy(trainingSheetId, trainerId);
+    const dayTrainingToRemove = trainingSheet.day_trainings.find((dt: DayTraining) => dt.id === dayTraining.id);
+    if(!dayTrainingToRemove) throw new Error();
+    trainingSheet.removeDayTraining(dayTrainingToRemove);
+    trainingSheet.addDayTraining(dayTraining);
+    this.update(trainingSheet, trainerId);
+    return dayTraining;
+  }
 }
 
 export default TrainingSheetRepositoryMemory;

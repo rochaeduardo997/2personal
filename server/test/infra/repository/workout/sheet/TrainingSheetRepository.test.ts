@@ -1,5 +1,6 @@
 import Athlete from "../../../../../src/domain/entity/users/Athlete";
 import Trainer from "../../../../../src/domain/entity/users/Trainer";
+import DayTraining from "../../../../../src/domain/entity/workout/sheet/DayTraining";
 import TrainingSheet from "../../../../../src/domain/entity/workout/sheet/TrainingSheet";
 import ITrainingSheetRepository from "../../../../../src/domain/repository/workout/ITrainingSheetRepository";
 import RepositoryFactoryMemory from "../../../../../src/infra/factory/RepositoryFactoryMemory";
@@ -12,6 +13,7 @@ let trainer1: Trainer;
 let trainer2: Trainer;
 let trainingSheet1: TrainingSheet;
 let trainingSheet2: TrainingSheet;
+let dayTrainings1: DayTraining;
 
 let trainingSheetRepository: ITrainingSheetRepository;
 
@@ -21,7 +23,7 @@ beforeEach(async () => {
   athlete1        = generateAthlete(3, trainer1);
   const exercise1 = generateExercise(1, trainer1);
   const exercise2 = generateExercise(2, trainer1);
-  const dayTrainings1 = generateDayTraining(1, 1, [ exercise1, exercise2 ]);
+  dayTrainings1   = generateDayTraining(1, 1, [ exercise1, exercise2 ]);
   const dayTrainings2 = generateDayTraining(2, 1, [ exercise2, exercise1 ]);
   trainingSheet1 = generateTrainingSheet(1, trainer1, athlete1, [ dayTrainings1 ]);
   trainingSheet2 = generateTrainingSheet(2, trainer1, athlete1, [ dayTrainings2 ]);
@@ -77,6 +79,8 @@ describe('Successful cases', () => {
     expect(result).toEqual(trainingSheet1);
   });
 
+  test.todo('Delete');
+
   test('Add day training to training sheet', async () => {
     const exercise1 = generateExercise(4, trainer1);
     const exercise2 = generateExercise(5, trainer1);
@@ -87,7 +91,16 @@ describe('Successful cases', () => {
     expect(result).toEqual(newDayTraining);
     expect(newTrainingSheet.day_trainings[1]).toEqual(newDayTraining);
   });
-  test.todo('Update day training from training sheet');
+  test('Update day training from training sheet', async () => {
+    const exercise1 = generateExercise(4, trainer1);
+    const exercise2 = generateExercise(5, trainer1);
+    dayTrainings1.update({ exercises: [ exercise1, exercise2 ] });
+    const result = await trainingSheetRepository.updateTraining(dayTrainings1, trainingSheet1.id, trainer1.id);
+    const newTrainingSheet = await trainingSheetRepository.getByTrainerBy(trainingSheet1.id, trainer1.id);
+
+    expect(result).toEqual(dayTrainings1);
+    expect(newTrainingSheet.day_trainings[0]).toEqual(dayTrainings1);
+  });
   test.todo('Remove day training to training sheet');
 });
 
