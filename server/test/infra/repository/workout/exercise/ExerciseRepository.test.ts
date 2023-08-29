@@ -52,12 +52,21 @@ describe('Successful cases', () => {
     expect(result).toEqual(exercise1);
   });
 
+  test('Update with few fields', async () => {
+    await exerciseRepository.save(exercise1);
+    await exerciseRepository.save(exercise2);
+    exercise1.update({ category: 'back' });
+    const result = await exerciseRepository.update(exercise1, trainer.id);
+    expect(result).toEqual(exercise1);
+  });
+
   test('Delete by id', async () => {
     await exerciseRepository.save(exercise1);
     await exerciseRepository.save(exercise2);
     const deleteResult = await exerciseRepository.deleteBy(exercise1.id, trainer.id);
     const getAllResult = await exerciseRepository.getAllByTrainer(trainer.id);
     expect(deleteResult).toBeTruthy();
+    expect(getAllResult).toHaveLength(1);
     expect(getAllResult[0]).toEqual(exercise2);
   });
 
@@ -77,38 +86,38 @@ describe('Successful cases', () => {
       .toThrow('Exercise already exists for specific trainer');
   });
 
-  test('Fail on get by id when doesnt exists', async () => {
+  test('Fail on get by id that doesnt exists', async () => {
     expect(() => exerciseRepository.getBy(1, 1))
       .rejects
       .toThrow('Exercise doesn\'t exists');
   });
 
-  test('Fail on get by id when trainer doesnt exists', async () => {
+  test('Fail on get by id that trainer doesnt exists', async () => {
     expect(() => exerciseRepository.getBy(exercise1.id, 1))
       .rejects
       .toThrow('Exercise doesn\'t exists');
   });
 
-  test('Fail on update when doesnt exists', async () => {
+  test('Fail on update that doesnt exists', async () => {
     expect(() => exerciseRepository.update(exercise1, trainer.id))
       .rejects
       .toThrow('Exercise doesn\'t exists');
   });
 
-  test('Fail on update when trainer doesnt exists', async () => {
+  test('Fail on update that trainer doesnt exists', async () => {
     await exerciseRepository.save(exercise1);
     expect(() => exerciseRepository.update(exercise1, 99))
       .rejects
       .toThrow('Exercise doesn\'t exists');
   });
 
-  test('Fail on delete when doesnt exists', async () => {
+  test('Fail on delete that doesnt exists', async () => {
     expect(() => exerciseRepository.deleteBy(exercise1.id, trainer.id))
       .rejects
       .toThrow('Exercise doesn\'t exists');
   });
 
-  test('Fail on update when trainer doesnt exists', async () => {
+  test('Fail on update that trainer doesnt exists', async () => {
     await exerciseRepository.save(exercise1);
     expect(() => exerciseRepository.deleteBy(exercise1.id, 99))
       .rejects
