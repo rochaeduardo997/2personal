@@ -9,11 +9,15 @@ import { generateExercise } from "../../../../seeds/workout/exercise";
 import { generateDayTraining, generateTrainingSheet } from "../../../../seeds/workout/sheet";
 
 let athlete1: Athlete;
+let athlete2: Athlete;
 let trainer1: Trainer;
 let trainer2: Trainer;
 let trainingSheet1: TrainingSheet;
 let trainingSheet2: TrainingSheet;
+let trainingSheet3: TrainingSheet;
 let dayTrainings1: DayTraining;
+let dayTrainings2: DayTraining;
+
 
 let trainingSheetRepository: ITrainingSheetRepository;
 
@@ -21,12 +25,14 @@ beforeEach(async () => {
   trainer1        = generateTrainer(1);
   trainer2        = generateTrainer(2);
   athlete1        = generateAthlete(3, trainer1);
+  athlete2        = generateAthlete(4, trainer2);
   const exercise1 = generateExercise(1, trainer1);
   const exercise2 = generateExercise(2, trainer1);
   dayTrainings1   = generateDayTraining(1, 1, [ exercise1, exercise2 ]);
-  const dayTrainings2 = generateDayTraining(2, 1, [ exercise2, exercise1 ]);
+  dayTrainings2 = generateDayTraining(2, 1, [ exercise2, exercise1 ]);
   trainingSheet1 = generateTrainingSheet(1, trainer1, athlete1, [ dayTrainings1 ]);
   trainingSheet2 = generateTrainingSheet(2, trainer1, athlete1, [ dayTrainings2 ]);
+  trainingSheet3 = generateTrainingSheet(3, trainer1, athlete2, [ dayTrainings2 ]);
   prepareMemory();
   await trainingSheetRepository.save(trainingSheet1, trainer1.id);
   await trainingSheetRepository.save(trainingSheet2, trainer1.id);
@@ -118,14 +124,8 @@ describe('Successful cases', () => {
   });
 });
 
-describe('Successful cases', () => {
+describe('Failure cases', () => {
   test('Fail on try to save traning sheet for athlete that doesnt has association', async () => {
-    const exercise1 = generateExercise(1, trainer1);
-    const exercise2 = generateExercise(2, trainer1);
-    const dayTrainings2 = generateDayTraining(2, 1, [ exercise2, exercise1 ]);
-    const athlete2      = generateAthlete(4, trainer2);
-    const trainingSheet3 = generateTrainingSheet(3, trainer1, athlete2, [ dayTrainings2 ]);
-
     expect(() => trainingSheetRepository.save(trainingSheet3, trainer1.id))
       .rejects
       .toThrow('Athlete haven\'t association with trainer');
@@ -140,11 +140,27 @@ describe('Successful cases', () => {
       .toThrow('Already exists a training on this day at this week');
   });
 
-  test.todo('Error when try to get sheet from other trainer');
+  test('Error when try to get sheet from other trainer', async () => {
+    expect(() => trainingSheetRepository.getByTrainerBy(trainingSheet3.id, trainer1.id))
+      .rejects
+      .toThrow('Unauthorized training sheet access');
+  });
 
-  test.todo('Error when try to get sheet from other athlete');
+  test('Error when try to get sheet from other athlete', async () => {
+    expect(() => trainingSheetRepository.getByAthleteBy(trainingSheet3.id, athlete1.id))
+      .rejects
+      .toThrow('Unauthorized training sheet access');
+  });
 
-  test.todo('Error when try to update sheet from other trainer');
+  test('Error when try to update sheet from other trainer', async () => {
+    expect(() => trainingSheetRepository.update(trainingSheet3, trainer1.id))
+      .rejects
+      .toThrow('Unauthorized training sheet access');
+  });
 
-  test.todo('Error when try to delete sheet from other trainer');
+  test('Error when try to delete sheet from other trainer', async () => {
+    expect(() => trainingSheetRepository.deleteBy(trainingSheet3.id, trainer1.id))
+      .rejects
+      .toThrow('Unauthorized training sheet access');
+  });
 });

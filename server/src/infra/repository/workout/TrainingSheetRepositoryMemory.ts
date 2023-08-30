@@ -37,7 +37,7 @@ class TrainingSheetRepositoryMemory implements ITrainingSheetRepository {
       const hasTrainer = ts.trainer.id === trainerId;
       return hasId && hasTrainer;
     });
-    if(!result) throw new Error();
+    if(!result) throw new Error('Unauthorized training sheet access');
     return result;
   }
 
@@ -47,7 +47,7 @@ class TrainingSheetRepositoryMemory implements ITrainingSheetRepository {
       const hasAthlete = ts.athlete.id === athleteId;
       return hasId && hasAthlete;
     });
-    if(!result) throw new Error();
+    if(!result) throw new Error('Unauthorized training sheet access');
     return result;
   }
 
