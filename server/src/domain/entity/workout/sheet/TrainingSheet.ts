@@ -47,6 +47,20 @@ class TrainingSheet {
     return true;
   }
 
+  public updateDayTraining(x: DayTraining): boolean{
+    const index = this.day_trainings.findIndex((dt: DayTraining) => {
+      const sameDay  = dt.day  === x.day;
+      const sameWeek = dt.week === x.week;
+      return sameDay && sameWeek;
+    });
+
+    if(index < 0) throw new Error('Training doesn\'t exists');
+
+    this.day_trainings.splice(index, 1, x);
+
+    return true;
+  }
+
   public get id(): number {
     return this._id;
   }

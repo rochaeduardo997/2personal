@@ -158,6 +158,26 @@ describe('Failure cases', () => {
       .toThrow('Unauthorized training sheet access');
   });
 
+  test('Error when try to update training day that doesnt exists', async () => {
+    const exercise1 = generateExercise(4, trainer1);
+    const exercise2 = generateExercise(5, trainer1);
+    dayTrainings1.update({ exercises: [ exercise1, exercise2 ] });
+
+    expect(() => trainingSheetRepository.updateTraining(dayTrainings1, trainingSheet2.id, trainer1.id))
+      .rejects
+      .toThrow('Day training not found');
+  });
+
+  test('Error when try to update training day that doesnt exists', async () => {
+    const exercise1 = generateExercise(4, trainer1);
+    const exercise2 = generateExercise(5, trainer1);
+    dayTrainings1.update({ exercises: [ exercise1, exercise2 ] });
+
+    expect(() => trainingSheetRepository.deleteTrainingBy(dayTrainings1.id, trainingSheet2.id, trainer1.id))
+      .rejects
+      .toThrow('Day training not found');
+  });
+
   test('Error when try to delete sheet from other trainer', async () => {
     expect(() => trainingSheetRepository.deleteBy(trainingSheet3.id, trainer1.id))
       .rejects

@@ -76,9 +76,8 @@ class TrainingSheetRepositoryMemory implements ITrainingSheetRepository {
   async updateTraining(dayTraining: DayTraining, trainingSheetId: number, trainerId: number): Promise<DayTraining> {
     const trainingSheet = await this.getByTrainerBy(trainingSheetId, trainerId);
     const dayTrainingToRemove = trainingSheet.day_trainings.find((dt: DayTraining) => dt.id === dayTraining.id);
-    if(!dayTrainingToRemove) throw new Error();
-    trainingSheet.removeDayTraining(dayTrainingToRemove);
-    trainingSheet.addDayTraining(dayTraining);
+    if(!dayTrainingToRemove) throw new Error('Day training not found');
+    trainingSheet.updateDayTraining(dayTraining);
     await this.update(trainingSheet, trainerId);
     return dayTraining;
   }
@@ -86,7 +85,7 @@ class TrainingSheetRepositoryMemory implements ITrainingSheetRepository {
   async deleteTrainingBy(id: number, trainingSheetId: number, trainerId: number): Promise<boolean> {
     const trainingSheet = await this.getByTrainerBy(trainingSheetId, trainerId);
     const dayTrainingToRemove = trainingSheet.day_trainings.find((dt: DayTraining) => dt.id === id);
-    if(!dayTrainingToRemove) throw new Error();
+    if(!dayTrainingToRemove) throw new Error('Day training not found');
     trainingSheet.removeDayTraining(dayTrainingToRemove);
     await this.update(trainingSheet, trainerId);
     return true;

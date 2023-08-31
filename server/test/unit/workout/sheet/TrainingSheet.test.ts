@@ -70,7 +70,14 @@ describe('Successful cases', () =>{
     expect(trainingSheet.when_change).toEqual(new Date('2024-02-02'));
   });
 
-  test.todo('Update day training from sheet');
+  test('Update day training from sheet', () => {
+    const exercise1 = generateExercise(1, trainer);
+    const exercise2 = generateExercise(2, trainer);
+    const dayTraining3 = generateDayTraining(1, 1, [ exercise1, exercise2 ]);
+    trainingSheet.updateDayTraining(dayTraining3);
+
+    expect(trainingSheet.day_trainings).toEqual([ dayTraining3, dayTraining2 ]);
+  });
 });
 
 describe('Failure cases', () =>{
@@ -86,5 +93,11 @@ describe('Failure cases', () =>{
     const dayTraining3 = generateDayTraining(3, 3, [ exercise ]);
 
     expect(() => trainingSheet.removeDayTraining(dayTraining3)).toThrow('Training doesn\'t exists');
+  });
+
+  test('Fail on update day training from sheet that doesnt exists', () => {
+    const exercise1 = generateExercise(1, trainer);
+    const dayTraining3 = generateDayTraining(3, 3, [ exercise1 ]);
+    expect(() => trainingSheet.updateDayTraining(dayTraining3)).toThrow('Training doesn\'t exists');
   });
 });
