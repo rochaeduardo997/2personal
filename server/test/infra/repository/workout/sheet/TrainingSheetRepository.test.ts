@@ -18,7 +18,6 @@ let trainingSheet3: TrainingSheet;
 let dayTrainings1: DayTraining;
 let dayTrainings2: DayTraining;
 
-
 let trainingSheetRepository: ITrainingSheetRepository;
 
 beforeEach(async () => {
