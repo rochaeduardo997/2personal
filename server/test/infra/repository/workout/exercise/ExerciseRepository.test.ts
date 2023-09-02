@@ -25,9 +25,15 @@ async function prepareMemory(){
 }
 
 describe('Successful cases', () => {
-  test('Save', async () => {
+  test('Save normal', async () => {
     const result = await exerciseRepository.save(exercise1);
     expect(result).toBe(exercise1);
+  });
+
+  test('Save compound', async () => {
+    exercise1.addCompound(exercise2);
+    const result = await exerciseRepository.save(exercise1);
+    expect(result.compound).toBe(exercise2);
   });
 
   test('Get all', async () => {
