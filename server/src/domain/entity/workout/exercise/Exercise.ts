@@ -20,6 +20,10 @@ class Exercise{
     if(_note) this.validateStringLength('Note', _note,     2, 100);
   }
 
+  public addCompound(x: Exercise){
+    this._compound = x;
+  }
+
   protected validateStringLength(field: string, value: string, minSize: number, maxSize: number): void{
     const stringSmallerThanThree  = value?.length < minSize;
     const stringGreaterThanThirty = value?.length > maxSize;

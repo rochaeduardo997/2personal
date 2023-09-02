@@ -20,9 +20,10 @@ beforeAll(() => {
 });
 
 describe('Successful cases', () => {
-  test('Compound exercise instance', () => {
-    const compound = new Exercise(1, trainer, 'chest', 'exercise name', reps, rest, dateRegisters, 'note');
-    const exercise = new Exercise(2, trainer, 'chest', 'exercise name', reps, rest, dateRegisters, 'note', compound);
+  test('Add exercise to exercise as compound', () => {
+    const exercise = new Exercise(1, trainer, 'chest', 'exercise name', reps, rest, dateRegisters, 'note');
+    const compound = new Exercise(2, trainer, 'chest', 'compound name', reps, rest, dateRegisters, 'note');
+    exercise.addCompound(compound);
     expect(exercise.compound).toEqual(compound);
   });
 
