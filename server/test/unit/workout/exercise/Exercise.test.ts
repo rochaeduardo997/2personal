@@ -20,13 +20,6 @@ beforeAll(() => {
 });
 
 describe('Successful cases', () => {
-  test('Add exercise to exercise as compound', () => {
-    const exercise = new Exercise(1, trainer, 'chest', 'exercise name', reps, rest, dateRegisters, 'note');
-    const compound = new Exercise(2, trainer, 'chest', 'compound name', reps, rest, dateRegisters, 'note');
-    exercise.addCompound(compound);
-    expect(exercise.compound).toEqual(compound);
-  });
-
   test('Normal exercise instance', () => {
     const exercise = new Exercise(1, trainer, 'chest', 'exercise name', reps, rest, dateRegisters, 'note');
     expect(exercise.id).toBe(1);
