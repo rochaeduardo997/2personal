@@ -6,7 +6,7 @@ class DayTraining {
     private _id:                 number,
     private _day:                DAYS,
     private _week:               WEEKS,
-    private _exercises:          Exercise[],
+    private _exercises:          Exercise[][],
     private _weight_progression: WeightProgression[] = []
   ){}
 
@@ -24,7 +24,9 @@ class DayTraining {
     return true;
   }
   private hasExercise(x: Exercise){
-    const hasExercise = this.exercises.some((e: Exercise) => x === e);
+    const hasExercise = this.exercises.some((e1: Exercise[]) => {
+      return e1.some((e2: Exercise) => e2 === x);
+    });
     if(!hasExercise) throw new Error('Exercise doesn\'t exists on day training');
   }
   private hasWeightProgressionForExercise(x: Exercise){
@@ -41,20 +43,20 @@ class DayTraining {
   public get week(): WEEKS {
     return this._week;
   }
-  public get exercises(): Exercise[] {
+  public get exercises(): Exercise[][] {
     return this._exercises;
   }
   public get weight_progression(): WeightProgression[] {
     return this._weight_progression;
   }
 
-  public set exercises(value: Exercise[]) {
+  public set exercises(value: Exercise[][]) {
     this._exercises = value;
   }
 }
 
 type TUpdateInput = { 
-  exercises?: Exercise[];
+  exercises?: Exercise[][];
 };
 
 enum DAYS {

@@ -16,7 +16,7 @@ beforeAll(() => {
 });
 
 beforeEach(() => {
-  dayTraining = new DayTraining(1, 1, 1, [ exercise1, exercise2 ]);
+  dayTraining = new DayTraining(1, 1, 1, [ [ exercise1 ], [ exercise2 ]]);
 });
 
 describe('Successful cases', () =>{
@@ -24,17 +24,17 @@ describe('Successful cases', () =>{
     expect(dayTraining.id).toBe(1);
     expect(dayTraining.day).toBe(1);
     expect(dayTraining.week).toBe(1);
-    expect(dayTraining.exercises).toEqual([ exercise1, exercise2 ]);
+    expect(dayTraining.exercises).toEqual([[ exercise1 ], [ exercise2 ]]);
     expect(dayTraining.weight_progression).toHaveLength(0);
   });
 
   test('Update all day training fields', () => {
-    dayTraining.update({ exercises: [ exercise2 ] });
+    dayTraining.update({ exercises: [[ exercise2 ]] });
 
     expect(dayTraining.id).toBe(1);
     expect(dayTraining.day).toBe(1);
     expect(dayTraining.week).toBe(1);
-    expect(dayTraining.exercises).toEqual([ exercise2 ]);
+    expect(dayTraining.exercises).toEqual([[ exercise2 ]]);
     expect(dayTraining.weight_progression).toHaveLength(0);
   });
 

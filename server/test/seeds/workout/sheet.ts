@@ -5,7 +5,7 @@ import Exercise from "../../../src/domain/entity/workout/exercise/Exercise";
 import DayTraining from "../../../src/domain/entity/workout/sheet/DayTraining";
 import TrainingSheet from "../../../src/domain/entity/workout/sheet/TrainingSheet";
 
-function generateDayTraining(i: number, week: number, exercises: Exercise[]){
+function generateDayTraining(i: number, week: number, exercises: Exercise[][]){
   return new DayTraining(i, i, week, exercises);
 }
 
