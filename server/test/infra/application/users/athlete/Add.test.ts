@@ -48,3 +48,6 @@ describe('Successful cases', () => {
   });
 });
 
+describe('Failure cases', () => {
+  test.todo('Fail when try to add without password provided');
+});

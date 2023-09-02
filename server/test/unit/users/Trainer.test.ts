@@ -133,6 +133,8 @@ describe('Success cases', () => {
     trainer.removeAthlete(newAthlete);
     expect(trainer.athletes).toEqual([]);
   });
+
+  test.todo('Validate if trainer can remove athlete');
 });
 
 describe('Fail cases', () => {

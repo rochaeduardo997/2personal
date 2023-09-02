@@ -372,7 +372,7 @@ describe('Successful cases', () => {
 });
 
 describe('Failure cases', () => {
-  test('Fail on get by nonexistent id', async () => {
+  test('[User]Fail on get by nonexistent id', async () => {
     const result = await supertest(http.http)
       .get('/api/users/5')
       .set('Authorization', bearerToken);
@@ -380,7 +380,7 @@ describe('Failure cases', () => {
     expect(result.body).toBe('User not found by id 5');
   });
 
-  test('Fail on create user without role', async () => {
+  test('[User]Fail on create user without role', async () => {
     const user3 = generateUser(3);
     const input = { password: '1234' };
     const result = await supertest(http.http)
@@ -390,7 +390,7 @@ describe('Failure cases', () => {
     expect(result.body).toBe('User role must be Admin, Trainer or Athlete.');
   });
 
-  test('Fail on create user without password', async () => {
+  test('[User]Fail on create user without password', async () => {
     const user3 = generateUser(3);
     const input = {};
     const result = await supertest(http.http)
@@ -400,12 +400,21 @@ describe('Failure cases', () => {
     expect(result.body).toBe('Password must be provided.');
   });
 
-  test('Fail on delete user by nonexistent id', async () => {
+  test('[User]Fail on delete user by nonexistent id', async () => {
     const result = await supertest(http.http)
       .delete('/api/users/5')
       .set('Authorization', bearerToken);
     expect(result.status).toBe(404);
     expect(result.body).toBe('User not found by id 5');
   });
-});
 
+  test.todo('[Athlete]Fail on get by nonexistent id');
+  test.todo('[Athlete]Fail on create user without role');
+  test.todo('[Athlete]Fail on create user without password');
+  test.todo('[Athlete]Fail on delete user by nonexistent id');
+
+  test.todo('[Trainer]Fail on get by nonexistent id');
+  test.todo('[Trainer]Fail on create user without role');
+  test.todo('[Trainer]Fail on create user without password');
+  test.todo('[Trainer]Fail on delete user by nonexistent id');
+});

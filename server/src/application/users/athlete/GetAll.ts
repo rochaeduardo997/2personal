@@ -5,7 +5,7 @@ class GetAll{
   constructor(private userRepository: IUserRepository){}
 
   async execute(): Promise<TOutput[]>{
-    const users = (await this.userRepository.getAll('athlete') || []) as Athlete[];
+    const users = await this.userRepository.getAll('athlete') as Athlete[];
     const result: TOutput[] = users.map((a: Athlete) => {
       return {
         id: a.id,

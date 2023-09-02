@@ -96,6 +96,8 @@ describe('Success cases', () => {
     expect(user.updated_at).toBeInstanceOf(Date);
     expect(user.deleted_at).toEqual(dateRegisters.deleted_at);
   });
+
+  test.todo('Validate paranoid delete');
 });
 
 describe('Fail cases', () => {

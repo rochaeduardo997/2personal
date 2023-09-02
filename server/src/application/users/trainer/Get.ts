@@ -7,13 +7,13 @@ class Get{
 
   async execute(id: number): Promise<TOutput>{
     const result = await this.userRepository.get(id) as Trainer;
-    const athletes: TAthleteOutput[] = result.athletes?.map((a: Athlete) => {
+    const athletes: TAthleteOutput[] = (result.athletes || []).map((a: Athlete) => {
       return {
         id:      a.id,
         name:    a.name,
         surname: a.surname
       };
-    }) || [];
+    });
 
     return {
       id: result.id,
