@@ -28,8 +28,8 @@ beforeEach(async () => {
   athlete2        = generateAthlete(4, trainer2);
   const exercise1 = generateExercise(1, trainer1);
   const exercise2 = generateExercise(2, trainer1);
-  dayTrainings1   = generateDayTraining(1, 1, [ exercise1, exercise2 ]);
-  dayTrainings2 = generateDayTraining(2, 1, [ exercise2, exercise1 ]);
+  dayTrainings1   = generateDayTraining(1, 1, [[ exercise1, exercise2 ]]);
+  dayTrainings2 = generateDayTraining(2, 1, [[ exercise2, exercise1 ]]);
   trainingSheet1 = generateTrainingSheet(1, trainer1, athlete1, [ dayTrainings1 ]);
   trainingSheet2 = generateTrainingSheet(2, trainer1, athlete1, [ dayTrainings2 ]);
   trainingSheet3 = generateTrainingSheet(3, trainer1, athlete2, [ dayTrainings2 ]);
@@ -93,7 +93,7 @@ describe('Successful cases', () => {
   test('Add day training to training sheet', async () => {
     const exercise1 = generateExercise(4, trainer1);
     const exercise2 = generateExercise(5, trainer1);
-    const newDayTraining = generateDayTraining(3, 1, [ exercise1, exercise2 ]);
+    const newDayTraining = generateDayTraining(3, 1, [[ exercise1, exercise2 ]]);
     const result = await trainingSheetRepository.addTraining(newDayTraining, trainingSheet1.id, trainer1.id);
     const newTrainingSheet = await trainingSheetRepository.getByTrainerBy(trainingSheet1.id, trainer1.id);
 
@@ -103,7 +103,7 @@ describe('Successful cases', () => {
   test('Update day training from training sheet', async () => {
     const exercise1 = generateExercise(4, trainer1);
     const exercise2 = generateExercise(5, trainer1);
-    dayTrainings1.update({ exercises: [ exercise1, exercise2 ] });
+    dayTrainings1.update({ exercises: [[ exercise1, exercise2 ]] });
     const result = await trainingSheetRepository.updateTraining(dayTrainings1, trainingSheet1.id, trainer1.id);
     const newTrainingSheet = await trainingSheetRepository.getByTrainerBy(trainingSheet1.id, trainer1.id);
 
@@ -114,7 +114,7 @@ describe('Successful cases', () => {
   test('Remove day training to training sheet', async () => {
     const exercise1 = generateExercise(4, trainer1);
     const exercise2 = generateExercise(5, trainer1);
-    const newDayTraining = generateDayTraining(3, 1, [ exercise1, exercise2 ]);
+    const newDayTraining = generateDayTraining(3, 1, [[ exercise1, exercise2 ]]);
     await trainingSheetRepository.addTraining(newDayTraining, trainingSheet1.id, trainer1.id);
     const result = await trainingSheetRepository.deleteTrainingBy(dayTrainings1.id, trainingSheet1.id, trainer1.id);
     const newTrainingSheet = await trainingSheetRepository.getByTrainerBy(trainingSheet1.id, trainer1.id);
@@ -133,7 +133,7 @@ describe('Failure cases', () => {
 
   test('Error when try to add day training on week and day that already exists', async () => {
     const exercise1 = generateExercise(4, trainer1);
-    const newDayTraining = generateDayTraining(3, 1, [ exercise1 ]);
+    const newDayTraining = generateDayTraining(3, 1, [[ exercise1 ]]);
     trainingSheet1.addDayTraining(newDayTraining);
     expect(() => trainingSheetRepository.addTraining(newDayTraining, trainingSheet1.id, trainer1.id))
       .rejects
@@ -161,7 +161,7 @@ describe('Failure cases', () => {
   test('Error when try to update training day that doesnt exists', async () => {
     const exercise1 = generateExercise(4, trainer1);
     const exercise2 = generateExercise(5, trainer1);
-    dayTrainings1.update({ exercises: [ exercise1, exercise2 ] });
+    dayTrainings1.update({ exercises: [[ exercise1, exercise2 ]] });
 
     expect(() => trainingSheetRepository.updateTraining(dayTrainings1, trainingSheet2.id, trainer1.id))
       .rejects
@@ -171,7 +171,7 @@ describe('Failure cases', () => {
   test('Error when try to update training day that doesnt exists', async () => {
     const exercise1 = generateExercise(4, trainer1);
     const exercise2 = generateExercise(5, trainer1);
-    dayTrainings1.update({ exercises: [ exercise1, exercise2 ] });
+    dayTrainings1.update({ exercises: [[ exercise1, exercise2 ]] });
 
     expect(() => trainingSheetRepository.deleteTrainingBy(dayTrainings1.id, trainingSheet2.id, trainer1.id))
       .rejects
