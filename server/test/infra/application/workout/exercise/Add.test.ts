@@ -9,7 +9,7 @@ let exerciseRepository: IExerciseRepository;
 let userRepository: IUserRepository;
 let trainer: Trainer;
 
-beforeAll(async () => {
+beforeEach(async () => {
   trainer = generateTrainer(1);
 
   const repositoryFactory = new RepositoryFactoryMemory();
@@ -40,7 +40,22 @@ describe('Successful cases', () => {
     expect(result.note).toBe(input.note);
   });
 
-  test.todo('Add compound by 3');
+  test('Add without optional fields', async () => {
+    const input = {
+      trainer_id: trainer.id,
+      category:   'chest',
+      name:       'name',
+      reps:       { sets: 1, reps: [ 1 ], type: 'normal' }
+    };
+    const add = new Add(exerciseRepository, userRepository);
+    const result = await add.execute(input);
 
-  test.todo('Add without optional fields');
+    expect(result.id).toBe(1);
+    expect(result.trainer_id).toBe(input.trainer_id);
+    expect(result.category).toBe(input.category);
+    expect(result.name).toBe(input.name);
+    expect(result.reps).toEqual(input.reps);
+    expect(result.rest).toEqual({ rest: 30, type: 1 });
+    expect(result.note).toBeUndefined();
+  });
 });
