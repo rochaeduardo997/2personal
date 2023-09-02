@@ -20,7 +20,7 @@ beforeAll(() => {
   const exercise1 = generateExercise(1, trainer);
   const exercise2 = generateExercise(1, trainer);
   dayTraining1 = generateDayTraining(1, 1, [[ exercise1 ]]);
-  dayTraining2 = generateDayTraining(2, 2, [[ exercise1, exercise2 ]]);
+  dayTraining2 = generateDayTraining(2, 2, [[ exercise1 ], [ exercise2 ]]);
   dateRegisters = generateDateRegisters(1);
 });
 
@@ -39,6 +39,7 @@ describe('Successful cases', () =>{
     expect(trainingSheet.deleted_at).toEqual(dateRegisters.deleted_at);
     expect(trainingSheet.when_change).toEqual(new Date('2024-01-01'));
   });
+
   test('Adding day training to sheet', () => {
     const exercise     = generateExercise(3, trainer);
     const dayTraining3 = generateDayTraining(3, 3, [[ exercise ]]);
