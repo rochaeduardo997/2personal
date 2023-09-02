@@ -10,7 +10,7 @@ let weightProgression: WeightProgression;
 beforeAll(() => {
   const trainer  = generateTrainer(1);
   const exercise = generateExercise(1, trainer);
-  dayTraining    = generateDayTraining(1, 1, [ exercise ]);
+  dayTraining    = generateDayTraining(1, 1, [[ exercise ]]);
   weightProgression = new WeightProgression(1, 5, 'kg', exercise, dayTraining);
 });
 
@@ -19,7 +19,7 @@ describe('Successful cases', () => {
     expect(weightProgression.id).toBe(1);
     expect(weightProgression.weight).toBe(5);
     expect(weightProgression.measure).toBe('kg');
-    expect(weightProgression.exercise).toEqual(dayTraining.exercises[0]);
+    expect(weightProgression.exercise).toEqual(dayTraining.exercises[0][0]);
     expect(weightProgression.dayTraining).toEqual(dayTraining);
   });
 
@@ -29,7 +29,7 @@ describe('Successful cases', () => {
     expect(weightProgression.id).toBe(1);
     expect(weightProgression.weight).toBe(6);
     expect(weightProgression.measure).toBe('lb');
-    expect(weightProgression.exercise).toEqual(dayTraining.exercises[0]);
+    expect(weightProgression.exercise).toEqual(dayTraining.exercises[0][0]);
     expect(weightProgression.dayTraining).toEqual(dayTraining);
   });
 });
