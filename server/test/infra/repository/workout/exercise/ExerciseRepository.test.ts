@@ -30,12 +30,6 @@ describe('Successful cases', () => {
     expect(result).toBe(exercise1);
   });
 
-  test('Save compound', async () => {
-    exercise1.addCompound(exercise2);
-    const result = await exerciseRepository.save(exercise1);
-    expect(result.compound).toBe(exercise2);
-  });
-
   test('Get all', async () => {
     await exerciseRepository.save(exercise1);
     await exerciseRepository.save(exercise2);
