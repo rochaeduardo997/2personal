@@ -1,9 +1,3 @@
-import DateRegisters from "../../../domain/entity/common/DateRegisters";
-import Trainer from "../../../domain/entity/users/Trainer";
-import Exercise from "../../../domain/entity/workout/exercise/Exercise";
-import Reps from "../../../domain/entity/workout/exercise/Reps";
-import Rest from "../../../domain/entity/workout/exercise/Rest";
-import IUserRepository from "../../../domain/repository/users/IUserRepository";
 import IExerciseRepository from "../../../domain/repository/workout/IExerciseRepository";
 
 class GetAllByTrainer {
