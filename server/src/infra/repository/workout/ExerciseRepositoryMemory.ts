@@ -28,8 +28,8 @@ class ExerciseRepositoryMemory implements IExerciseRepository {
     if(result) throw new Error('Exercise already exists for specific trainer');
   }
 
-  async update(exercise: Exercise, trainerId: number): Promise<Exercise>{
-    await this.deleteBy(exercise.id, trainerId);
+  async update(exercise: Exercise): Promise<Exercise>{
+    await this.deleteBy(exercise.id, exercise.trainer.id);
     this.exercises.push(exercise);
     return exercise;
   }

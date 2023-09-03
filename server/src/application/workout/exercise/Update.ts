@@ -23,7 +23,7 @@ class Update {
       reps, rest
     });
 
-    const result = await this.exerciseRepository.update(exercise, trainer.id);
+    const result = await this.exerciseRepository.update(exercise);
 
     return {
       id:         result.id,

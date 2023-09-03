@@ -48,7 +48,7 @@ describe('Successful cases', () => {
       reps: new Reps(5, [ 12 ], 'dropset'),
       rest: new Rest(100, 2)
     });
-    const result = await exerciseRepository.update(exercise1, trainer.id);
+    const result = await exerciseRepository.update(exercise1);
     expect(result).toEqual(exercise1);
   });
 
@@ -56,7 +56,7 @@ describe('Successful cases', () => {
     await exerciseRepository.save(exercise1);
     await exerciseRepository.save(exercise2);
     exercise1.update({ category: 'back' });
-    const result = await exerciseRepository.update(exercise1, trainer.id);
+    const result = await exerciseRepository.update(exercise1);
     expect(result).toEqual(exercise1);
   });
 
@@ -99,18 +99,10 @@ describe('Successful cases', () => {
   });
 
   test('Fail on update that doesnt exists', async () => {
-    expect(() => exerciseRepository.update(exercise1, trainer.id))
+    expect(() => exerciseRepository.update(exercise1))
       .rejects
       .toThrow('Exercise doesn\'t exists');
   });
-
-  test('Fail on update that trainer doesnt exists', async () => {
-    await exerciseRepository.save(exercise1);
-    expect(() => exerciseRepository.update(exercise1, 99))
-      .rejects
-      .toThrow('Exercise doesn\'t exists');
-  });
-
   test('Fail on delete that doesnt exists', async () => {
     expect(() => exerciseRepository.deleteBy(exercise1.id, trainer.id))
       .rejects
