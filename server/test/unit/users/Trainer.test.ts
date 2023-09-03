@@ -133,8 +133,6 @@ describe('Success cases', () => {
     trainer.removeAthlete(newAthlete);
     expect(trainer.athletes).toEqual([]);
   });
-
-  test.todo('Validate if trainer can remove athlete');
 });
 
 describe('Fail cases', () => {
@@ -156,5 +154,11 @@ describe('Fail cases', () => {
     trainer.removeAthlete(athlete);
     expect(() => trainer.removeAthlete(athlete2)).toThrow('You only can remove one athlete by day');
   });
-});
 
+  test('Fail on try to delete more than one athlete by day', () => {
+    const newAthlete = new Athlete(2, 'name 2', 'surname 2', 'username 2', 'password 2', 'email@email.com', true, dateRegisters);
+    trainer.addAthlete(newAthlete);
+    trainer.removeAthlete(athlete);
+    expect(() => trainer.removeAthlete(newAthlete)).toThrow('You only can remove one athlete by day');
+  });
+});

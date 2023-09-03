@@ -52,5 +52,11 @@ describe('Successful cases', () => {
 });
 
 describe('Failure cases', () => {
-  test.todo('Fail when try to add without password provided');
+  test('Fail when try to add without password provided', async () => {
+    const add = new Add(userRepository, crypto);
+    //@ts-ignore
+    expect(() => add.execute({}))
+      .rejects
+      .toThrow('Password must be provided');
+  });
 });

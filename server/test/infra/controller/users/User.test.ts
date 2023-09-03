@@ -381,7 +381,6 @@ describe('Failure cases', () => {
   });
 
   test('[User]Fail on create user without role', async () => {
-    const user3 = generateUser(3);
     const input = { password: '1234' };
     const result = await supertest(http.http)
       .post(`/api/auth/users/`)
@@ -391,7 +390,6 @@ describe('Failure cases', () => {
   });
 
   test('[User]Fail on create user without password', async () => {
-    const user3 = generateUser(3);
     const input = {};
     const result = await supertest(http.http)
       .post(`/api/auth/users/`)
@@ -408,13 +406,37 @@ describe('Failure cases', () => {
     expect(result.body).toBe('User not found by id 5');
   });
 
-  test.todo('[Athlete]Fail on get by nonexistent id');
-  test.todo('[Athlete]Fail on create user without role');
-  test.todo('[Athlete]Fail on create user without password');
-  test.todo('[Athlete]Fail on delete user by nonexistent id');
+  test('[Athlete]Fail on get by nonexistent id', async () => {
+    const result = await supertest(http.http)
+      .get('/api/athletes/5')
+      .set('Authorization', bearerToken);
+    expect(result.status).toBe(404);
+    expect(result.body).toBe('User not found by id 5');
+  });
 
-  test.todo('[Trainer]Fail on get by nonexistent id');
-  test.todo('[Trainer]Fail on create user without role');
-  test.todo('[Trainer]Fail on create user without password');
-  test.todo('[Trainer]Fail on delete user by nonexistent id');
+  test('[Athlete]Fail on create user without password', async () => {
+    const input = {};
+    const result = await supertest(http.http)
+      .post(`/api/auth/athletes/`)
+      .send(input);
+    expect(result.status).toBe(403);
+    expect(result.body).toBe('Password must be provided.');
+  });
+
+  test('[Trainer]Fail on get by nonexistent id', async () => {
+    const result = await supertest(http.http)
+      .get('/api/trainers/5')
+      .set('Authorization', bearerToken);
+    expect(result.status).toBe(404);
+    expect(result.body).toBe('User not found by id 5');
+  });
+
+  test('[Trainer]Fail on create user without password', async () => {
+    const input = {};
+    const result = await supertest(http.http)
+      .post(`/api/auth/trainers/`)
+      .send(input);
+    expect(result.status).toBe(403);
+    expect(result.body).toBe('Password must be provided.');
+  });
 });

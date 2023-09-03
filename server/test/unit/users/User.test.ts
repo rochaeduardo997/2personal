@@ -97,7 +97,11 @@ describe('Success cases', () => {
     expect(user.deleted_at).toEqual(dateRegisters.deleted_at);
   });
 
-  test.todo('Validate paranoid delete');
+  test('Paranoid delete user', () => {
+    const deletedAt = new Date('2023-03-03T00:00:00');
+    user.deleted_at = deletedAt;
+    expect(user.deleted_at).toEqual(deletedAt);
+  });
 });
 
 describe('Fail cases', () => {
