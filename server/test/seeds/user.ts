@@ -9,8 +9,9 @@ function generateUser(i: number){
   return new User(i, `name ${i}`,  `surname ${i}`,  `username${i}`,  `password${i}`,  'admin', `email${i}@email.com`, true, dateRegisters);
 }
 
-function generateTrainer(i: number, athletes?: Athlete[]){
-  return new Trainer(i, `name ${i}`, `surname ${i}`, `trainer_username${i}`, `password${i}`, `0000${i}-ce`, `email${i}@email.com`, true, 'free', 5, athletes, dateRegisters);
+function generateTrainer(i: number){
+  const trainer = new Trainer(i, `name ${i}`, `surname ${i}`, `trainer_username${i}`, `password${i}`, `0000${i}-ce`, `email${i}@email.com`, true, 'free', 5, [], dateRegisters);
+  return trainer;
 }
 
 function generateAthlete(i: number, trainer?: Trainer){
